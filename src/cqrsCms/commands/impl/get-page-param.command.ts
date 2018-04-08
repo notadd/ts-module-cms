@@ -1,5 +1,6 @@
-import {GetPageVm} from "../../models/view/get-page.vm";
+import { GetPageVm } from "../../models/view/get-page.vm";
 
-export class GetPageParamCommand{
-    constructor(public getPage:GetPageVm){}
+export class GetPageParamCommand {
+    constructor(public getPage: GetPageVm) {
+    }
 }

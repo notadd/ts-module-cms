@@ -3,11 +3,11 @@ import * as _ from 'underscore';
 export class PagerService {
     getPager(totalItems: number, currentPage?: number, pageSize?: number) {
         // calculate total pages
-        if(pageSize==null || pageSize==0){
-            pageSize=1;
+        if (pageSize == null || pageSize == 0) {
+            pageSize = 1;
         }
-        if(currentPage==null || currentPage==0){
-            currentPage=1;
+        if (currentPage == null || currentPage == 0) {
+            currentPage = 1;
         }
         let totalPages = Math.ceil(totalItems / pageSize);
         let startPage: number, endPage: number;
@@ -49,15 +49,24 @@ export class PagerService {
         };
     }
 }
-export class ReturnPage{
+
+export class ReturnPage {
     totalItems: number;
+
     currentPage: number;
+
     pageSize: number;
+
     totalPages: number;
+
     startPage: number;
+
     endPage: number;
+
     startIndex: number;
+
     endIndex: number;
+
     pages: number;
 }
 

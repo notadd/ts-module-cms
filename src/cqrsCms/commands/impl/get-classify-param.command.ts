@@ -1,5 +1,6 @@
-import {ClassifyCurdVm} from "../../models/view/classify-curd.vm";
+import { ClassifyCurdVm } from "../../models/view/classify-curd.vm";
 
-export class GetClassifyParamCommand{
-    constructor(public getClassify:ClassifyCurdVm){}
+export class GetClassifyParamCommand {
+    constructor(public getClassify: ClassifyCurdVm) {
+    }
 }

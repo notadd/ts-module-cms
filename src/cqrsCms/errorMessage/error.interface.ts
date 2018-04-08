@@ -1,9 +1,11 @@
-import {IErrorMessages} from "../common/error.interface";
-import {errorMessagesConfig} from "./error.config";
+import { IErrorMessages } from "../common/error.interface";
+import { errorMessagesConfig } from "./error.config";
 
 export class MessageCodeError extends Error {
     public messageCode: string;
+
     public httpStatus: number;
+
     public errorMessage: string;
 
     constructor(messageCode: string) {
@@ -29,7 +31,7 @@ export class MessageCodeError extends Error {
         let errorMessageConfig: IErrorMessages | undefined;
         Object.keys(errorMessagesConfig).some(key => {
             if (key === messageCode) {
-                errorMessageConfig = errorMessagesConfig[key];
+                errorMessageConfig = errorMessagesConfig[ key ];
                 return true;
             }
             return false;

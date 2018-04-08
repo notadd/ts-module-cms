@@ -1,33 +1,30 @@
-import { DownloadProcessData } from '../../interface/file/DownloadProcessData';
+import { HttpException, Inject, UseInterceptors } from '@nestjs/common';
+import { Mutation, Query, Resolver } from '@nestjs/graphql';
+import { InjectRepository } from '@nestjs/typeorm';
+import { IncomingMessage } from 'http';
+import { Repository } from 'typeorm';
 import { ExceptionInterceptor } from '../../interceptor/ExceptionInterceptor';
-import { Query, Resolver, ResolveProperty, Mutation } from '@nestjs/graphql';
-import { UploadProcessBody } from '../../interface/file/UploadProcessBody';
-import { UploadProcessData } from '../../interface/file/UploadProcessData';
-import { FileLocationBody } from '../../interface/file/FileLocationBody';
-import { Inject, HttpException, UseInterceptors } from '@nestjs/common';
-import { ConfigService } from '../../service/ConfigService';
-import { Repository, SelectQueryBuilder } from 'typeorm';
-import { FileService } from '../../service/FileService';
+import { Data } from '../../interface/Data';
 import { AllBody } from '../../interface/file/AllBody';
 import { AllData } from '../../interface/file/AllData';
+import { DownloadProcessData } from '../../interface/file/DownloadProcessData';
+import { FileLocationBody } from '../../interface/file/FileLocationBody';
 import { OneBody } from '../../interface/file/OneBody';
 import { OneData } from '../../interface/file/OneData';
-import { Document } from '../../model/Document.entity';
-import { RestfulUtil } from '../../util/RestfulUtil';
 import { Policy } from '../../interface/file/Policy';
-import { Bucket } from '../../model/Bucket.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { UploadProcessBody } from '../../interface/file/UploadProcessBody';
+import { UploadProcessData } from '../../interface/file/UploadProcessData';
 import { Audio } from '../../model/Audio.entity';
-import { Video } from '../../model/Video.entity';
-import { Image } from '../../model/Image.entity';
+import { Bucket } from '../../model/Bucket.entity';
+import { Document } from '../../model/Document.entity';
 import { File } from '../../model/File.entity';
-import { KindUtil } from '../../util/KindUtil';
+import { Image } from '../../model/Image.entity';
+import { Video } from '../../model/Video.entity';
+import { ConfigService } from '../../service/ConfigService';
+import { FileService } from '../../service/FileService';
 import { AuthUtil } from '../../util/AuthUtil';
-import { Data } from '../../interface/Data';
-import * as  formidable from 'formidable';
-import { IncomingMessage } from 'http';
-import * as  path from 'path';
-
+import { KindUtil } from '../../util/KindUtil';
+import { RestfulUtil } from '../../util/RestfulUtil';
 
 @Resolver('File')
 @UseInterceptors(ExceptionInterceptor)
@@ -80,7 +77,6 @@ export class FileResolver {
         data.headers.authorization = await this.authUtil.getHeaderAuth(bucket, 'GET', data.url.replace('https://v0.api.upyun.com', ''), data.headers.date, '')
         return data
     }
-
 
     @Mutation('uploadProcess')
     async uploadProcess(req: IncomingMessage, body: UploadProcessBody): Promise<UploadProcessData> {
@@ -147,7 +143,7 @@ export class FileResolver {
               data.url：访问文件的全部url，包括域名、目录、文件名、扩展名、token、文件密钥、处理字符串
    */
     @Query('one')
-    async  getFile(req: IncomingMessage, body: OneBody): Promise<OneData> {
+    async getFile(req: IncomingMessage, body: OneBody): Promise<OneData> {
         //验证参数存在
         let { bucketName, name, type } = body
         if (!bucketName || !name || !type) {
@@ -191,7 +187,7 @@ export class FileResolver {
               data.documents: 文档信息数组
     */
     @Query('all')
-    async  files(req: IncomingMessage, body: AllBody): Promise<AllData> {
+    async files(req: IncomingMessage, body: AllBody): Promise<AllData> {
         let data: AllData = {
             code: 200,
             message: '获取指定空间下所有文件成功',

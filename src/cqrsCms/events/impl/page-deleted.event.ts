@@ -1,7 +1,8 @@
-import {IEvent} from "@nestjs/cqrs";
+import { IEvent } from "@nestjs/cqrs";
 
-export class PageDeletedEvent implements  IEvent{
+export class PageDeletedEvent implements IEvent {
     constructor(
-        public  readonly pageId:string,
-    ){}
+        public readonly pageId: string,
+    ) {
+    }
 }

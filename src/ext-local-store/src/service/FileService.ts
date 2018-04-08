@@ -1,21 +1,17 @@
-import { Component, Inject, forwardRef, HttpException } from '@nestjs/common';
-import { UploadProcessBody } from '../interface/file/UploadProcessBody';
-import { ProcessStringUtil } from '../util/ProcessStringUtil';
-import { Document } from '../model/Document.entity';
+import { Component, HttpException, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RestfulUtil } from '../util/RestfulUtil';
-import { ConfigService } from './ConfigService';
-import { Bucket } from '../model/Bucket.entity';
-import { Audio } from '../model/Audio.entity';
-import { Video } from '../model/Video.entity';
-import { Image } from '../model/Image.entity';
-import { File } from '../model/File.entity';
-import { KindUtil } from '../util/KindUtil';
-import { AuthUtil } from '../util/AuthUtil';
 import { Repository } from 'typeorm';
-import * as crypto from 'crypto';
-import { isArray } from 'util';
-
+import { UploadProcessBody } from '../interface/file/UploadProcessBody';
+import { Audio } from '../model/Audio.entity';
+import { Bucket } from '../model/Bucket.entity';
+import { Document } from '../model/Document.entity';
+import { File } from '../model/File.entity';
+import { Image } from '../model/Image.entity';
+import { Video } from '../model/Video.entity';
+import { AuthUtil } from '../util/AuthUtil';
+import { KindUtil } from '../util/KindUtil';
+import { ProcessStringUtil } from '../util/ProcessStringUtil';
+import { RestfulUtil } from '../util/RestfulUtil';
 
 /* 图片服务组件，包含了上传时创建policy对象、预保存图片
    回调通知时，后保存、后删除
@@ -33,53 +29,53 @@ export class FileService {
         @InjectRepository(Image) private readonly imageRepository: Repository<Image>,
         @InjectRepository(Audio) private readonly audioRepository: Repository<Audio>,
         @InjectRepository(Video) private readonly videoRepository: Repository<Video>,
-        @InjectRepository(Bucket) private readonly bucketRepository: Repository<Bucket>) { }
-
+        @InjectRepository(Bucket) private readonly bucketRepository: Repository<Bucket>) {
+    }
 
     async makePolicy(data: any, policy: any, bucket: Bucket, body: UploadProcessBody, file: File | Image | Video | Audio | Document): Promise<void> {
         let { md5, contentSecret, contentName } = body
         //设置各种上传参数
         if (contentSecret) {
-            policy['content-secret'] = contentSecret
+            policy[ 'content-secret' ] = contentSecret
         }
-        policy['bucket'] = bucket.name
-        policy['ext-param'] += bucket.name
-        data['url'] += '/' + bucket.name
+        policy[ 'bucket' ] = bucket.name
+        policy[ 'ext-param' ] += bucket.name
+        data[ 'url' ] += '/' + bucket.name
         //文件类型以文件扩展名确定，如果不存在扩展名为file
         let type: string = file.type || ''
         let kind = this.kindUtil.getKind(type)
         //这里原图的save_key不保存它，在回调中直接删除
-        policy['save-key'] += '/' + bucket.directory + '/' + md5 + '_' + (+new Date()) + '.' + type
-        policy['expiration'] = Math.floor((+new Date()) / 1000) + bucket.request_expire
-        policy['date'] = new Date(+new Date() + bucket.request_expire * 1000).toUTCString()
+        policy[ 'save-key' ] += '/' + bucket.directory + '/' + md5 + '_' + (+new Date()) + '.' + type
+        policy[ 'expiration' ] = Math.floor((+new Date()) / 1000) + bucket.request_expire
+        policy[ 'date' ] = new Date(+new Date() + bucket.request_expire * 1000).toUTCString()
         //根据配置，设置预处理参数，只有一个预处理任务
         if (kind === 'image') {
             let obj = {
                 'name': 'thumb',
                 'x-gmkerl-thumb': '',
                 'save_as': '',
-                'notify_url': policy['notify-url']
+                'notify_url': policy[ 'notify-url' ]
             }
             let format = bucket.image_config.format || 'raw'
             //原图不处理
             if (format == 'raw') {
                 //保存为原图，为了防止没有预处理字符串时不进行预处理任务，加上了/scale/100
-                obj['x-gmkerl-thumb'] = this.processStringUtil.makeImageProcessString(bucket, body.imagePreProcessInfo) + '/scale/100'
+                obj[ 'x-gmkerl-thumb' ] = this.processStringUtil.makeImageProcessString(bucket, body.imagePreProcessInfo) + '/scale/100'
                 //这里将预处理的文件名设置为刚才保存的文件名，在回调中根据文件名来更新它，保存为原图时，
-                obj['save_as'] = '/' + bucket.directory + '/' + file.name + '.' + file.type
+                obj[ 'save_as' ] = '/' + bucket.directory + '/' + file.name + '.' + file.type
                 //apps字段应为json字符串
-                policy['apps'] = [obj]
+                policy[ 'apps' ] = [ obj ]
             } else if (format == 'webp_damage') {
                 //保存为有损webp
-                obj['x-gmkerl-thumb'] = this.processStringUtil.makeImageProcessString(bucket, body.imagePreProcessInfo) + '/format/webp/strip/true'
-                obj['save_as'] = '/' + bucket.directory + '/' + file.name + '.' + 'webp'
+                obj[ 'x-gmkerl-thumb' ] = this.processStringUtil.makeImageProcessString(bucket, body.imagePreProcessInfo) + '/format/webp/strip/true'
+                obj[ 'save_as' ] = '/' + bucket.directory + '/' + file.name + '.' + 'webp'
                 //apps字段应为json字符串
-                policy['apps'] = [obj]
+                policy[ 'apps' ] = [ obj ]
             } else if (format == 'webp_undamage') {
                 //保存为无损webp
-                obj['x-gmkerl-thumb'] = this.processStringUtil.makeImageProcessString(bucket, body.imagePreProcessInfo) + '/format/webp/lossless/true/strip/true'
-                obj['save_as'] = '/' + bucket.directory + '/' + file.name + '.' + 'webp'
-                policy['apps'] = [obj]
+                obj[ 'x-gmkerl-thumb' ] = this.processStringUtil.makeImageProcessString(bucket, body.imagePreProcessInfo) + '/format/webp/lossless/true/strip/true'
+                obj[ 'save_as' ] = '/' + bucket.directory + '/' + file.name + '.' + 'webp'
+                policy[ 'apps' ] = [ obj ]
             } else {
                 throw new Error('格式配置不正确，应该不能发生')
             }
@@ -129,10 +125,10 @@ export class FileService {
             if (!image) {
                 return
             }
-            image.width = body.imginfo['width'],
-                image.height = body.imginfo['height'],
-                image.type = body.imginfo['type'].toLowerCase(),
-                image.frames = body.imginfo['frames'],
+            image.width = body.imginfo[ 'width' ],
+                image.height = body.imginfo[ 'height' ],
+                image.type = body.imginfo[ 'type' ].toLowerCase(),
+                image.frames = body.imginfo[ 'frames' ],
                 image.status = 'post'
             //从云存储获取预处理文件的md5与处理后大小
             let { file_size, file_md5 } = await this.restfulUtil.getFileInfo(bucket, image)

@@ -1,8 +1,8 @@
-import { CmsModule } from "./cms.injection";
-import { GraphQLFactory, GraphQLModule } from "@nestjs/graphql";
-import { graphiqlExpress, graphqlExpress } from "apollo-server-express";
 import { MiddlewaresConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
+import { GraphQLFactory, GraphQLModule } from "@nestjs/graphql";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { graphiqlExpress, graphqlExpress } from "apollo-server-express";
+import { CmsModule } from "./cms.injection";
 
 @Module({
     imports: [
@@ -12,8 +12,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     ],
 })
 export class ApplicationModule implements NestModule {
+    K
+
     constructor(private readonly graphqlFactory: GraphQLFactory) {
-    }K
+    }
 
     //中间件设置
     configure(consumer: MiddlewaresConsumer) {

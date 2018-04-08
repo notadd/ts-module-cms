@@ -1,5 +1,6 @@
-import {ICommand} from "@nestjs/cqrs";
+import { ICommand } from "@nestjs/cqrs";
 
 export class DeleteParamCommand implements ICommand {
-    constructor(public readonly heroId: string, public readonly itemId: string) {}
+    constructor(public readonly heroId: string, public readonly itemId: string) {
+    }
 }

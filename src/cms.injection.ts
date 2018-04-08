@@ -1,9 +1,7 @@
-import { MiddlewaresConsumer, NestModule, RequestMethod } from "@nestjs/common";
+import { Module } from "@notadd/injection";
 import { CqrsModule } from "./cqrsCms/cqrs.module";
 import { RegistrationModule } from "./enter/registration.module";
-import {UpyunModule} from "./ext-local-store/src/UpyunModule";
-
-import { Module } from "@notadd/injection";
+import { UpyunModule } from "./ext-local-store/src/UpyunModule";
 
 @Module({
     authors: [

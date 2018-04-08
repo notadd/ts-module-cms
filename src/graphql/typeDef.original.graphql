@@ -452,7 +452,7 @@ type Query{
     #Get the articles by paging.
     getArticlesLimit(getArticleAll: ArticleAll, recycleFind: recycleLimit,
         reductionGetByClassifyId: recycleClasssifyId, findTopPlace: recycleLimit,serachArticle:recycleLimit,keywordSearch:recycleLimit) :ArticlePagination,
-   #Get the articles No paging.
+    #Get the articles No paging.
     getArticlesNoLimit(getArticleById: ArticleId,showNext: ArticleId,superiorArticle:ArticleId,getCurrentClassifyArticles:ArticleId):[Article],
     #Get classification
     getClassifys(getAllClassify: AllClassify) : [Classify],

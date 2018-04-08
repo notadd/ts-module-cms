@@ -1,15 +1,20 @@
-export class GetPageVm{
+export class GetPageVm {
     //分页
-    public limit:number;
+    public limit: number;
+
     //第几页
-    public pages:number;
+    public pages: number;
+
     //关键字
-    public keywords?:string;
+    public keywords?: string;
+
     //分类id
-    public classifyId?:number;
+    public classifyId?: number;
+
     //页面id
-    public id?:number;
+    public id?: number;
+
     //全部页面
-    public getAll?:boolean;
+    public getAll?: boolean;
 
 }

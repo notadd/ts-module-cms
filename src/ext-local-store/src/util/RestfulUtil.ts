@@ -1,19 +1,17 @@
-import { ImagePostProcessInfo, ImagePreProcessInfo } from '../interface/file/ImageProcessInfo';
-import { Component, Inject, HttpException } from '@nestjs/common';
-import { ProcessStringUtil } from './ProcessStringUtil';
-import { Document } from '../model/Document.entity';
-import { Bucket } from '../model/Bucket.entity';
-import { Audio } from '../model/Audio.entity';
-import { Video } from '../model/Video.entity';
-import { Image } from '../model/Image.entity';
-import { File } from '../model/File.entity';
-import { PromiseUtil } from './PromiseUtil';
-import { AuthUtil } from '../util/AuthUtil';
-import * as request from 'request';
-import * as crypto from 'crypto';
-import * as mime from 'mime';
+import { Component, HttpException, Inject } from '@nestjs/common';
 import * as fs from 'fs';
-
+import * as mime from 'mime';
+import * as request from 'request';
+import { ImagePreProcessInfo } from '../interface/file/ImageProcessInfo';
+import { Audio } from '../model/Audio.entity';
+import { Bucket } from '../model/Bucket.entity';
+import { Document } from '../model/Document.entity';
+import { File } from '../model/File.entity';
+import { Image } from '../model/Image.entity';
+import { Video } from '../model/Video.entity';
+import { AuthUtil } from '../util/AuthUtil';
+import { ProcessStringUtil } from './ProcessStringUtil';
+import { PromiseUtil } from './PromiseUtil';
 
 /* 包含了restfulAPI的各种功能
    删除文件、创建目录、删除目录、获取文件信息、获取目录文件列表、获取服务使用量
@@ -21,11 +19,13 @@ import * as fs from 'fs';
 @Component()
 export class RestfulUtil {
     private readonly apihost = 'https://v0.api.upyun.com'
+
     constructor(
         @Inject(AuthUtil) private readonly authUtil: AuthUtil,
         @Inject(PromiseUtil) private readonly promiseUtil: PromiseUtil,
         @Inject(ProcessStringUtil) private readonly processStringUtil: ProcessStringUtil
-    ) { }
+    ) {
+    }
 
     //上传文件，其中文件信息来自于formidable解析得到的File对象
     async uploadFile(bucket: Bucket, file: File | Image | Video | Audio | Document, uploadFile: any, imagePreProcessInfo: ImagePreProcessInfo): Promise<{ width: number, height: number, frames: number }> {
@@ -36,7 +36,7 @@ export class RestfulUtil {
         let date: string = new Date(+new Date() + bucket.request_expire * 1000).toUTCString()
         let Authorization = await this.authUtil.getHeaderAuth(bucket, 'PUT', url, date, contentMd5)
         let format = bucket.image_config.format || 'raw'
-        let x_gmkerl_thumb = this.processStringUtil.makeImageProcessString(bucket,imagePreProcessInfo)
+        let x_gmkerl_thumb = this.processStringUtil.makeImageProcessString(bucket, imagePreProcessInfo)
         if (format === 'raw') {
             x_gmkerl_thumb += '/scale/100'
         } else if (format === 'webp_damage') {
@@ -62,9 +62,9 @@ export class RestfulUtil {
                     return
                 }
                 if (res.statusCode === 200) {
-                    width = res.headers['x-upyun-width']
-                    height = res.headers['x-upyun-height']
-                    frames = res.headers['x-upyun-frames']
+                    width = res.headers[ 'x-upyun-width' ]
+                    height = res.headers[ 'x-upyun-height' ]
+                    frames = res.headers[ 'x-upyun-frames' ]
                     resolve()
                     return
                 }
@@ -83,7 +83,6 @@ export class RestfulUtil {
         })
         return { width, height, frames }
     }
-
 
     /*创建指定空间里的指定目录，空间下唯一目录在配置中指定
         @Param bucket：目录所属空间
@@ -169,7 +168,6 @@ export class RestfulUtil {
         return
     }
 
-
     /* 获取指定文件的保存信息
      */
     async getFileInfo(bucket: Bucket, file: File | Image | Video | Audio | Document): Promise<{ file_size: number, file_date: any, file_md5: string }> {
@@ -192,9 +190,9 @@ export class RestfulUtil {
                     return
                 }
                 if (res.statusCode == 200) {
-                    file_size = +res.headers['x-upyun-file-size']
-                    file_date = +res.headers['x-upyun-file-date']
-                    file_md5 = res.headers['content-md5']
+                    file_size = +res.headers[ 'x-upyun-file-size' ]
+                    file_date = +res.headers[ 'x-upyun-file-date' ]
+                    file_md5 = res.headers[ 'content-md5' ]
                     resolve()
                     return
                 }
@@ -213,7 +211,6 @@ export class RestfulUtil {
         })
         return { file_size, file_date, file_md5 }
     }
-
 
     /* 获取指定空间下文件\目录列表
        响应头信息中指明了分页位置
@@ -243,10 +240,10 @@ export class RestfulUtil {
                     info = body.split('\n').map((value, index, raw) => {
                         let temp = value.split('\t')
                         return {
-                            name: temp[0],
-                            isDirectory: (temp[1] === 'N' ? false : true),
-                            size: parseInt(temp[2]),
-                            timestamp: parseInt(temp[3])
+                            name: temp[ 0 ],
+                            isDirectory: (temp[ 1 ] === 'N' ? false : true),
+                            size: parseInt(temp[ 2 ]),
+                            timestamp: parseInt(temp[ 3 ])
                         }
                     })
                     resolve()
