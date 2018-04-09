@@ -21,13 +21,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 const article_entity_1 = require("../../entity/article.entity");
-const error_interface_1 = require("../errorMessage/error.interface");
-const typeorm_2 = require("@nestjs/typeorm");
-const classify_service_1 = require("./classify.service");
 const classify_entity_1 = require("../../entity/classify.entity");
-const error_interface_2 = require("../common/error.interface");
+const error_interface_1 = require("../common/error.interface");
+const error_interface_2 = require("../errorMessage/error.interface");
+const classify_service_1 = require("./classify.service");
 let ArticleService = class ArticleService {
     constructor(respository, claRespository, classifyService, storeService) {
         this.respository = respository;
@@ -101,7 +101,7 @@ let ArticleService = class ArticleService {
             for (let t in array) {
                 let article = yield this.respository.findOneById(array[t]);
                 if (article == null)
-                    throw new error_interface_1.MessageCodeError('delete:recycling:idMissing');
+                    throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
                 article.recycling = true;
                 article.updateAt = new Date();
                 let newArticle = article;
@@ -115,7 +115,7 @@ let ArticleService = class ArticleService {
         return __awaiter(this, void 0, void 0, function* () {
             let entity = yield this.classifyService.findOneByIdArt(article.classifyId);
             if (article.classifyId != null && article.classifyId != 0 && entity == null)
-                throw new error_interface_1.MessageCodeError('page:classify:classifyIdMissing');
+                throw new error_interface_2.MessageCodeError('page:classify:classifyIdMissing');
             let num = yield this.classifyService.findLevel(article.classifyId);
             let level = this.classifyService.interfaceChange(num);
             if (article.topPlace == null) {
@@ -123,28 +123,30 @@ let ArticleService = class ArticleService {
             }
             let levelGive = article.topPlace.toString();
             if (level == 'level1' && levelGive == 'level2' || levelGive == 'level3')
-                throw new error_interface_1.MessageCodeError('create:level:lessThanLevel');
+                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
             if (level == 'level2' && levelGive == 'level3')
-                throw new error_interface_1.MessageCodeError('create:level:lessThanLevel');
+                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
             article.recycling = false;
-            yield this.respository.createQueryBuilder().insert().into(article_entity_1.ArticleEntity).values(article).output('id').execute().then(a => { return a; });
+            yield this.respository.createQueryBuilder().insert().into(article_entity_1.ArticleEntity).values(article).output('id').execute().then(a => {
+                return a;
+            });
         });
     }
     updateArticle(article) {
         return __awaiter(this, void 0, void 0, function* () {
             let art = yield this.respository.findOneById(article.id);
             if (art == null)
-                throw new error_interface_1.MessageCodeError('delete:recycling:idMissing');
+                throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
             let entity = yield this.classifyService.findOneByIdArt(article.classifyId);
             if (article.classifyId != null && article.classifyId != 0 && entity == null)
-                throw new error_interface_1.MessageCodeError('page:classify:classifyIdMissing');
+                throw new error_interface_2.MessageCodeError('page:classify:classifyIdMissing');
             let num = yield this.classifyService.findLevel(article.classifyId);
             let level = this.classifyService.interfaceChange(num);
             let levelGive = article.topPlace;
             if (level == 'level1' && levelGive == 'level2' || levelGive == 'level3')
-                throw new error_interface_1.MessageCodeError('create:level:lessThanLevel');
+                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
             if (level == 'level2' && levelGive == 'level3')
-                throw new error_interface_1.MessageCodeError('create:level:lessThanLevel');
+                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
             article.updateAt = new Date();
             let newArt = article;
             yield this.respository.updateById(newArt.id, newArt);
@@ -169,7 +171,9 @@ let ArticleService = class ArticleService {
                 result = yield this.respository.createQueryBuilder().delete()
                     .from(article_entity_1.ArticleEntity).whereInIds(array)
                     .output('id').execute()
-                    .then(a => { return a; });
+                    .then(a => {
+                    return a;
+                });
             }
             catch (err) {
                 throw new common_1.HttpException('删除错误' + err.toString(), 401);
@@ -183,7 +187,7 @@ let ArticleService = class ArticleService {
             for (let t in array) {
                 let article = yield this.respository.findOneById(array[t]);
                 if (article == null)
-                    throw new error_interface_1.MessageCodeError('delete:recycling:idMissing');
+                    throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
                 article.recycling = false;
                 article.updateAt = new Date();
                 let newArticle = article;
@@ -209,8 +213,10 @@ let ArticleService = class ArticleService {
         return __awaiter(this, void 0, void 0, function* () {
             let entity = yield this.classifyService.findOneByIdArt(id);
             if (entity == null)
-                throw new error_interface_1.MessageCodeError('page:classify:classifyIdMissing');
-            let array = yield this.classifyService.getClassifyId(id).then(a => { return a; });
+                throw new error_interface_2.MessageCodeError('page:classify:classifyIdMissing');
+            let array = yield this.classifyService.getClassifyId(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             const result = yield this.respository.createQueryBuilder()
@@ -227,8 +233,10 @@ let ArticleService = class ArticleService {
         return __awaiter(this, void 0, void 0, function* () {
             let entity = yield this.classifyService.findOneByIdArt(id);
             if (entity == null)
-                throw new error_interface_1.MessageCodeError('delete:recycling:idMissing');
-            let num = yield this.classifyService.findLevel(entity.id).then(a => { return a; });
+                throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
+            let num = yield this.classifyService.findLevel(entity.id).then(a => {
+                return a;
+            });
             let level = this.classifyService.interfaceChange(num);
             let topPlace = '';
             if (level == 'level1') {
@@ -280,14 +288,18 @@ let ArticleService = class ArticleService {
                         }
                     }
                 }
-                let imagePreProcessInfo = new error_interface_2.ImagePreProcessInfo();
+                let imagePreProcessInfo = new error_interface_1.ImagePreProcessInfo();
                 imagePreProcessInfo.watermark = false;
-                let result = yield this.storeService.upload(bucketName, rawName, base64, imagePreProcessInfo).then(a => { return a; });
+                let result = yield this.storeService.upload(bucketName, rawName, base64, imagePreProcessInfo).then(a => {
+                    return a;
+                });
                 let map = this.objToStrMap(result);
                 let bucket = map.get('bucketName');
                 let name = map.get('name');
                 let type = map.get('type');
-                let url = yield this.storeService.getUrl(req.get('obj'), bucket, name, type, imagePreProcessInfo).then(a => { return a; });
+                let url = yield this.storeService.getUrl(req.get('obj'), bucket, name, type, imagePreProcessInfo).then(a => {
+                    return a;
+                });
                 return { pictureUrl: url, bucketName: bucket, pictureName: name, type: type, MessageCodeError: "上传成功" };
             }
             catch (err) {
@@ -307,7 +319,7 @@ let ArticleService = class ArticleService {
             let Array = [];
             let article = yield this.respository.findOneById(id);
             if (article == null)
-                throw new error_interface_1.MessageCodeError('delete:recycling:idMissing');
+                throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
             Array.push(article);
             return { articles: Array };
         });
@@ -315,11 +327,11 @@ let ArticleService = class ArticleService {
 };
 ArticleService = __decorate([
     common_1.Component(),
-    __param(0, typeorm_2.InjectRepository(article_entity_1.ArticleEntity)),
-    __param(1, typeorm_2.InjectRepository(classify_entity_1.ClassifyEntity)),
+    __param(0, typeorm_1.InjectRepository(article_entity_1.ArticleEntity)),
+    __param(1, typeorm_1.InjectRepository(classify_entity_1.ClassifyEntity)),
     __param(3, common_1.Inject('StoreComponentToken')),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
-        typeorm_1.Repository,
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
         classify_service_1.ClassifyService, Object])
 ], ArticleService);
 exports.ArticleService = ArticleService;

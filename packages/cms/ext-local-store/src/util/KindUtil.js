@@ -12,7 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const allowExtension = require('../allowExtension.json');
 let KindUtil = class KindUtil {
-    constructor() { }
+    constructor() {
+    }
     getKind(type) {
         if (allowExtension.image.includes(type)) {
             return 'image';

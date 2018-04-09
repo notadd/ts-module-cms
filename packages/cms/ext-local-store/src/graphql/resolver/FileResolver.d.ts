@@ -1,23 +1,23 @@
 /// <reference types="node" />
-import { DownloadProcessData } from '../../interface/file/DownloadProcessData';
-import { UploadProcessBody } from '../../interface/file/UploadProcessBody';
-import { UploadProcessData } from '../../interface/file/UploadProcessData';
-import { FileLocationBody } from '../../interface/file/FileLocationBody';
-import { ConfigService } from '../../service/ConfigService';
+import { IncomingMessage } from 'http';
 import { Repository } from 'typeorm';
-import { FileService } from '../../service/FileService';
+import { Data } from '../../interface/Data';
 import { AllBody } from '../../interface/file/AllBody';
 import { AllData } from '../../interface/file/AllData';
+import { DownloadProcessData } from '../../interface/file/DownloadProcessData';
+import { FileLocationBody } from '../../interface/file/FileLocationBody';
 import { OneBody } from '../../interface/file/OneBody';
 import { OneData } from '../../interface/file/OneData';
-import { RestfulUtil } from '../../util/RestfulUtil';
+import { UploadProcessBody } from '../../interface/file/UploadProcessBody';
+import { UploadProcessData } from '../../interface/file/UploadProcessData';
 import { Bucket } from '../../model/Bucket.entity';
-import { Image } from '../../model/Image.entity';
 import { File } from '../../model/File.entity';
-import { KindUtil } from '../../util/KindUtil';
+import { Image } from '../../model/Image.entity';
+import { ConfigService } from '../../service/ConfigService';
+import { FileService } from '../../service/FileService';
 import { AuthUtil } from '../../util/AuthUtil';
-import { Data } from '../../interface/Data';
-import { IncomingMessage } from 'http';
+import { KindUtil } from '../../util/KindUtil';
+import { RestfulUtil } from '../../util/RestfulUtil';
 export declare class FileResolver {
     private readonly authUtil;
     private readonly kindUtil;

@@ -1,8 +1,8 @@
 import { ArticleEntity } from "../entity/article.entity";
-import { ClassifyService } from "./service/classify.service";
-import { CreateXmlVm } from "./models/view/create-xml-vm";
-import { CqrsService } from "./cqrs.service";
 import { PagerService } from "../export/common.paging";
+import { CqrsService } from "./cqrs.service";
+import { CreateXmlVm } from "./models/view/create-xml-vm";
+import { ClassifyService } from "./service/classify.service";
 export declare class CqrsResolver {
     private readonly classifyService;
     private readonly sitemapService;

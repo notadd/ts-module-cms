@@ -21,13 +21,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
-const page_entity_1 = require("../../entity/page.entity");
-const error_interface_1 = require("../errorMessage/error.interface");
-const pageClassify_entity_1 = require("../../entity/pageClassify.entity");
-const classify_service_1 = require("./classify.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 const page_content_entity_1 = require("../../entity/page.content.entity");
-const typeorm_2 = require("@nestjs/typeorm");
+const page_entity_1 = require("../../entity/page.entity");
+const pageClassify_entity_1 = require("../../entity/pageClassify.entity");
+const error_interface_1 = require("../errorMessage/error.interface");
+const classify_service_1 = require("./classify.service");
 let PageService = class PageService {
     constructor(repository, classifyService, contentRepository, pageRepository) {
         this.repository = repository;
@@ -86,7 +86,9 @@ let PageService = class PageService {
             let aliasEntity = yield this.repository.createQueryBuilder().where('"alias"= :alias', { alias: page.alias }).getMany();
             if (aliasEntity.length > 0)
                 throw new error_interface_1.MessageCodeError('create:classify:aliasRepeat');
-            let id = yield this.repository.save(page).then(a => { return a.id; });
+            let id = yield this.repository.save(page).then(a => {
+                return a.id;
+            });
             for (let t in contents) {
                 let newContent = new page_content_entity_1.PageContentEntity();
                 newContent = contents[t];
@@ -173,7 +175,9 @@ let PageService = class PageService {
             let entityClassify = yield this.classifyService.findOnePageClassifyById(id);
             if (entityClassify == null)
                 throw new error_interface_1.MessageCodeError('delete:page:deleteById');
-            let array = yield this.getClassifyId(id).then(a => { return a; });
+            let array = yield this.getClassifyId(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             const result = yield this.repository.createQueryBuilder()
@@ -187,7 +191,7 @@ let PageService = class PageService {
     }
     getClassifyId(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield typeorm_1.getManager().query("update public.page_classify_table set \"parentId\" = \"groupId\"");
+            yield typeorm_2.getManager().query("update public.page_classify_table set \"parentId\" = \"groupId\"");
             const result = yield this.pageRepository.createQueryBuilder('page_classify_table')
                 .where('page_classify_table.id= :id', { id: id })
                 .innerJoinAndSelect('page_classify_table.children', 'children')
@@ -209,12 +213,12 @@ let PageService = class PageService {
 };
 PageService = __decorate([
     common_1.Component(),
-    __param(0, typeorm_2.InjectRepository(page_entity_1.PageEntity)),
-    __param(2, typeorm_2.InjectRepository(page_content_entity_1.PageContentEntity)),
-    __param(3, typeorm_2.InjectRepository(pageClassify_entity_1.PageClassifyEntity)),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
+    __param(0, typeorm_1.InjectRepository(page_entity_1.PageEntity)),
+    __param(2, typeorm_1.InjectRepository(page_content_entity_1.PageContentEntity)),
+    __param(3, typeorm_1.InjectRepository(pageClassify_entity_1.PageClassifyEntity)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
         classify_service_1.ClassifyService,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], PageService);
 exports.PageService = PageService;

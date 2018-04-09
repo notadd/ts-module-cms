@@ -21,17 +21,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const UpyunExceptionFilter_1 = require("../exception/UpyunExceptionFilter");
-const typeorm_1 = require("typeorm");
-const FileService_1 = require("../service/FileService");
-const typeorm_2 = require("@nestjs/typeorm");
-const RestfulUtil_1 = require("../util/RestfulUtil");
-const Bucket_entity_1 = require("../model/Bucket.entity");
-const Image_entity_1 = require("../model/Image.entity");
-const File_entity_1 = require("../model/File.entity");
-const KindUtil_1 = require("../util/KindUtil");
-const AuthUtil_1 = require("../util/AuthUtil");
+const typeorm_1 = require("@nestjs/typeorm");
 const path = require("path");
+const typeorm_2 = require("typeorm");
+const UpyunExceptionFilter_1 = require("../exception/UpyunExceptionFilter");
+const Bucket_entity_1 = require("../model/Bucket.entity");
+const File_entity_1 = require("../model/File.entity");
+const Image_entity_1 = require("../model/Image.entity");
+const FileService_1 = require("../service/FileService");
+const AuthUtil_1 = require("../util/AuthUtil");
+const KindUtil_1 = require("../util/KindUtil");
+const RestfulUtil_1 = require("../util/RestfulUtil");
 let FileController = class FileController {
     constructor(authUtil, kindUtil, restfulUtil, fileService, fileRepository, imageRepository, bucketRepository) {
         this.authUtil = authUtil;
@@ -111,15 +111,15 @@ FileController = __decorate([
     __param(1, common_1.Inject(KindUtil_1.KindUtil)),
     __param(2, common_1.Inject(RestfulUtil_1.RestfulUtil)),
     __param(3, common_1.Inject(FileService_1.FileService)),
-    __param(4, typeorm_2.InjectRepository(File_entity_1.File)),
-    __param(5, typeorm_2.InjectRepository(Image_entity_1.Image)),
-    __param(6, typeorm_2.InjectRepository(Bucket_entity_1.Bucket)),
+    __param(4, typeorm_1.InjectRepository(File_entity_1.File)),
+    __param(5, typeorm_1.InjectRepository(Image_entity_1.Image)),
+    __param(6, typeorm_1.InjectRepository(Bucket_entity_1.Bucket)),
     __metadata("design:paramtypes", [AuthUtil_1.AuthUtil,
         KindUtil_1.KindUtil,
         RestfulUtil_1.RestfulUtil,
         FileService_1.FileService,
-        typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], FileController);
 exports.FileController = FileController;

@@ -1,13 +1,13 @@
-import { ImagePostProcessInfo, ImagePreProcessInfo } from '../interface/file/ImageProcessInfo';
-import { ProcessStringUtil } from '../util/ProcessStringUtil';
-import { FileService } from '../service/FileService';
-import { RestfulUtil } from "../util/RestfulUtil";
 import { Repository } from 'typeorm';
+import { ImagePostProcessInfo, ImagePreProcessInfo } from '../interface/file/ImageProcessInfo';
 import { Bucket } from '../model/Bucket.entity';
 import { Image } from '../model/Image.entity';
+import { FileService } from '../service/FileService';
 import { AuthUtil } from '../util/AuthUtil';
-import { KindUtil } from '../util/KindUtil';
 import { FileUtil } from '../util/FileUtil';
+import { KindUtil } from '../util/KindUtil';
+import { ProcessStringUtil } from '../util/ProcessStringUtil';
+import { RestfulUtil } from "../util/RestfulUtil";
 export declare class StoreComponent {
     private readonly kindUtil;
     private readonly fileUtil;
@@ -29,5 +29,5 @@ export declare class StoreComponent {
 export declare const StoreComponentProvider: {
     provide: string;
     useFactory: (kindUtil: KindUtil, fileUtil: FileUtil, authUtil: AuthUtil, restfulUtil: RestfulUtil, fileService: FileService, processStringUtil: ProcessStringUtil, imageRepository: Repository<Image>, bucketRepository: Repository<Bucket>) => StoreComponent;
-    inject: (string | typeof KindUtil | typeof ProcessStringUtil | typeof AuthUtil | typeof RestfulUtil | typeof FileUtil | typeof FileService)[];
+    inject: (string | typeof AuthUtil | typeof KindUtil | typeof ProcessStringUtil | typeof RestfulUtil | typeof FileService | typeof FileUtil)[];
 };

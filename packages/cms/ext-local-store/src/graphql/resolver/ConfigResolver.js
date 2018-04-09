@@ -20,17 +20,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ExceptionInterceptor_1 = require("../../interceptor/ExceptionInterceptor");
-const graphql_1 = require("@nestjs/graphql");
 const common_1 = require("@nestjs/common");
-const ConfigService_1 = require("../../service/ConfigService");
-const RestfulUtil_1 = require("../../util/RestfulUtil");
+const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("@nestjs/typeorm");
-const Bucket_entity_1 = require("../../model/Bucket.entity");
-const FileUtil_1 = require("../../util/FileUtil");
-const KindUtil_1 = require("../../util/KindUtil");
 const http_1 = require("http");
 const typeorm_2 = require("typeorm");
+const ExceptionInterceptor_1 = require("../../interceptor/ExceptionInterceptor");
+const Bucket_entity_1 = require("../../model/Bucket.entity");
+const ConfigService_1 = require("../../service/ConfigService");
+const FileUtil_1 = require("../../util/FileUtil");
+const KindUtil_1 = require("../../util/KindUtil");
+const RestfulUtil_1 = require("../../util/RestfulUtil");
 let ConfigResolver = class ConfigResolver {
     constructor(fileUtil, kindUtil, restfulUtil, configService, bucketRepository) {
         this.fileUtil = fileUtil;

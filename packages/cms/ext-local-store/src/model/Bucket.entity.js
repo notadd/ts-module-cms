@@ -10,14 +10,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
-const ImageConfig_entity_1 = require("./ImageConfig.entity");
-const AudioConfig_entity_1 = require("./AudioConfig.entity");
-const VideoConfig_entity_1 = require("./VideoConfig.entity");
-const Document_entity_1 = require("./Document.entity");
-const Image_entity_1 = require("./Image.entity");
-const Video_entity_1 = require("./Video.entity");
 const Audio_entity_1 = require("./Audio.entity");
+const AudioConfig_entity_1 = require("./AudioConfig.entity");
+const Document_entity_1 = require("./Document.entity");
 const File_entity_1 = require("./File.entity");
+const Image_entity_1 = require("./Image.entity");
+const ImageConfig_entity_1 = require("./ImageConfig.entity");
+const Video_entity_1 = require("./Video.entity");
+const VideoConfig_entity_1 = require("./VideoConfig.entity");
 let Bucket = class Bucket {
 };
 __decorate([

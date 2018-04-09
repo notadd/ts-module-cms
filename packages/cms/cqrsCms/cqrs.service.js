@@ -19,13 +19,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const cqrs_1 = require("@nestjs/cqrs");
+const article_param_command_1 = require("./commands/impl/article-param.command");
+const classify_param_command_1 = require("./commands/impl/classify-param.command");
 const create_param_command_1 = require("./commands/impl/create-param.command");
 const delete_param_command_1 = require("./commands/impl/delete-param.command");
-const page_param_command_1 = require("./commands/impl/page-param.command");
-const get_page_param_command_1 = require("./commands/impl/get-page-param.command");
-const classify_param_command_1 = require("./commands/impl/classify-param.command");
-const article_param_command_1 = require("./commands/impl/article-param.command");
 const get_classify_param_command_1 = require("./commands/impl/get-classify-param.command");
+const get_page_param_command_1 = require("./commands/impl/get-page-param.command");
+const page_param_command_1 = require("./commands/impl/page-param.command");
 let CqrsService = class CqrsService {
     constructor(commonbus) {
         this.commonbus = commonbus;

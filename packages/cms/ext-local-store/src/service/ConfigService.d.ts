@@ -1,16 +1,16 @@
-import { EnableImageWatermarkConfig } from '../interface/config/EnableImageWatermarkConfig';
 import { Repository } from 'typeorm';
-import { VideoFormatConfig } from '../interface/config/VideoFormatConfig';
 import { AudioFormatConfig } from '../interface/config/AudioFormatConfig';
-import { ImageFormatConfig } from '../interface/config/ImageFormatConfig';
 import { BucketConfig } from '../interface/config/BucketConfig';
-import { ImageConfig } from '../model/ImageConfig.entity';
+import { EnableImageWatermarkConfig } from '../interface/config/EnableImageWatermarkConfig';
+import { ImageFormatConfig } from '../interface/config/ImageFormatConfig';
+import { VideoFormatConfig } from '../interface/config/VideoFormatConfig';
 import { AudioConfig } from '../model/AudioConfig.entity';
-import { VideoConfig } from '../model/VideoConfig.entity';
-import { RestfulUtil } from "../util/RestfulUtil";
 import { Bucket } from '../model/Bucket.entity';
 import { Image } from '../model/Image.entity';
+import { ImageConfig } from '../model/ImageConfig.entity';
+import { VideoConfig } from '../model/VideoConfig.entity';
 import { FileUtil } from '../util/FileUtil';
+import { RestfulUtil } from "../util/RestfulUtil";
 export declare class ConfigService {
     private readonly fileUtil;
     private readonly restfulUtil;

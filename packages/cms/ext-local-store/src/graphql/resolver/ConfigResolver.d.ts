@@ -1,18 +1,18 @@
 /// <reference types="node" />
-import { EnableImageWatermarkConfig } from '../../interface/config/EnableImageWatermarkConfig';
-import { ImageWatermarkConfig } from '../../interface/config/ImageWatermarkConfig';
-import { AudioFormatConfig } from '../../interface/config/AudioFormatConfig';
-import { VideoFormatConfig } from '../../interface/config/VideoFormatConfig';
-import { ImageFormatConfig } from '../../interface/config/ImageFormatConfig';
-import { BucketConfig } from '../../interface/config/BucketConfig';
-import { ConfigService } from '../../service/ConfigService';
-import { RestfulUtil } from '../../util/RestfulUtil';
-import { Bucket } from '../../model/Bucket.entity';
-import { FileUtil } from '../../util/FileUtil';
-import { KindUtil } from '../../util/KindUtil';
-import { Data } from '../../interface/Data';
 import { IncomingMessage } from 'http';
 import { Repository } from 'typeorm';
+import { AudioFormatConfig } from '../../interface/config/AudioFormatConfig';
+import { BucketConfig } from '../../interface/config/BucketConfig';
+import { EnableImageWatermarkConfig } from '../../interface/config/EnableImageWatermarkConfig';
+import { ImageFormatConfig } from '../../interface/config/ImageFormatConfig';
+import { ImageWatermarkConfig } from '../../interface/config/ImageWatermarkConfig';
+import { VideoFormatConfig } from '../../interface/config/VideoFormatConfig';
+import { Data } from '../../interface/Data';
+import { Bucket } from '../../model/Bucket.entity';
+import { ConfigService } from '../../service/ConfigService';
+import { FileUtil } from '../../util/FileUtil';
+import { KindUtil } from '../../util/KindUtil';
+import { RestfulUtil } from '../../util/RestfulUtil';
 export declare class ConfigResolver {
     private readonly fileUtil;
     private readonly kindUtil;

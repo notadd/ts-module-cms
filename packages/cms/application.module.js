@@ -9,11 +9,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const cms_injection_1 = require("./cms.injection");
-const graphql_1 = require("@nestjs/graphql");
-const apollo_server_express_1 = require("apollo-server-express");
 const common_1 = require("@nestjs/common");
+const graphql_1 = require("@nestjs/graphql");
 const typeorm_1 = require("@nestjs/typeorm");
+const apollo_server_express_1 = require("apollo-server-express");
+const cms_injection_1 = require("./cms.injection");
 let ApplicationModule = class ApplicationModule {
     constructor(graphqlFactory) {
         this.graphqlFactory = graphqlFactory;

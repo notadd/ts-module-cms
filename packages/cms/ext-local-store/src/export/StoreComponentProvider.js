@@ -21,15 +21,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const ProcessStringUtil_1 = require("../util/ProcessStringUtil");
-const FileService_1 = require("../service/FileService");
-const RestfulUtil_1 = require("../util/RestfulUtil");
-const typeorm_1 = require("typeorm");
-const AuthUtil_1 = require("../util/AuthUtil");
-const KindUtil_1 = require("../util/KindUtil");
-const FileUtil_1 = require("../util/FileUtil");
 const crypto = require("crypto");
 const os = require("os");
+const typeorm_1 = require("typeorm");
+const FileService_1 = require("../service/FileService");
+const AuthUtil_1 = require("../util/AuthUtil");
+const FileUtil_1 = require("../util/FileUtil");
+const KindUtil_1 = require("../util/KindUtil");
+const ProcessStringUtil_1 = require("../util/ProcessStringUtil");
+const RestfulUtil_1 = require("../util/RestfulUtil");
 let StoreComponent = class StoreComponent {
     constructor(kindUtil, fileUtil, authUtil, resufulUtil, fileService, processStringUtil, imageRepository, bucketRepository) {
         this.kindUtil = kindUtil;

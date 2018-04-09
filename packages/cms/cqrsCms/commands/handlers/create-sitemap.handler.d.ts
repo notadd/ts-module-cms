@@ -1,6 +1,6 @@
 import { EventPublisher, ICommandHandler } from "@nestjs/cqrs";
-import { CreateParamCommand } from "../impl/create-param.command";
 import { PageRepository } from "../../repository/pageRepository";
+import { CreateParamCommand } from "../impl/create-param.command";
 export declare class CreateSitemapHandler implements ICommandHandler<CreateParamCommand> {
     private readonly repositoty;
     private readonly publisher;

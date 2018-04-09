@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
-const page_curd_event_1 = require("../events/impl/page-curd.event");
-const classify_curd_events_1 = require("../events/impl/classify-curd.events");
 const article_curd_events_1 = require("../events/impl/article-curd.events");
+const classify_curd_events_1 = require("../events/impl/classify-curd.events");
+const page_curd_event_1 = require("../events/impl/page-curd.event");
 const sitemap_update_event_1 = require("../events/impl/sitemap-update.event");
 const clc = require('cli-color');
 class Page extends cqrs_1.AggregateRoot {

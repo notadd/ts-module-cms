@@ -7,11 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const sitemap_service_1 = require("./sitemap.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const article_entity_1 = require("../entity/article.entity");
 const page_entity_1 = require("../entity/page.entity");
 const sitemap_entity_1 = require("../entity/sitemap.entity");
+const sitemap_service_1 = require("./sitemap.service");
 let SiteMapModule = class SiteMapModule {
 };
 SiteMapModule = __decorate([

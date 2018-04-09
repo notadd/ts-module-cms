@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const registration_service_1 = require("./registration.service");
-const graphql_resolver_1 = require("./graphql.resolver");
 const typeorm_1 = require("@nestjs/typeorm");
-const site_entity_1 = require("../entity/site.entity");
 const block_entity_1 = require("../entity/block.entity");
+const site_entity_1 = require("../entity/site.entity");
 const visit_entity_1 = require("../entity/visit.entity");
 const common_paging_1 = require("../export/common.paging");
+const graphql_resolver_1 = require("./graphql.resolver");
+const registration_service_1 = require("./registration.service");
 let RegistrationModule = class RegistrationModule {
 };
 RegistrationModule = __decorate([

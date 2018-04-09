@@ -1,13 +1,13 @@
 import { ImagePreProcessInfo } from '../interface/file/ImageProcessInfo';
-import { ProcessStringUtil } from './ProcessStringUtil';
-import { Document } from '../model/Document.entity';
-import { Bucket } from '../model/Bucket.entity';
 import { Audio } from '../model/Audio.entity';
-import { Video } from '../model/Video.entity';
-import { Image } from '../model/Image.entity';
+import { Bucket } from '../model/Bucket.entity';
+import { Document } from '../model/Document.entity';
 import { File } from '../model/File.entity';
-import { PromiseUtil } from './PromiseUtil';
+import { Image } from '../model/Image.entity';
+import { Video } from '../model/Video.entity';
 import { AuthUtil } from '../util/AuthUtil';
+import { ProcessStringUtil } from './ProcessStringUtil';
+import { PromiseUtil } from './PromiseUtil';
 export declare class RestfulUtil {
     private readonly authUtil;
     private readonly promiseUtil;

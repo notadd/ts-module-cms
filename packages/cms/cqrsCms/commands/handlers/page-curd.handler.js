@@ -19,8 +19,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
 const pageRepository_1 = require("../../repository/pageRepository");
-const page_param_command_1 = require("../impl/page-param.command");
 const page_service_1 = require("../../service/page.service");
+const page_param_command_1 = require("../impl/page-param.command");
 let CreatePageHandler = class CreatePageHandler {
     constructor(repositoty, publisher, pageService) {
         this.repositoty = repositoty;

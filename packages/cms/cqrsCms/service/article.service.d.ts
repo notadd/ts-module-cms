@@ -1,7 +1,7 @@
 import { Repository } from "typeorm";
 import { ArticleEntity } from "../../entity/article.entity";
-import { ClassifyService } from "./classify.service";
 import { ClassifyEntity } from "../../entity/classify.entity";
+import { ClassifyService } from "./classify.service";
 export declare class ArticleService {
     private readonly respository;
     private readonly claRespository;

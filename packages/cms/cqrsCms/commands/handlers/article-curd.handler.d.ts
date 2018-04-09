@@ -1,8 +1,8 @@
 import { EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { PageRepository } from "../../repository/pageRepository";
-import { ArticleParamCommand } from "../impl/article-param.command";
 import { ArticleService } from "../../service/article.service";
 import { ClassifyService } from "../../service/classify.service";
+import { ArticleParamCommand } from "../impl/article-param.command";
 export declare class ArticleCurdHandler implements ICommandHandler<ArticleParamCommand> {
     private readonly repositoty;
     private readonly publisher;

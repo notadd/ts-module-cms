@@ -1,15 +1,15 @@
-import { UploadProcessBody } from '../interface/file/UploadProcessBody';
-import { ProcessStringUtil } from '../util/ProcessStringUtil';
-import { Document } from '../model/Document.entity';
-import { RestfulUtil } from '../util/RestfulUtil';
-import { Bucket } from '../model/Bucket.entity';
-import { Audio } from '../model/Audio.entity';
-import { Video } from '../model/Video.entity';
-import { Image } from '../model/Image.entity';
-import { File } from '../model/File.entity';
-import { KindUtil } from '../util/KindUtil';
-import { AuthUtil } from '../util/AuthUtil';
 import { Repository } from 'typeorm';
+import { UploadProcessBody } from '../interface/file/UploadProcessBody';
+import { Audio } from '../model/Audio.entity';
+import { Bucket } from '../model/Bucket.entity';
+import { Document } from '../model/Document.entity';
+import { File } from '../model/File.entity';
+import { Image } from '../model/Image.entity';
+import { Video } from '../model/Video.entity';
+import { AuthUtil } from '../util/AuthUtil';
+import { KindUtil } from '../util/KindUtil';
+import { ProcessStringUtil } from '../util/ProcessStringUtil';
+import { RestfulUtil } from '../util/RestfulUtil';
 export declare class FileService {
     private readonly authUtil;
     private readonly kindUtil;

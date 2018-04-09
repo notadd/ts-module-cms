@@ -1,8 +1,8 @@
 import { Repository } from "typeorm";
+import { PageContentEntity } from "../../entity/page.content.entity";
 import { PageEntity } from "../../entity/page.entity";
 import { PageClassifyEntity } from "../../entity/pageClassify.entity";
 import { ClassifyService } from "./classify.service";
-import { PageContentEntity } from "../../entity/page.content.entity";
 export declare class PageService {
     private readonly repository;
     private readonly classifyService;

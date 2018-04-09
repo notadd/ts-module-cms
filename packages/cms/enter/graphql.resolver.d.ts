@@ -1,8 +1,8 @@
-import { RegistrationService } from "./registration.service";
 import { BlockEntity } from "../entity/block.entity";
 import { SiteEntity } from "../entity/site.entity";
 import { VisitEntity } from "../entity/visit.entity";
 import { PagerService } from "../export/common.paging";
+import { RegistrationService } from "./registration.service";
 export declare class EnterResolver {
     private readonly registration;
     private readonly pagerService;

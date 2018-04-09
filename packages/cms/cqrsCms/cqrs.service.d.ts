@@ -1,9 +1,9 @@
 import { CommandBus } from "@nestjs/cqrs";
-import { CreateXmlVm } from "./models/view/create-xml-vm";
-import { CreatePageVm } from "./models/view/create-page.vm";
-import { GetPageVm } from "./models/view/get-page.vm";
-import { ClassifyCurdVm } from "./models/view/classify-curd.vm";
 import { ArticleCurdVm } from "./models/view/article-curd.vm";
+import { ClassifyCurdVm } from "./models/view/classify-curd.vm";
+import { CreatePageVm } from "./models/view/create-page.vm";
+import { CreateXmlVm } from "./models/view/create-xml-vm";
+import { GetPageVm } from "./models/view/get-page.vm";
 export declare class CqrsService {
     private readonly commonbus;
     constructor(commonbus: CommandBus);

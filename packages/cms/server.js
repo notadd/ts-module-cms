@@ -8,10 +8,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-require("./vendor");
 const core_1 = require("@nestjs/core");
-const application_module_1 = require("./application.module");
 const bodyParser = require("body-parser");
+const application_module_1 = require("./application.module");
+require("./vendor");
 const cross = (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");

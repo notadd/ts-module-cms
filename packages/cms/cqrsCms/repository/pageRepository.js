@@ -17,9 +17,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const page_1 = require("./fixtures/page");
 const common_1 = require("@nestjs/common");
 const sitemap_service_1 = require("../../sitemap/sitemap.service");
+const page_1 = require("./fixtures/page");
 let PageRepository = class PageRepository {
     constructor(sitemapService) {
         this.sitemapService = sitemapService;

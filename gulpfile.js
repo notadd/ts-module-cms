@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const gulp = require('gulp');
 const ts = require('gulp-typescript');
+const tslint = require("gulp-tslint");
 const gulpSequence = require('gulp-sequence');
 const rename = require("gulp-rename");
 const sourcemaps = require('gulp-sourcemaps');
@@ -50,6 +51,13 @@ modules.forEach(module => {
 
         return packages[module]
             .src()
+            .pipe(tslint({
+                formatter: "verbose",
+            }))
+            .pipe(tslint.report({
+                emitError: false,
+                summarizeFailureOutput: true,
+            }))
             .pipe(packages[module]())
             .pipe(gulp.dest(`${dist}/${module}`));
     });

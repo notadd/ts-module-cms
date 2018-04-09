@@ -18,8 +18,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
-const get_classify_param_command_1 = require("../impl/get-classify-param.command");
 const classify_service_1 = require("../../service/classify.service");
+const get_classify_param_command_1 = require("../impl/get-classify-param.command");
 let GetClassifyHandler = class GetClassifyHandler {
     constructor(classifyService) {
         this.classifyService = classifyService;
@@ -34,7 +34,9 @@ let GetClassifyHandler = class GetClassifyHandler {
                 result = yield this.classifyService.findAllClassifyArt(1);
             }
             if (command.getClassify.getClassifyById) {
-                result = yield this.classifyService.findClassifyById(command.getClassify.getClassifyById.useFor, command.getClassify.getClassifyById.id).then(a => { return a; });
+                result = yield this.classifyService.findClassifyById(command.getClassify.getClassifyById.useFor, command.getClassify.getClassifyById.id).then(a => {
+                    return a;
+                });
             }
             resolver(result);
         });

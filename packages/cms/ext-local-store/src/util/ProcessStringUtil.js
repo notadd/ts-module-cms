@@ -12,8 +12,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ImageProcessInfo_1 = require("../interface/file/ImageProcessInfo");
 const common_1 = require("@nestjs/common");
+const ImageProcessInfo_1 = require("../interface/file/ImageProcessInfo");
 const KindUtil_1 = require("./KindUtil");
 let ProcessStringUtil = class ProcessStringUtil {
     constructor(kindUtil) {

@@ -18,16 +18,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_1 = require("@nestjs/graphql");
-const classify_service_1 = require("./service/classify.service");
-const page_entity_1 = require("../entity/page.entity");
 const page_content_entity_1 = require("../entity/page.content.entity");
-const error_interface_1 = require("./errorMessage/error.interface");
+const page_entity_1 = require("../entity/page.entity");
+const common_paging_1 = require("../export/common.paging");
 const cqrs_service_1 = require("./cqrs.service");
+const error_interface_1 = require("./errorMessage/error.interface");
+const article_curd_vm_1 = require("./models/view/article-curd.vm");
+const classify_curd_vm_1 = require("./models/view/classify-curd.vm");
 const create_page_vm_1 = require("./models/view/create-page.vm");
 const get_page_vm_1 = require("./models/view/get-page.vm");
-const classify_curd_vm_1 = require("./models/view/classify-curd.vm");
-const article_curd_vm_1 = require("./models/view/article-curd.vm");
-const common_paging_1 = require("../export/common.paging");
+const classify_service_1 = require("./service/classify.service");
 let CqrsResolver = class CqrsResolver {
     constructor(classifyService, sitemapService, pagerService) {
         this.classifyService = classifyService;
@@ -241,7 +241,9 @@ let CqrsResolver = class CqrsResolver {
                 pageParam.limit = amap.get('limitNum');
                 pageParam.pages = amap.get('pages');
             }
-            let resultPage = yield this.sitemapService.getPages(pageParam).then(a => { return a; });
+            let resultPage = yield this.sitemapService.getPages(pageParam).then(a => {
+                return a;
+            });
             const paging = this.pagerService.getPager(resultPage.totalItems, pageParam.pages, pageParam.limit);
             return { pagination: paging, pages: resultPage.pages };
         });
@@ -354,11 +356,13 @@ let CqrsResolver = class CqrsResolver {
                 amap = this.objToStrMap(pictureUpload);
                 let ws = new Map();
                 ws.set('obj', obj);
-                articleVM.pictureUpload = { bucketName: amap.get('bucketName'),
+                articleVM.pictureUpload = {
+                    bucketName: amap.get('bucketName'),
                     rawName: amap.get('rawName'),
                     base64: amap.get('base64'),
                     url: ws,
-                    id: amap.get('id') };
+                    id: amap.get('id')
+                };
             }
             const result = yield this.sitemapService.articleCurd(articleVM);
             return JSON.stringify(result);

@@ -1,7 +1,7 @@
 import { EventPublisher, ICommandHandler } from "@nestjs/cqrs";
 import { PageRepository } from "../../repository/pageRepository";
-import { ClassifyParamCommand } from "../impl/classify-param.command";
 import { ClassifyService } from "../../service/classify.service";
+import { ClassifyParamCommand } from "../impl/classify-param.command";
 export declare class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand> {
     private readonly repositoty;
     private readonly publisher;

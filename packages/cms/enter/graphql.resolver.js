@@ -18,8 +18,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const graphql_1 = require("@nestjs/graphql");
-const registration_service_1 = require("./registration.service");
 const common_paging_1 = require("../export/common.paging");
+const registration_service_1 = require("./registration.service");
 function objToStrMap(obj) {
     let strMap = new Map();
     for (let k of Object.keys(obj)) {
@@ -49,7 +49,9 @@ let EnterResolver = class EnterResolver {
             let bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            const result = yield this.registration.getSite(map.get('limit'), map.get('pages')).then(a => { return a; });
+            const result = yield this.registration.getSite(map.get('limit'), map.get('pages')).then(a => {
+                return a;
+            });
             const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
             return { sites: result.sites, pagination: paging };
         });

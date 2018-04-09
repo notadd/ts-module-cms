@@ -18,8 +18,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
-const create_param_command_1 = require("../impl/create-param.command");
 const pageRepository_1 = require("../../repository/pageRepository");
+const create_param_command_1 = require("../impl/create-param.command");
 let CreateSitemapHandler = class CreateSitemapHandler {
     constructor(repositoty, publisher) {
         this.repositoty = repositoty;

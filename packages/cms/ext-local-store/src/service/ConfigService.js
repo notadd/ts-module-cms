@@ -20,17 +20,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
-const ImageConfig_entity_1 = require("../model/ImageConfig.entity");
+const typeorm_1 = require("@nestjs/typeorm");
+const crypto = require("crypto");
+const typeorm_2 = require("typeorm");
 const AudioConfig_entity_1 = require("../model/AudioConfig.entity");
-const VideoConfig_entity_1 = require("../model/VideoConfig.entity");
-const typeorm_2 = require("@nestjs/typeorm");
-const RestfulUtil_1 = require("../util/RestfulUtil");
 const Bucket_entity_1 = require("../model/Bucket.entity");
 const Image_entity_1 = require("../model/Image.entity");
+const ImageConfig_entity_1 = require("../model/ImageConfig.entity");
+const VideoConfig_entity_1 = require("../model/VideoConfig.entity");
 const FileUtil_1 = require("../util/FileUtil");
-const crypto = require("crypto");
+const RestfulUtil_1 = require("../util/RestfulUtil");
 let ConfigService = class ConfigService {
     constructor(fileUtil, restfulUtil, imageRepository, bucketRepository, imageConfigRepository, audioConfigRepository, videoConfigRepository) {
         this.fileUtil = fileUtil;
@@ -241,17 +241,17 @@ ConfigService = __decorate([
     common_1.Component(),
     __param(0, common_1.Inject(FileUtil_1.FileUtil)),
     __param(1, common_1.Inject(RestfulUtil_1.RestfulUtil)),
-    __param(2, typeorm_2.InjectRepository(Image_entity_1.Image)),
-    __param(3, typeorm_2.InjectRepository(Bucket_entity_1.Bucket)),
-    __param(4, typeorm_2.InjectRepository(ImageConfig_entity_1.ImageConfig)),
-    __param(5, typeorm_2.InjectRepository(AudioConfig_entity_1.AudioConfig)),
-    __param(6, typeorm_2.InjectRepository(VideoConfig_entity_1.VideoConfig)),
+    __param(2, typeorm_1.InjectRepository(Image_entity_1.Image)),
+    __param(3, typeorm_1.InjectRepository(Bucket_entity_1.Bucket)),
+    __param(4, typeorm_1.InjectRepository(ImageConfig_entity_1.ImageConfig)),
+    __param(5, typeorm_1.InjectRepository(AudioConfig_entity_1.AudioConfig)),
+    __param(6, typeorm_1.InjectRepository(VideoConfig_entity_1.VideoConfig)),
     __metadata("design:paramtypes", [FileUtil_1.FileUtil,
         RestfulUtil_1.RestfulUtil,
-        typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], ConfigService);
 exports.ConfigService = ConfigService;

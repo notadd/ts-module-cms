@@ -17,9 +17,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const article_curd_events_1 = require("../impl/article-curd.events");
 const cqrs_1 = require("@nestjs/cqrs");
 const article_service_1 = require("../../service/article.service");
+const article_curd_events_1 = require("../impl/article-curd.events");
 let ArticleCurdEvent = class ArticleCurdEvent {
     constructor(articleService) {
         this.articleService = articleService;

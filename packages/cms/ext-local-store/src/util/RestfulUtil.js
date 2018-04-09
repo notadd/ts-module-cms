@@ -21,12 +21,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
+const fs = require("fs");
+const mime = require("mime");
+const request = require("request");
+const AuthUtil_1 = require("../util/AuthUtil");
 const ProcessStringUtil_1 = require("./ProcessStringUtil");
 const PromiseUtil_1 = require("./PromiseUtil");
-const AuthUtil_1 = require("../util/AuthUtil");
-const request = require("request");
-const mime = require("mime");
-const fs = require("fs");
 let RestfulUtil = class RestfulUtil {
     constructor(authUtil, promiseUtil, processStringUtil) {
         this.authUtil = authUtil;

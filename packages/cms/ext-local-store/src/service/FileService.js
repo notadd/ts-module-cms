@@ -21,17 +21,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const ProcessStringUtil_1 = require("../util/ProcessStringUtil");
 const typeorm_1 = require("@nestjs/typeorm");
-const RestfulUtil_1 = require("../util/RestfulUtil");
-const Bucket_entity_1 = require("../model/Bucket.entity");
-const Audio_entity_1 = require("../model/Audio.entity");
-const Video_entity_1 = require("../model/Video.entity");
-const Image_entity_1 = require("../model/Image.entity");
-const File_entity_1 = require("../model/File.entity");
-const KindUtil_1 = require("../util/KindUtil");
-const AuthUtil_1 = require("../util/AuthUtil");
 const typeorm_2 = require("typeorm");
+const Audio_entity_1 = require("../model/Audio.entity");
+const Bucket_entity_1 = require("../model/Bucket.entity");
+const File_entity_1 = require("../model/File.entity");
+const Image_entity_1 = require("../model/Image.entity");
+const Video_entity_1 = require("../model/Video.entity");
+const AuthUtil_1 = require("../util/AuthUtil");
+const KindUtil_1 = require("../util/KindUtil");
+const ProcessStringUtil_1 = require("../util/ProcessStringUtil");
+const RestfulUtil_1 = require("../util/RestfulUtil");
 let FileService = class FileService {
     constructor(authUtil, kindUtil, restfulUtil, processStringUtil, fileRepository, imageRepository, audioRepository, videoRepository, bucketRepository) {
         this.authUtil = authUtil;

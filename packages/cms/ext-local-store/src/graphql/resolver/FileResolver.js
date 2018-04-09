@@ -20,20 +20,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const ExceptionInterceptor_1 = require("../../interceptor/ExceptionInterceptor");
-const graphql_1 = require("@nestjs/graphql");
 const common_1 = require("@nestjs/common");
-const ConfigService_1 = require("../../service/ConfigService");
-const typeorm_1 = require("typeorm");
-const FileService_1 = require("../../service/FileService");
-const RestfulUtil_1 = require("../../util/RestfulUtil");
-const Bucket_entity_1 = require("../../model/Bucket.entity");
-const typeorm_2 = require("@nestjs/typeorm");
-const Image_entity_1 = require("../../model/Image.entity");
-const File_entity_1 = require("../../model/File.entity");
-const KindUtil_1 = require("../../util/KindUtil");
-const AuthUtil_1 = require("../../util/AuthUtil");
+const graphql_1 = require("@nestjs/graphql");
+const typeorm_1 = require("@nestjs/typeorm");
 const http_1 = require("http");
+const typeorm_2 = require("typeorm");
+const ExceptionInterceptor_1 = require("../../interceptor/ExceptionInterceptor");
+const Bucket_entity_1 = require("../../model/Bucket.entity");
+const File_entity_1 = require("../../model/File.entity");
+const Image_entity_1 = require("../../model/Image.entity");
+const ConfigService_1 = require("../../service/ConfigService");
+const FileService_1 = require("../../service/FileService");
+const AuthUtil_1 = require("../../util/AuthUtil");
+const KindUtil_1 = require("../../util/KindUtil");
+const RestfulUtil_1 = require("../../util/RestfulUtil");
 let FileResolver = class FileResolver {
     constructor(authUtil, kindUtil, restfulUtil, fileService, configService, fileRepository, imageRepository, bucketRepository) {
         this.authUtil = authUtil;
@@ -242,16 +242,16 @@ FileResolver = __decorate([
     __param(2, common_1.Inject(RestfulUtil_1.RestfulUtil)),
     __param(3, common_1.Inject(FileService_1.FileService)),
     __param(4, common_1.Inject(ConfigService_1.ConfigService)),
-    __param(5, typeorm_2.InjectRepository(File_entity_1.File)),
-    __param(6, typeorm_2.InjectRepository(Image_entity_1.Image)),
-    __param(7, typeorm_2.InjectRepository(Bucket_entity_1.Bucket)),
+    __param(5, typeorm_1.InjectRepository(File_entity_1.File)),
+    __param(6, typeorm_1.InjectRepository(Image_entity_1.Image)),
+    __param(7, typeorm_1.InjectRepository(Bucket_entity_1.Bucket)),
     __metadata("design:paramtypes", [AuthUtil_1.AuthUtil,
         KindUtil_1.KindUtil,
         RestfulUtil_1.RestfulUtil,
         FileService_1.FileService,
         ConfigService_1.ConfigService,
-        typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], FileResolver);
 exports.FileResolver = FileResolver;

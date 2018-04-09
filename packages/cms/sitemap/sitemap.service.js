@@ -21,11 +21,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 const article_entity_1 = require("../entity/article.entity");
 const page_entity_1 = require("../entity/page.entity");
 const sitemap_entity_1 = require("../entity/sitemap.entity");
-const typeorm_2 = require("@nestjs/typeorm");
 let SitemapService = class SitemapService {
     constructor(artRepository, pageRepository, siteRepository) {
         this.artRepository = artRepository;
@@ -114,7 +114,9 @@ let SitemapService = class SitemapService {
     }
     buildSitemapXml(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            let array_baidu_sitemap_options = yield this.getBaiduOptions().then(a => { return a; });
+            let array_baidu_sitemap_options = yield this.getBaiduOptions().then(a => {
+                return a;
+            });
             let lc_limit;
             if (array_baidu_sitemap_options['lc_post_limit1000']) {
                 lc_limit = 1000;
@@ -162,11 +164,11 @@ let SitemapService = class SitemapService {
 };
 SitemapService = __decorate([
     common_1.Component(),
-    __param(0, typeorm_2.InjectRepository(article_entity_1.ArticleEntity)),
-    __param(1, typeorm_2.InjectRepository(page_entity_1.PageEntity)),
-    __param(2, typeorm_2.InjectRepository(sitemap_entity_1.SitemapEntity)),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+    __param(0, typeorm_1.InjectRepository(article_entity_1.ArticleEntity)),
+    __param(1, typeorm_1.InjectRepository(page_entity_1.PageEntity)),
+    __param(2, typeorm_1.InjectRepository(sitemap_entity_1.SitemapEntity)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], SitemapService);
 exports.SitemapService = SitemapService;

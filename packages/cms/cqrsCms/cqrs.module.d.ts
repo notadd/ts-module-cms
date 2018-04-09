@@ -1,6 +1,6 @@
-import { CommandBus, EventBus } from '@nestjs/cqrs';
 import { OnModuleInit } from "@nestjs/common";
 import { ModuleRef } from '@nestjs/core';
+import { CommandBus, EventBus } from '@nestjs/cqrs';
 export declare class CqrsModule implements OnModuleInit {
     private readonly moduleRef;
     private readonly command$;

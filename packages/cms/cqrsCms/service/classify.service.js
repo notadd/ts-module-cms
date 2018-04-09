@@ -21,15 +21,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
-const classify_entity_1 = require("../../entity/classify.entity");
-const error_interface_1 = require("../errorMessage/error.interface");
+const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const article_entity_1 = require("../../entity/article.entity");
-const pageClassify_entity_1 = require("../../entity/pageClassify.entity");
-const page_entity_1 = require("../../entity/page.entity");
 const util_1 = require("util");
-const typeorm_3 = require("@nestjs/typeorm");
+const article_entity_1 = require("../../entity/article.entity");
+const classify_entity_1 = require("../../entity/classify.entity");
+const page_entity_1 = require("../../entity/page.entity");
+const pageClassify_entity_1 = require("../../entity/pageClassify.entity");
+const error_interface_1 = require("../errorMessage/error.interface");
 let ClassifyService = class ClassifyService {
     constructor(repository, artRepository, pageRepository, repositoryPage) {
         this.repository = repository;
@@ -45,7 +44,9 @@ let ClassifyService = class ClassifyService {
                 newClassify.groupId = null;
                 newClassify.classifyAlias = '无';
                 newClassify.title = '无';
-                let id = yield this.repository.createQueryBuilder().insert().into(classify_entity_1.ClassifyEntity).values(newClassify).output('id').execute().then(a => { return a; });
+                let id = yield this.repository.createQueryBuilder().insert().into(classify_entity_1.ClassifyEntity).values(newClassify).output('id').execute().then(a => {
+                    return a;
+                });
                 let str = JSON.stringify(id).split(':')[1];
                 let numb = str.substring(0, str.lastIndexOf('}'));
                 let newId = Number(numb);
@@ -80,7 +81,9 @@ let ClassifyService = class ClassifyService {
                 newClassify.groupId = null;
                 newClassify.classifyAlias = '无';
                 newClassify.title = '无';
-                let id = yield this.pageRepository.createQueryBuilder().insert().into(pageClassify_entity_1.PageClassifyEntity).values(newClassify).output('id').execute().then(a => { return a; });
+                let id = yield this.pageRepository.createQueryBuilder().insert().into(pageClassify_entity_1.PageClassifyEntity).values(newClassify).output('id').execute().then(a => {
+                    return a;
+                });
                 let str = JSON.stringify(id).split(':')[1];
                 let numb = str.substring(0, str.lastIndexOf('}'));
                 let newId = Number(numb);
@@ -265,7 +268,9 @@ let ClassifyService = class ClassifyService {
             const result = yield this.repository.createQueryBuilder('article_classify_table').innerJoinAndSelect('article_classify_table.children', 'children').orderBy('article_classify_table.id').getMany();
             let resultArray = result;
             yield typeorm_2.getManager().query("update public.article_classify_table set \"parentId\"=null");
-            let array = yield this.getClassifyId(id).then(a => { return a; });
+            let array = yield this.getClassifyId(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             let artiicles = yield this.artRepository.createQueryBuilder().where('"classifyId" in (:id)', { id: newArray }).getMany();
@@ -283,7 +288,9 @@ let ClassifyService = class ClassifyService {
             yield typeorm_2.getManager().query("update public.page_classify_table set \"parentId\" = \"groupId\"");
             const result = yield this.pageRepository.createQueryBuilder('page_classify_table').innerJoinAndSelect('page_classify_table.children', 'children').orderBy('page_classify_table.id').getMany();
             yield typeorm_2.getManager().query("update public.page_classify_table set \"parentId\"=null");
-            let array = yield this.getClassifyIdPage(id).then(a => { return a; });
+            let array = yield this.getClassifyIdPage(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             let artiicles = yield this.repositoryPage.createQueryBuilder().where('"classifyId" in (:id)', { id: newArray }).getMany();
@@ -387,10 +394,11 @@ let ClassifyService = class ClassifyService {
             if (classify == null)
                 throw new error_interface_1.MessageCodeError('page:classify:classifyIdMissing');
             let articles = [];
-            let currentArticle = yield this.artRepository.createQueryBuilder().
-                where('"classifyId"= :classifyId and "topPlace"=\'current\'', { classifyId: classify.groupId }).orderBy('"updateAt"', 'ASC').getMany();
+            let currentArticle = yield this.artRepository.createQueryBuilder().where('"classifyId"= :classifyId and "topPlace"=\'current\'', { classifyId: classify.groupId }).orderBy('"updateAt"', 'ASC').getMany();
             articles.push(...currentArticle);
-            let array = yield this.getClassifyId(classify.groupId).then(a => { return a; });
+            let array = yield this.getClassifyId(classify.groupId).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             let finalArray = [];
@@ -434,7 +442,9 @@ let ClassifyService = class ClassifyService {
             if (entity == null)
                 throw new error_interface_1.MessageCodeError('page:classify:classifyIdMissing');
             let level = yield this.findLevel(entity.id);
-            let array = yield this.getClassifyId(id).then(a => { return a; });
+            let array = yield this.getClassifyId(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             if (show == true) {
@@ -507,7 +517,9 @@ let ClassifyService = class ClassifyService {
             let customArray = [];
             for (let t in custom) {
                 customArray.push(custom[t].id);
-                customArray.push(...yield this.getClassifyId(custom[t].id).then(a => { return a; }));
+                customArray.push(...yield this.getClassifyId(custom[t].id).then(a => {
+                    return a;
+                }));
             }
             customArray = Array.from(new Set(customArray));
             return customArray;
@@ -560,7 +572,9 @@ let ClassifyService = class ClassifyService {
     findLevel(id) {
         return __awaiter(this, void 0, void 0, function* () {
             let arr = yield this.repository.find();
-            let final = yield this.showClassifyLevel(arr, id, 0).then(a => { return a; });
+            let final = yield this.showClassifyLevel(arr, id, 0).then(a => {
+                return a;
+            });
             let num;
             for (let t in final) {
                 if (final[t].id == 1) {
@@ -615,7 +629,9 @@ let ClassifyService = class ClassifyService {
                 groupId = 1;
             }
             classify.groupId = groupId;
-            let array = yield this.getClassifyId(id).then(a => { return a; });
+            let array = yield this.getClassifyId(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             this.resetTheSetTop(newArray);
@@ -710,14 +726,18 @@ let ClassifyService = class ClassifyService {
             let entity = yield this.repository.findOneById(id);
             if (entity == null)
                 throw new error_interface_1.MessageCodeError('page:classify:classifyIdMissing');
-            let array = yield this.getClassifyId(id).then(a => { return a; });
+            let array = yield this.getClassifyId(id).then(a => {
+                return a;
+            });
             array.push(id);
             let newArray = Array.from(new Set(array));
             let num = 0;
             let result = yield this.artRepository.createQueryBuilder().where('"classifyId" in (:id)', { id: newArray }).andWhere('"topPlace"<> :topPlace', { topPlace: 'global' }).getMany();
             let numArray = [];
             for (let t in display) {
-                let array = yield this.getClassifyId(display[t]).then(a => { return a; });
+                let array = yield this.getClassifyId(display[t]).then(a => {
+                    return a;
+                });
                 let newArray = Array.from(new Set(array));
                 numArray.push(...newArray);
             }
@@ -768,7 +788,9 @@ let ClassifyService = class ClassifyService {
                 art[t].classify = yield this.repository.createQueryBuilder()
                     .where('"id"= :id', { id: art[t].classifyId })
                     .getOne()
-                    .then(a => { return a.title; });
+                    .then(a => {
+                    return a.title;
+                });
                 result.push(art[t]);
             }
             return result;
@@ -856,7 +878,9 @@ let ClassifyService = class ClassifyService {
                         update = false;
                     }
                     else {
-                        let array = yield this.getClassifyId(deleteNum).then(a => { return a; });
+                        let array = yield this.getClassifyId(deleteNum).then(a => {
+                            return a;
+                        });
                         let newArray = Array.from(new Set(array));
                         let artiicles = yield this.artRepository.createQueryBuilder().where('"classifyId" in (:id)', { id: newArray }).getMany();
                         if (artiicles.length > 0)
@@ -871,7 +895,9 @@ let ClassifyService = class ClassifyService {
                         update = false;
                     }
                     else {
-                        let array = yield this.getClassifyIdPage(deleteNum).then(a => { return a; });
+                        let array = yield this.getClassifyIdPage(deleteNum).then(a => {
+                            return a;
+                        });
                         let newArray = Array.from(new Set(array));
                         let artiicles = yield this.repositoryPage.createQueryBuilder().where('"classifyId" in (:id)', { id: newArray }).getMany();
                         if (artiicles.length > 0)
@@ -889,13 +915,13 @@ let ClassifyService = class ClassifyService {
 };
 ClassifyService = __decorate([
     common_1.Component(),
-    __param(0, typeorm_3.InjectRepository(classify_entity_1.ClassifyEntity)),
-    __param(1, typeorm_3.InjectRepository(article_entity_1.ArticleEntity)),
-    __param(2, typeorm_3.InjectRepository(pageClassify_entity_1.PageClassifyEntity)),
-    __param(3, typeorm_3.InjectRepository(page_entity_1.PageEntity)),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+    __param(0, typeorm_1.InjectRepository(classify_entity_1.ClassifyEntity)),
+    __param(1, typeorm_1.InjectRepository(article_entity_1.ArticleEntity)),
+    __param(2, typeorm_1.InjectRepository(pageClassify_entity_1.PageClassifyEntity)),
+    __param(3, typeorm_1.InjectRepository(page_entity_1.PageEntity)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], ClassifyService);
 exports.ClassifyService = ClassifyService;

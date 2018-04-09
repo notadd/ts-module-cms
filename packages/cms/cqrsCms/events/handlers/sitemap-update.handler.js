@@ -18,8 +18,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
-const sitemap_update_event_1 = require("../impl/sitemap-update.event");
 const sitemap_service_1 = require("../../../sitemap/sitemap.service");
+const sitemap_update_event_1 = require("../impl/sitemap-update.event");
 let SitemapUpdateHandler = class SitemapUpdateHandler {
     constructor(sitemapService) {
         this.sitemapService = sitemapService;

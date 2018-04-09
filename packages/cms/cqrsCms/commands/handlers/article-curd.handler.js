@@ -19,9 +19,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
 const pageRepository_1 = require("../../repository/pageRepository");
-const article_param_command_1 = require("../impl/article-param.command");
 const article_service_1 = require("../../service/article.service");
 const classify_service_1 = require("../../service/classify.service");
+const article_param_command_1 = require("../impl/article-param.command");
 let ArticleCurdHandler = class ArticleCurdHandler {
     constructor(repositoty, publisher, articleService, classifyService) {
         this.repositoty = repositoty;
@@ -37,7 +37,9 @@ let ArticleCurdHandler = class ArticleCurdHandler {
             if (!command.article.getAllArticles) {
                 let value, MessageCodeError;
                 if (command.article.createArticle) {
-                    let result = yield this.articleService.CurdArticleCheck(command.article.createArticle.article.classifyId, 0).then(a => { return a; });
+                    let result = yield this.articleService.CurdArticleCheck(command.article.createArticle.article.classifyId, 0).then(a => {
+                        return a;
+                    });
                     value = result.Continue;
                     MessageCodeError = result.MessageCodeError;
                 }
@@ -64,7 +66,9 @@ let ArticleCurdHandler = class ArticleCurdHandler {
                 result = yield this.articleService.getArticleById(command.article.getArticles.getArticleById);
             }
             if (command.article.getAllArticles && command.article.getArticles.recycleFind) {
-                result = yield this.articleService.recycleFind(command.article.limitNum, command.article.pages).then(a => { return a; });
+                result = yield this.articleService.recycleFind(command.article.limitNum, command.article.pages).then(a => {
+                    return a;
+                });
             }
             if (command.article.getAllArticles && command.article.getArticles.reductionGetByClassifyId) {
                 result = yield this.articleService.reductionClassity(command.article.getArticles.reductionGetByClassifyId, command.article.limitNum, command.article.pages);

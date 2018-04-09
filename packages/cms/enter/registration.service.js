@@ -21,11 +21,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const typeorm_1 = require("typeorm");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 const block_entity_1 = require("../entity/block.entity");
 const site_entity_1 = require("../entity/site.entity");
 const visit_entity_1 = require("../entity/visit.entity");
-const typeorm_2 = require("@nestjs/typeorm");
 let RegistrationService = class RegistrationService {
     constructor(blockRespository, siteRespository, visitRespository) {
         this.blockRespository = blockRespository;
@@ -89,7 +89,9 @@ let RegistrationService = class RegistrationService {
     }
     getAllBlocks(limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.blockRespository.createQueryBuilder().orderBy('"id"', 'ASC').skip(limit * (pages - 1)).take(limit).getManyAndCount().then(a => { return a; });
+            const result = yield this.blockRespository.createQueryBuilder().orderBy('"id"', 'ASC').skip(limit * (pages - 1)).take(limit).getManyAndCount().then(a => {
+                return a;
+            });
             let str = JSON.stringify(result);
             let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
             let block = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
@@ -117,11 +119,11 @@ let RegistrationService = class RegistrationService {
 };
 RegistrationService = __decorate([
     common_1.Component(),
-    __param(0, typeorm_2.InjectRepository(block_entity_1.BlockEntity)),
-    __param(1, typeorm_2.InjectRepository(site_entity_1.SiteEntity)),
-    __param(2, typeorm_2.InjectRepository(visit_entity_1.VisitEntity)),
-    __metadata("design:paramtypes", [typeorm_1.Repository,
-        typeorm_1.Repository,
-        typeorm_1.Repository])
+    __param(0, typeorm_1.InjectRepository(block_entity_1.BlockEntity)),
+    __param(1, typeorm_1.InjectRepository(site_entity_1.SiteEntity)),
+    __param(2, typeorm_1.InjectRepository(visit_entity_1.VisitEntity)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository,
+        typeorm_2.Repository])
 ], RegistrationService);
 exports.RegistrationService = RegistrationService;

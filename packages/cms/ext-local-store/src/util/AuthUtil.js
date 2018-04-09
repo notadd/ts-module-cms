@@ -20,7 +20,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
 const crypto = require('crypto');
 let AuthUtil = class AuthUtil {
-    constructor() { }
+    constructor() {
+    }
     getHeaderAuth(bucket, method, url, date, md5) {
         return __awaiter(this, void 0, void 0, function* () {
             let ori = '';

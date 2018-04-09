@@ -19,8 +19,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const cqrs_1 = require("@nestjs/cqrs");
 const pageRepository_1 = require("../../repository/pageRepository");
-const classify_param_command_1 = require("../impl/classify-param.command");
 const classify_service_1 = require("../../service/classify.service");
+const classify_param_command_1 = require("../impl/classify-param.command");
 let ClassifyCurdHandler = class ClassifyCurdHandler {
     constructor(repositoty, publisher, classifyService) {
         this.repositoty = repositoty;
