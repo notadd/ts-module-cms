@@ -1,4 +1,5 @@
 type Query{
+
     #获取参观预约所有信息
     getAllVisits(limit:Int,pages:Int):visitPagination
 }
