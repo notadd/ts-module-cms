@@ -9,17 +9,17 @@ export class GetClassifyHandler implements ICommandHandler<GetClassifyParamComma
 
     async execute(command: GetClassifyParamCommand, resolver: (value) => void) {
         let result;
-        //页面分类无极限
-        if (command.getClassify.useFor == 'page') {
+        /*页面分类无极限*/
+        if (command.getClassify.useFor === "page") {
             result = await this.classifyService.findAllClassifyPage(1);
         }
-        //文章分类无极限
-        if (command.getClassify.useFor == 'art') {
+        /*文章分类无极限*/
+        if (command.getClassify.useFor === "art") {
             result = await this.classifyService.findAllClassifyArt(1);
         }
         if (command.getClassify.getClassifyById) {
             result = await this.classifyService.findClassifyById(command.getClassify.getClassifyById.useFor, command.getClassify.getClassifyById.id).then(a => {
-                return a
+                return a;
             });
         }
         resolver(result);
