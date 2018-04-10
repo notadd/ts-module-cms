@@ -6,8 +6,8 @@ import { PagerService } from "../export/common.paging";
 import { RegistrationService } from "./registration.service";
 
 function objToStrMap(obj): Map<string, string> {
-    let strMap = new Map();
-    for (let k of Object.keys(obj)) {
+    const strMap = new Map();
+    for (const k of Object.keys(obj)) {
         strMap.set(k, obj[ k ]);
     }
     return strMap;
@@ -19,82 +19,82 @@ export class EnterResolver {
                 private readonly pagerService: PagerService) {
     }
 
-    @Query('getAllVisits')
+    @Query("getAllVisits")
     async getAllVisits(obj, arg) {
         const str: string = JSON.stringify(arg);
-        let bToJSon = JSON.parse(str);
+        const bToJSon = JSON.parse(str);
         let map = new Map();
         map = objToStrMap(bToJSon);
-        const result = await this.registration.getVisit(map.get('limit'), map.get('pages'));
-        const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
+        const result = await this.registration.getVisit(map.get("limit"), map.get("pages"));
+        const paging = this.pagerService.getPager(result.totals, map.get("pages"), map.get("limit"));
         return { pagination: paging, visits: result.visits };
     }
 
-    @Query('getAllSites')
+    @Query("getAllSites")
     async getAllSites(obj, arg) {
         const str: string = JSON.stringify(arg);
-        let bToJSon = JSON.parse(str);
+        const bToJSon = JSON.parse(str);
         let map = new Map();
         map = objToStrMap(bToJSon);
-        const result = await this.registration.getSite(map.get('limit'), map.get('pages')).then(a => {
-            return a
+        const result = await this.registration.getSite(map.get("limit"), map.get("pages")).then(a => {
+            return a;
         });
-        const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
-        return { sites: result.sites, pagination: paging }
+        const paging = this.pagerService.getPager(result.totals, map.get("pages"), map.get("limit"));
+        return { sites: result.sites, pagination: paging };
     }
 
-    @Query('getAllBlocks')
+    @Query("getAllBlocks")
     async getAllBlocks(obj, arg) {
         const str: string = JSON.stringify(arg);
-        let bToJSon = JSON.parse(str);
+        const bToJSon = JSON.parse(str);
         let map = new Map();
         map = objToStrMap(bToJSon);
-        const result = await this.registration.getAllBlocks(map.get('limit'), map.get('pages'));
-        const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
+        const result = await this.registration.getAllBlocks(map.get("limit"), map.get("pages"));
+        const paging = this.pagerService.getPager(result.totals, map.get("pages"), map.get("limit"));
         return { blocks: result.blocks, pagination: paging };
     }
 
-    @Mutation('createBlocks')
+    @Mutation("createBlocks")
     async createBlocks(obj, arg) {
         const str: string = JSON.stringify(arg);
-        let bToJSon = JSON.parse(str);
+        const bToJSon = JSON.parse(str);
         let map = new Map();
         map = objToStrMap(bToJSon);
-        let block: BlockEntity = map.get('block');
+        const block: BlockEntity = map.get("block");
         const result = await this.registration.createBlock(block);
         return JSON.stringify(result);
     }
 
-    @Mutation('createSites')
+    @Mutation("createSites")
     async createSites(obj, arg) {
         const str: string = JSON.stringify(arg);
-        let bToJSon = JSON.parse(str);
+        const bToJSon = JSON.parse(str);
         let map = new Map();
         map = objToStrMap(bToJSon);
-        let site: SiteEntity = map.get('site');
+        const site: SiteEntity = map.get("site");
         if (site.eventDate) {
-            let date: string = site.eventDate.toString();
+            const date: string = site.eventDate.toString();
             site.eventDate = new Date(Date.parse(date.replace(/- /g, "/")));
         }
         if (site.startTime) {
-            let date: string = site.startTime.toString();
+            const date: string = site.startTime.toString();
             site.startTime = new Date(Date.parse(date.replace(/- /g, "/")));
         }
         if (site.endTime) {
-            let date: string = site.endTime.toString();
+            const date: string = site.endTime.toString();
             site.endTime = new Date(Date.parse(date.replace(/- /g, "/")));
         }
         const result = await this.registration.createSite(site);
         return JSON.stringify(result);
     }
 
-    @Mutation('createVisits')
+    @Mutation("createVisits")
     async createVisits(obj, arg) {
         const str: string = JSON.stringify(arg);
-        let bToJSon = JSON.parse(str);
+        const bToJSon = JSON.parse(str);
         let map = new Map();
         map = objToStrMap(bToJSon);
-        let visit: VisitEntity = map.get('visit');
+        const visit: VisitEntity = map.get("visit");
         const result = await this.registration.createVisit(visit);
         return JSON.stringify(result);
     }
