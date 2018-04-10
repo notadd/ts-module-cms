@@ -9,13 +9,13 @@ export class Sitemap extends AggregateRoot {
     }
 
     updatexml(enemyId: string) {
-        // logic
+        /* logic*/
         this.apply(new SitemapUpdateEvent(enemyId));
     }
 
     createxml(createParam: CreateXmlVm) {
-        // logic
-        this.apply(new SitemapCreateEvent(createParam));
-    }
+     /* logic*/
+     this.apply(new SitemapCreateEvent(createParam));
+}
 
 }
