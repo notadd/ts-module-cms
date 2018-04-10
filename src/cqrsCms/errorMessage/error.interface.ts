@@ -1,5 +1,5 @@
-import { IErrorMessages } from "../common/error.interface";
-import { errorMessagesConfig } from "./error.config";
+import { ErrorInterface } from "../common/error.interface";
+import { ErrorInterfaceConfig } from "./error.config";
 
 export class MessageCodeError extends Error {
     public messageCode: string;
@@ -12,7 +12,7 @@ export class MessageCodeError extends Error {
         super();
 
         const errorMessageConfig = this.getMessageFromMessageCode(messageCode);
-        if (!errorMessageConfig) throw new Error('Unable to find message code error.');
+        if (!errorMessageConfig) throw new Error("Unable to find message code error.");
 
         Error.captureStackTrace(this, this.constructor);
         this.name = this.constructor.name;
@@ -25,19 +25,19 @@ export class MessageCodeError extends Error {
     /**
      * @description: Find the error config by the given message code.
      * @param {string} messageCode
-     * @return {IErrorMessages}
+     * @return {ErrorInterface}
      */
-    private getMessageFromMessageCode(messageCode: string): IErrorMessages {
-        let errorMessageConfig: IErrorMessages | undefined;
-        Object.keys(errorMessagesConfig).some(key => {
+    private getMessageFromMessageCode(messageCode: string): ErrorInterface {
+        let errorMessageConfig: ErrorInterface | undefined;
+        Object.keys(ErrorInterfaceConfig).some(key => {
             if (key === messageCode) {
-                errorMessageConfig = errorMessagesConfig[ key ];
+                errorMessageConfig = ErrorInterfaceConfig[ key ];
                 return true;
             }
             return false;
         });
 
-        if (!errorMessageConfig) throw new Error('Unable to find the given message code error.');
+        if (!errorMessageConfig) throw new Error("Unable to find the given message code error.");
         return errorMessageConfig;
     }
 
