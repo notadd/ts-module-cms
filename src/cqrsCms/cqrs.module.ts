@@ -1,6 +1,6 @@
 import { Module, OnModuleInit } from "@nestjs/common";
-import { ModuleRef } from '@nestjs/core';
-import { CommandBus, CQRSModule, EventBus } from '@nestjs/cqrs';
+import { ModuleRef } from "@nestjs/core";
+import { CommandBus, CQRSModule, EventBus } from "@nestjs/cqrs";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ArticleEntity } from "../entity/article.entity";
 import { ClassifyEntity } from "../entity/classify.entity";
