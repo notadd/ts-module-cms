@@ -8,15 +8,15 @@ export class SitemapCreateHandler implements IEventHandler<SitemapCreateEvent> {
     }
 
     async handle(event: SitemapCreateEvent) {
-        let url: string = 'www.baidu.com';
-        let array_baidu_sitemap_options = {
-            lc_XML_FileName: event.createXml.lc_XML_FileName,
-            lc_is_Enabled_XML_Sitemap: event.createXml.lc_is_Enabled_XML_Sitemap,
-            lc_is_update_sitemap_when_post: event.createXml.lc_is_update_sitemap_when_post,
-            lc_post_limit1000: event.createXml.lc_post_limit1000,
-            lc_page_select: event.createXml.lc_page_select,
-            lc_post_select: event.createXml.lc_post_select
+        const url = "www.baidu.com";
+        const arrayBaiduSiteMapOptions = {
+            xmlFileName: event.createXml.xmlFileName,
+            xmlSiteMap: event.createXml.xmlSiteMap,
+            updateWhenPost: event.createXml.updateWhenPost,
+            postLimit1000: event.createXml.postLimit1000,
+            pageSelect: event.createXml.pageSelect,
+            postSelect: event.createXml.postSelect
         };
-        this.sitemapService.commitXML(array_baidu_sitemap_options, url);
+        this.sitemapService.commitXML(arrayBaiduSiteMapOptions, url);
     }
 }
