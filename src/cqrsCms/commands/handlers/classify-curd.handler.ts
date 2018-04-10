@@ -11,11 +11,11 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
     }
 
     async execute(command: ClassifyParamCommand, resolver: (value?) => void): Promise<any> {
-        let id: string = '0';
+        const id = "0";
         const page = this.publisher.mergeObjectContext(await this.repositoty.find(id));
-        let value, MessageCodeError;
+        let value, messageCodeError;
         if (!command.classify.getAllClassify) {
-            //增加、修改、删除、移动分类
+            /*增加、修改、删除、移动分类*/
             if (command.classify.createClassify) {
                 if (command.classify.createClassify.art) {
                     const result = await this.classifyService.classifyCheck(
@@ -24,7 +24,7 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
                         command.classify.createClassify.art.groupId,
                         command.classify.createClassify.art.classifyAlias);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
                 if (command.classify.createClassify.page) {
                     const result = await this.classifyService.classifyCheck(
@@ -33,7 +33,7 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
                         command.classify.createClassify.page.groupId,
                         command.classify.createClassify.page.classifyAlias);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
             }
             if (command.classify.updateClassify) {
@@ -44,7 +44,7 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
                         command.classify.updateClassify.page.groupId,
                         command.classify.updateClassify.page.classifyAlias);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
                 if (command.classify.updateClassify.art) {
                     const result = await this.classifyService.classifyCheck(
@@ -53,7 +53,7 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
                         command.classify.updateClassify.art.groupId,
                         command.classify.updateClassify.art.classifyAlias);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
 
             }
@@ -62,17 +62,17 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
                     command.classify.mobileClassifyId.id,
                     command.classify.mobileClassifyId.parentId);
                 value = result.Continue;
-                MessageCodeError = result.MessageCodeError
+                messageCodeError = result.MessageCodeError;
             }
             if (command.classify.deleteClassify) {
-                const result = await this.classifyService.classifyCheck(command.classify.useFor, 0, 0, '', command.classify.deleteClassify);
+                const result = await this.classifyService.classifyCheck(command.classify.useFor, 0, 0, "", command.classify.deleteClassify);
                 value = result.Continue;
-                MessageCodeError = result.MessageCodeError;
+                messageCodeError = result.MessageCodeError;
             }
-            if (value == undefined) value = true;
+            if (value === undefined) value = true;
             if (value) page.createClassify(command.classify);
         }
-        resolver({ MessageCodeError: MessageCodeError, Continue: value });
+        resolver({ MessageCodeError: messageCodeError, Continue: value });
         page.commit();
 
     }
