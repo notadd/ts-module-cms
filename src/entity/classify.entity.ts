@@ -48,7 +48,7 @@ export class ClassifyEntity {
     @Column({ nullable: true }) isPreTop: boolean;
 
     @OneToMany(type => ClassifyEntity, classifyEntity => classifyEntity.parent, { cascadeInsert: true })
-    children: ClassifyEntity[];
+    children: Array<ClassifyEntity>;
 
     @ManyToOne(type => ClassifyEntity, classifyEntity => classifyEntity.children, { cascadeInsert: true })
     parent: ClassifyEntity;
@@ -60,5 +60,5 @@ export class ClassifyEntity {
     @UpdateDateColumn() updateAt: Date;
 
     @OneToMany(type => ArticleEntity, articleEntity => articleEntity.classifications)
-    articles: ArticleEntity[];
+    articles: Array<ArticleEntity>;
 }
