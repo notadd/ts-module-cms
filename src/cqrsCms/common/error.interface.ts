@@ -1,6 +1,6 @@
 import { HttpStatus } from "@nestjs/common";
 
-export interface IErrorMessages {
+export interface ErrorInterface {
     readonly type: string;
 
     readonly httpStatus: HttpStatus;
@@ -11,45 +11,45 @@ export interface IErrorMessages {
 }
 
 export interface ResizeData {
-    scale?: number
+    scale?: number;
 
-    wscale?: number
+    wscale?: number;
 
-    hscale?: number
+    hscale?: number;
 
-    width?: number
+    width?: number;
 
-    height?: number
+    height?: number;
 
-    pixel?: number
+    pixel?: number;
 }
 
 export interface Resize {
-    mode: string
+    mode: string;
 
-    data: ResizeData
+    data: ResizeData;
 }
 
 export interface Tailor {
-    isBefore: boolean
+    isBefore: boolean;
 
-    width: number
+    width: number;
 
-    height: number
+    height: number;
 
-    x: number
+    x: number;
 
-    y: number
+    y: number;
 
-    gravity: string
+    gravity: string;
 }
 
 export class ImagePreProcessInfo {
-    public resize?: Resize
+    public resize?: Resize;
 
-    public tailor?: Tailor
+    public tailor?: Tailor;
 
-    public watermark?: boolean
+    public watermark?: boolean;
 
-    public rotate?: number
+    public rotate?: number;
 }

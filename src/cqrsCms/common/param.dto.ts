@@ -1,14 +1,13 @@
 import { ApiModelProperty } from "@nestjs/swagger";
-import { IsBoolean, IsInt, IsString } from 'class-validator';
+import { IsBoolean, IsInt, IsString } from "class-validator";
 
 export enum EnvConfig {
     global,
     current,
-    level1,
     level2,
+    level1,
     level3
 }
-
 export class GetLimit {
     @ApiModelProperty({ type: Number })
     @IsInt()
@@ -249,12 +248,6 @@ export class DeleteDto {
     readonly id;
 }
 
-export class showNextDto {
-    @ApiModelProperty({ type: Number, required: true })
-    @IsInt()
-    readonly id;
-
-}
 
 export class PageSerach {
     @ApiModelProperty({ type: String })
@@ -344,6 +337,6 @@ export class UpdatePage {
     readonly classify;
 
     @ApiModelProperty({ type: ContentMap })
-    readonly contents: [ ContentMap ]
+    readonly contents: [ ContentMap ];
 
 }
