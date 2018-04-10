@@ -20,7 +20,7 @@ type visit{
     #手机
     telPhone:String,
     #微信
-    WeChat:String,
+    weChat:String,
     #邮箱
     email:String,
     #公司名称
@@ -41,7 +41,7 @@ input createVisit{
     #手机
     telPhone:String!,
     #微信
-    WeChat:String!,
+    weChat:String!,
     #邮箱
     email:String!,
     #公司名称
