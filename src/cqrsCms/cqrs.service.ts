@@ -15,7 +15,7 @@ import { GetPageVm } from "./models/view/get-page.vm";
 
 @Component()
 export class CqrsService {
-    //CommandBus是一个命令流。它将命令委托给相应的处理程序。每个命令都必须有相应的命令处理程序:
+    /*CommandBus是一个命令流。它将命令委托给相应的处理程序。每个命令都必须有相应的命令处理程序:*/
     constructor(private readonly commonbus: CommandBus) {
     }
 
@@ -25,7 +25,7 @@ export class CqrsService {
     }
 
     async updateXml() {
-        const result = await this.commonbus.execute(new DeleteParamCommand('10000', '10000'));
+        const result = await this.commonbus.execute(new DeleteParamCommand("10000", "10000"));
         return result;
     }
 
@@ -61,7 +61,11 @@ export class CqrsService {
 
     }
 
-    //获取分类
+    /**
+     * 获取分类
+     * @param {ClassifyCurdVm} getClassifyDto
+     * @returns {Promise<any>}
+     */
     async getClassify(getClassifyDto: ClassifyCurdVm) {
         const result = await this.commonbus.execute(new GetClassifyParamCommand(getClassifyDto));
         return result;
