@@ -31,9 +31,9 @@ export class PageEntity {
 
     /*页面内容*/
     @OneToMany(type => PageContentEntity, pageContentEntity => pageContentEntity.page)
-    contents: PageContentEntity[];
+    contents: Array<PageContentEntity>;
 
     @OneToMany(type => PageClassifyEntity, pageClassifyEntity => pageClassifyEntity.pages)
-    classifications: PageClassifyEntity[];
+    classifications: Array<PageClassifyEntity>;
 
 }
