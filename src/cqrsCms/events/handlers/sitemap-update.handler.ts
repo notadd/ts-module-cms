@@ -8,7 +8,7 @@ export class SitemapUpdateHandler implements IEventHandler<SitemapUpdateEvent> {
     }
 
     async handle(event: SitemapUpdateEvent) {
-        let url: string = 'www.baidu.com';
+        const url = "www.baidu.com";
         await this.sitemapService.UpdateXMLFile(0, url);
     }
 
