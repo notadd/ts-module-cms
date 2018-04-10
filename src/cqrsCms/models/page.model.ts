@@ -7,27 +7,25 @@ import { ArticleCurdVm } from "./view/article-curd.vm";
 import { ClassifyCurdVm } from "./view/classify-curd.vm";
 import { CreatePageVm } from "./view/create-page.vm";
 
-const clc = require('cli-color');
-
 export class Page extends AggregateRoot {
     constructor(private readonly id: string) {
         super();
     }
 
-    //页面
+    /*页面*/
     createPage(data: CreatePageVm) {
         this.apply(new PageCurdEvent(data));
-        this.apply(new SitemapUpdateEvent('0'));
+        this.apply(new SitemapUpdateEvent("0"));
     }
 
-    //分类
+    /*分类*/
     createClassify(data: ClassifyCurdVm) {
-        this.apply(new ClassifyCurdEvents(data))
+        this.apply(new ClassifyCurdEvents(data));
     }
 
-    //文章
+    /*文章*/
     createArticle(data: ArticleCurdVm) {
         this.apply(new ArticleCurdEvents(data));
-        this.apply(new SitemapUpdateEvent('0'));
+        this.apply(new SitemapUpdateEvent("0"));
     }
 }
