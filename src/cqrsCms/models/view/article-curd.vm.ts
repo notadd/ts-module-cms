@@ -8,13 +8,13 @@ export class ArticleCurdVm {
     public updateArticle?: { article: ArticleEntity };
 
     /*放入回收站*/
-    public deleteById?: number[];
+    public deleteById?: Array<number>;
 
     /*回收站删除*/
-    public recycleDelete?: number[];
+    public recycleDelete?: Array<number>;
 
     /*回收站还原*/
-    public reductionArticle?: number[];
+    public reductionArticle?: Array<number>;
 
     /*获取所有文章*/
     public getAllArticles?: boolean;
