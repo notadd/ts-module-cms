@@ -1,72 +1,52 @@
-import * as _ from 'underscore';
+import * as _ from "underscore";
 
 export class PagerService {
-    getPager(totalItems: number, currentPage?: number, pageSize?: number) {
-        // calculate total pages
-        if (pageSize == null || pageSize == 0) {
-            pageSize = 1;
+    getPager(totalItem: number, currentPages?: number, pagesSize?: number) {
+        /* calculate total pages*/
+        if (pagesSize === null || pagesSize === 0) {
+            pagesSize = 1;
         }
-        if (currentPage == null || currentPage == 0) {
-            currentPage = 1;
+        if (currentPages === null || currentPages === 0) {
+            currentPages = 1;
         }
-        let totalPages = Math.ceil(totalItems / pageSize);
-        let startPage: number, endPage: number;
-        if (totalPages <= 10) {
-            // less than 10 total pages so show all
-            startPage = 1;
-            endPage = totalPages;
+        const totalPage = Math.ceil(totalItem / pagesSize);
+        let startPages: number, endPages: number;
+        if (totalPage <= 10) {
+            /* less than 10 total pages so show all*/
+            startPages = 1;
+            endPages = totalPage;
         } else {
-            // more than 10 total pages so calculate start and end pages
-            if (currentPage <= 6) {
-                startPage = 1;
-                endPage = 10;
-            } else if (currentPage + 4 >= totalPages) {
-                startPage = totalPages - 9;
-                endPage = totalPages;
+            /* more than 10 total pages so calculate start and end pages*/
+            if (currentPages <= 6) {
+                startPages = 1;
+                endPages = 10;
+            } else if (currentPages + 4 >= totalPage) {
+                startPages = totalPage - 9;
+                endPages = totalPage;
             } else {
-                startPage = currentPage - 5;
-                endPage = currentPage + 4;
+                startPages = currentPages - 5;
+                endPages = currentPages + 4;
             }
         }
 
-        // calculate start and end item indexes
-        let startIndex = (currentPage - 1) * pageSize;
-        let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+        /* calculate start and end item indexes*/
+        const startIndexPage = (currentPages - 1) * pagesSize;
+        const endIndexPage = Math.min(startIndexPage + pagesSize - 1, totalItem - 1);
 
-        // create an array of pages to ng-repeat in the pager control
-        let pages = _.range(startPage, endPage + 1);
-        // return object with all pager properties required by the view
+        /* create an array of pages to ng-repeat in the pager control*/
+        const pagesArray = _.range(startPages, endPages + 1);
+        /* return object with all pager properties required by the view*/
         return {
-            totalItems: totalItems,
-            currentPage: currentPage,
-            pageSize: pageSize,
-            totalPages: totalPages,
-            startPage: startPage,
-            endPage: endPage,
-            startIndex: startIndex,
-            endIndex: endIndex,
-            pages: pages
+            totalItems: totalItem,
+            currentPage: currentPages,
+            pageSize: pagesSize,
+            totalPages: totalPage,
+            startPage: startPages,
+            endPage: endPages,
+            startIndex: startIndexPage,
+            endIndex: endIndexPage,
+            pages: pagesArray
         };
     }
-}
-
-export class ReturnPage {
-    totalItems: number;
-
-    currentPage: number;
-
-    pageSize: number;
-
-    totalPages: number;
-
-    startPage: number;
-
-    endPage: number;
-
-    startIndex: number;
-
-    endIndex: number;
-
-    pages: number;
 }
 
