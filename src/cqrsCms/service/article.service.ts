@@ -27,7 +27,7 @@ export class ArticleService {
         let num: string;
         if (hidden === true) {
             const newArray: Array<ArticleEntity> = [];
-            const result = await this.respository.createQueryBuilder().where("'recycling'<> :recycling and hidden=true", { recycling: true }).orderBy("'publishedTime'", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            const result = await this.respository.createQueryBuilder().where("\"recycling\"<> :recycling and hidden=true", { recycling: true }).orderBy("ArticleEntity.publishedTime", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
             str = JSON.stringify(result);
             newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             for (const t in newresult) {
@@ -39,13 +39,13 @@ export class ArticleService {
             newresult = newArray;
         }
         if (hidden === false) {
-            const result = await this.respository.createQueryBuilder().where("'recycling'<> :recycling  and hidden=false", { recycling: true }).orderBy("'publishedTime'", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            const result = await this.respository.createQueryBuilder().where("\"recycling\"<> :recycling  and hidden=false", { recycling: true }).orderBy("ArticleEntity.publishedTime", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
             str = JSON.stringify(result);
             num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
             newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
         }
         if (hidden === undefined) {
-            const result = await this.respository.createQueryBuilder().where("recycling=false or recycling is null").orderBy("'publishedTime'", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            const result = await this.respository.createQueryBuilder().where("recycling=false or recycling is null").orderBy("ArticleEntity.publishedTime", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
             str = JSON.stringify(result);
             num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
             newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
@@ -66,9 +66,9 @@ export class ArticleService {
         const array: Array<number> = await this.classifyService.getClassifyIdForArt();
         if (array.length !== 0) {
             const result = await this.respository.createQueryBuilder()
-                .where("'classifyId' in (:id)", { id: array })
-                .andWhere("'name'like :name and 'recycling' =\"false\" or recycling isnull ", { name: strArt })
-                .orderBy("'publishedTime'", "DESC")
+                .where("\"classifyId\" in (:id)", { id: array })
+                .andWhere("\"name\"like :name and \"recycling\" =\'false\' or recycling isnull ", { name: strArt })
+                .orderBy("ArticleEntity.publishedTime", "DESC")
                 .skip(limit * (pages - 1))
                 .take(limit)
                 .getManyAndCount();
@@ -115,7 +115,7 @@ export class ArticleService {
         if (article.topPlace === null) {
             article.topPlace = "cancel";
         }
-        const levelGive: string = article.topPlace.toString();
+        const levelGive: string = article.topPlace;
         if (level === "level1" && levelGive === "level2" || levelGive === "level3") throw new MessageCodeError("create:level:lessThanLevel");
         if (level === "level2" && levelGive === "level3") throw new MessageCodeError("create:level:lessThanLevel");
         article.recycling = false;
@@ -151,8 +151,8 @@ export class ArticleService {
      */
     async recycleFind(limit?: number, pages?: number) {
         const result = await this.respository.createQueryBuilder()
-            .where("'recycling'= :recycling", { recycling: true })
-            .orderBy("'publishedTime'", "ASC")
+            .where("recycling= :recycling", { recycling: true })
+            .orderBy("ArticleEntity.publishedTime", "ASC")
             .skip(limit * (pages - 1)).take(limit).getManyAndCount();
         const str: string = JSON.stringify(result);
         const num: string = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
@@ -206,8 +206,8 @@ export class ArticleService {
      */
     async findTopPlace(limit?: number, pages?: number) {
         const result = await this.respository.createQueryBuilder()
-            .where("'topPlace'= :topPlace", { topPlace: "global" })
-            .orderBy("'updateAt'", "DESC")
+            .where("\"topPlace\"= :topPlace", { topPlace: "global" })
+            .orderBy("ArticleEntity.updateAt", "DESC")
             .skip(limit * (pages - 1)).take(limit).getManyAndCount();
         const str: string = JSON.stringify(result);
         const num: string = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
@@ -230,7 +230,7 @@ export class ArticleService {
         array.push(id);
         const newArray: Array<number> = Array.from(new Set(array));
         const result = await this.respository.createQueryBuilder()
-            .where("'classifyId' in (:classifyId)  and recycling=true", { classifyId: newArray })
+            .where("\"classifyId\" in (:classifyId)  and recycling=true", { classifyId: newArray })
             .orderBy("id", "ASC")
             .skip(limit * (pages - 1)).take(limit).getManyAndCount();
         const str: string = JSON.stringify(result);
