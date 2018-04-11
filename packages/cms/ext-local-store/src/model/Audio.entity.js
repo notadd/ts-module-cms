@@ -31,7 +31,7 @@ __decorate([
 ], Audio.prototype, "bucket", void 0);
 Audio = __decorate([
     typeorm_1.Entity({
-        name: 'audio'
+        name: "audio"
     })
 ], Audio);
 exports.Audio = Audio;

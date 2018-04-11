@@ -29,7 +29,7 @@ let CreatePageHandler = class CreatePageHandler {
     }
     execute(command, resolver) {
         return __awaiter(this, void 0, void 0, function* () {
-            let id = '0';
+            const id = "0";
             let result;
             const page = this.publisher.mergeObjectContext(yield this.repositoty.find(id));
             if (!command.pageEntity.array) {

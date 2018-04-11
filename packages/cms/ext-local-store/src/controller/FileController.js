@@ -44,29 +44,29 @@ let FileController = class FileController {
     }
     asyncNotify(body, req, headers, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let content_type = headers['content-type'];
-            let contentMd5 = headers['content-md5'];
-            let auth = headers['authorization'];
-            let date = headers['date'];
+            let content_type = headers["content-type"];
+            let contentMd5 = headers["content-md5"];
+            let auth = headers["authorization"];
+            let date = headers["date"];
             console.log(body);
-            if (content_type === 'application/x-www-form-urlencoded') {
+            if (content_type === "application/x-www-form-urlencoded") {
                 let code = +body.code;
                 if (code !== 200) {
-                    throw new common_1.HttpException('上传失败,返回200告诉又拍云不要再发送回调信息', 200);
+                    throw new common_1.HttpException("上传失败,返回200告诉又拍云不要再发送回调信息", 200);
                 }
                 let name = path.parse(body.url).name;
                 let type = path.parse(body.url).ext.substr(1);
                 let kind = this.kindUtil.getKind(type);
-                let bucketName = body['ext-param'];
+                let bucketName = body["ext-param"];
                 let bucket = yield this.bucketRepository.findOne({ name: bucketName });
                 if (!bucket) {
-                    throw new common_1.HttpException('空间不存在，说明是内部错误,返回200告诉又拍云不要再发送回调信息', 200);
+                    throw new common_1.HttpException("空间不存在，说明是内部错误,返回200告诉又拍云不要再发送回调信息", 200);
                 }
-                let pass = yield this.authUtil.notifyVerify(auth, bucket, 'POST', '/upyun/file/notify', date, contentMd5, body);
+                let pass = yield this.authUtil.notifyVerify(auth, bucket, "POST", "/upyun/file/notify", date, contentMd5, body);
                 if (!pass) {
-                    throw new common_1.HttpException('验签失败,返回400告诉又拍云继续发送回调信息', 400);
+                    throw new common_1.HttpException("验签失败,返回400告诉又拍云继续发送回调信息", 400);
                 }
-                if (kind === 'image') {
+                if (kind === "image") {
                     let image = new Image_entity_1.Image();
                     image.name = name;
                     image.type = type;
@@ -75,19 +75,19 @@ let FileController = class FileController {
                 else {
                 }
             }
-            else if (content_type === 'application/json') {
+            else if (content_type === "application/json") {
                 let code = body.status_code;
                 if (code !== 200) {
-                    throw new common_1.HttpException('预处理失败,返回200告诉又拍云不要再发送回调信息', 200);
+                    throw new common_1.HttpException("预处理失败,返回200告诉又拍云不要再发送回调信息", 200);
                 }
                 let bucketName = body.bucket_name;
                 let name = path.parse(body.imginfo.path).name;
                 let type = path.parse(body.imginfo.path).ext.substr(1);
                 let kind = this.kindUtil.getKind(type);
                 let bucket = yield this.bucketRepository.findOne({ name: bucketName });
-                let pass = yield this.authUtil.taskNotifyVerify(auth, bucket, 'POST', '/upyun/file/notify', date, contentMd5, body);
+                let pass = yield this.authUtil.taskNotifyVerify(auth, bucket, "POST", "/upyun/file/notify", date, contentMd5, body);
                 if (!pass) {
-                    throw new common_1.HttpException('验签失败,返回400告诉又拍云继续发送回调信息', 400);
+                    throw new common_1.HttpException("验签失败,返回400告诉又拍云继续发送回调信息", 400);
                 }
                 yield this.fileService.postSaveTask(bucket, name, body, kind);
             }
@@ -98,14 +98,14 @@ let FileController = class FileController {
     }
 };
 __decorate([
-    common_1.Post('notify'),
+    common_1.Post("notify"),
     __param(0, common_1.Body()), __param(1, common_1.Request()), __param(2, common_1.Headers()), __param(3, common_1.Response()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], FileController.prototype, "asyncNotify", null);
 FileController = __decorate([
-    common_1.Controller('upyun/file'),
+    common_1.Controller("upyun/file"),
     common_1.UseFilters(new UpyunExceptionFilter_1.UpyunExceptionFilter()),
     __param(0, common_1.Inject(AuthUtil_1.AuthUtil)),
     __param(1, common_1.Inject(KindUtil_1.KindUtil)),

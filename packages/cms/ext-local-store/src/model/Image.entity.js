@@ -16,24 +16,24 @@ let Image = class Image extends AbstractFile_1.AbstractFile {
 };
 __decorate([
     typeorm_1.Column({
-        name: 'width',
-        type: 'integer',
+        name: "width",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], Image.prototype, "width", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'height',
-        type: 'integer',
+        name: "height",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], Image.prototype, "height", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'frames',
-        type: 'integer',
+        name: "frames",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
@@ -55,7 +55,7 @@ __decorate([
 ], Image.prototype, "bucket", void 0);
 Image = __decorate([
     typeorm_1.Entity({
-        name: 'image'
+        name: "image"
     })
 ], Image);
 exports.Image = Image;

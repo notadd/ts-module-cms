@@ -28,7 +28,7 @@ let UpdateSitemapHandler = class UpdateSitemapHandler {
     execute(command, resolver) {
         return __awaiter(this, void 0, void 0, function* () {
             const sitemap = this.publisher.mergeObjectContext(yield this.repositoty.siteMap());
-            sitemap.updatexml('0');
+            sitemap.updatexml("0");
             resolver();
             sitemap.commit();
         });

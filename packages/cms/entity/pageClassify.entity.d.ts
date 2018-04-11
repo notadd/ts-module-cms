@@ -7,7 +7,7 @@ export declare class PageClassifyEntity {
     describe: string;
     color: string;
     groupId: number;
-    children: PageClassifyEntity[];
+    children: Array<PageClassifyEntity>;
     parent: PageClassifyEntity;
     createAt: Date;
     updateAt: Date;

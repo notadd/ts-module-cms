@@ -30,12 +30,12 @@ __decorate([
         cascadeInsert: false,
         cascadeUpdate: false,
         cascadeRemove: false,
-        onDelete: 'CASCADE',
+        onDelete: "CASCADE",
         lazy: false,
         eager: false,
         nullable: true
     }),
-    typeorm_1.JoinColumn({ name: 'parentId', referencedColumnName: 'id' }),
+    typeorm_1.JoinColumn({ name: "parentId", referencedColumnName: "id" }),
     __metadata("design:type", page_entity_1.PageEntity)
 ], PageContentEntity.prototype, "page", void 0);
 __decorate([
@@ -47,6 +47,6 @@ __decorate([
     __metadata("design:type", Date)
 ], PageContentEntity.prototype, "updateAt", void 0);
 PageContentEntity = __decorate([
-    typeorm_1.Entity('page_content_table')
+    typeorm_1.Entity("page_content_table")
 ], PageContentEntity);
 exports.PageContentEntity = PageContentEntity;

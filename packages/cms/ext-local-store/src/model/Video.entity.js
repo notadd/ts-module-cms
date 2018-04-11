@@ -31,7 +31,7 @@ __decorate([
 ], Video.prototype, "bucket", void 0);
 Video = __decorate([
     typeorm_1.Entity({
-        name: 'video'
+        name: "video"
     })
 ], Video);
 exports.Video = Video;

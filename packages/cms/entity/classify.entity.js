@@ -62,11 +62,11 @@ __decorate([
     __metadata("design:type", Boolean)
 ], ClassifyEntity.prototype, "isPreTop", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => ClassifyEntity_1, ClassifyEntity => ClassifyEntity.parent, { cascadeInsert: true }),
+    typeorm_1.OneToMany(type => ClassifyEntity_1, classifyEntity => classifyEntity.parent, { cascadeInsert: true }),
     __metadata("design:type", Array)
 ], ClassifyEntity.prototype, "children", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => ClassifyEntity_1, ClassifyEntity => ClassifyEntity.children, { cascadeInsert: true }),
+    typeorm_1.ManyToOne(type => ClassifyEntity_1, classifyEntity => classifyEntity.children, { cascadeInsert: true }),
     __metadata("design:type", ClassifyEntity)
 ], ClassifyEntity.prototype, "parent", void 0);
 __decorate([
@@ -78,11 +78,11 @@ __decorate([
     __metadata("design:type", Date)
 ], ClassifyEntity.prototype, "updateAt", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => article_entity_1.ArticleEntity, ArticleEntity => ArticleEntity.classifications),
+    typeorm_1.OneToMany(type => article_entity_1.ArticleEntity, articleEntity => articleEntity.classifications),
     __metadata("design:type", Array)
 ], ClassifyEntity.prototype, "articles", void 0);
 ClassifyEntity = ClassifyEntity_1 = __decorate([
-    typeorm_1.Entity('article_classify_table')
+    typeorm_1.Entity("article_classify_table")
 ], ClassifyEntity);
 exports.ClassifyEntity = ClassifyEntity;
 var ClassifyEntity_1;

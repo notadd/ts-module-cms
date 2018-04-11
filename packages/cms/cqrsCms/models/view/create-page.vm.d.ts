@@ -2,8 +2,8 @@ import { PageContentEntity } from "../../../entity/page.content.entity";
 import { PageEntity } from "../../../entity/page.entity";
 export declare class CreatePageVm {
     page?: PageEntity;
-    content?: PageContentEntity[];
+    content?: Array<PageContentEntity>;
     limit: number;
     pages: number;
-    array?: number[];
+    array?: Array<number>;
 }

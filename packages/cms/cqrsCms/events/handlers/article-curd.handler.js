@@ -33,7 +33,7 @@ let ArticleCurdEvent = class ArticleCurdEvent {
                 yield this.articleService.updateArticle(event.article.updateArticle.article);
             }
             if (event.article.deleteById) {
-                let array = event.article.deleteById;
+                const array = event.article.deleteById;
                 yield this.articleService.deleteArticles(array);
             }
             if (event.article.recycleDelete) {

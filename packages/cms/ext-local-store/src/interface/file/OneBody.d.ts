@@ -1,4 +1,4 @@
-import { ImagePostProcessInfo } from './ImageProcessInfo';
+import { ImagePostProcessInfo } from "./ImageProcessInfo";
 export interface OneBody {
     bucketName: string;
     name: string;

@@ -15,31 +15,31 @@ let ImageConfig = class ImageConfig {
 };
 __decorate([
     typeorm_1.PrimaryColumn({
-        name: 'id',
-        type: 'integer'
+        name: "id",
+        type: "integer"
     }),
     __metadata("design:type", Number)
 ], ImageConfig.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'format',
-        type: 'varchar',
+        name: "format",
+        type: "varchar",
         nullable: true
     }),
     __metadata("design:type", String)
 ], ImageConfig.prototype, "format", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_enable',
-        type: 'smallint',
+        name: "watermark_enable",
+        type: "smallint",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], ImageConfig.prototype, "watermark_enable", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_save_key',
-        type: 'varchar',
+        name: "watermark_save_key",
+        type: "varchar",
         length: 80,
         nullable: true
     }),
@@ -47,40 +47,40 @@ __decorate([
 ], ImageConfig.prototype, "watermark_save_key", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_gravity',
-        type: 'varchar',
+        name: "watermark_gravity",
+        type: "varchar",
         nullable: true
     }),
     __metadata("design:type", String)
 ], ImageConfig.prototype, "watermark_gravity", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_x',
-        type: 'integer',
+        name: "watermark_x",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], ImageConfig.prototype, "watermark_x", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_y',
-        type: 'integer',
+        name: "watermark_y",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], ImageConfig.prototype, "watermark_y", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_opacity',
-        type: 'integer',
+        name: "watermark_opacity",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], ImageConfig.prototype, "watermark_opacity", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'watermark_ws',
-        type: 'integer',
+        name: "watermark_ws",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
@@ -92,7 +92,7 @@ __decorate([
 ], ImageConfig.prototype, "bucket", void 0);
 ImageConfig = __decorate([
     typeorm_1.Entity({
-        name: 'image_config'
+        name: "image_config"
     })
 ], ImageConfig);
 exports.ImageConfig = ImageConfig;

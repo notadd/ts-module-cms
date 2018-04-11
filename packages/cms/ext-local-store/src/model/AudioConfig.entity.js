@@ -15,15 +15,15 @@ let AudioConfig = class AudioConfig {
 };
 __decorate([
     typeorm_1.PrimaryColumn({
-        name: 'id',
-        type: 'integer'
+        name: "id",
+        type: "integer"
     }),
     __metadata("design:type", Number)
 ], AudioConfig.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'format',
-        type: 'varchar',
+        name: "format",
+        type: "varchar",
         nullable: true
     }),
     __metadata("design:type", String)
@@ -35,7 +35,7 @@ __decorate([
 ], AudioConfig.prototype, "bucket", void 0);
 AudioConfig = __decorate([
     typeorm_1.Entity({
-        name: 'audio_config'
+        name: "audio_config"
     })
 ], AudioConfig);
 exports.AudioConfig = AudioConfig;

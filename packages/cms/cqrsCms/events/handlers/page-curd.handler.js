@@ -26,14 +26,14 @@ let PageCurdHandle = class PageCurdHandle {
     }
     handle(event) {
         return __awaiter(this, void 0, void 0, function* () {
-            let array = event.pageEntity.array;
-            if (event.pageEntity.page != null && event.pageEntity.page.id == null) {
+            const array = event.pageEntity.array;
+            if (event.pageEntity.page !== null && event.pageEntity.page.id === null) {
                 this.pageService.createPages(event.pageEntity.page, event.pageEntity.content);
             }
-            if (event.pageEntity.page != null && event.pageEntity.page.id >= 1) {
+            if (event.pageEntity.page !== null && event.pageEntity.page.id >= 1) {
                 this.pageService.updatePages(event.pageEntity.page, event.pageEntity.content);
             }
-            if (event.pageEntity.page == null && array.length >= 1) {
+            if (event.pageEntity.page === null && array.length >= 1) {
                 this.pageService.deletePages(array);
             }
         });

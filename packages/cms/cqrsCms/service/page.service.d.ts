@@ -17,17 +17,17 @@ export declare class PageService {
         pages: PageEntity[];
         totalItems: number;
     }>;
-    deletePages(array: number[], limit?: number, page?: number): Promise<void>;
-    createPages(page: PageEntity, contents: PageContentEntity[], limit?: number, pages?: number): Promise<void>;
-    curdCheck(alias?: string, classifyId?: number): Promise<{
+    deletePages(array: Array<number>, limit?: number, page?: number): Promise<void>;
+    createPages(page: PageEntity, contents: Array<PageContentEntity>, limit?: number, pages?: number): Promise<void>;
+    curdCheck(aliasName?: string, classifyId?: number): Promise<{
         MessageCodeError: string;
         Continue: boolean;
     }>;
-    updatePages(page: PageEntity, content: PageContentEntity[], limit?: number, pages?: number): Promise<void>;
+    updatePages(page: PageEntity, content: Array<PageContentEntity>, limit?: number, pages?: number): Promise<void>;
     findPageById(id: number): Promise<PageEntity>;
     findPageByClassifyId(id: number, limit?: number, page?: number): Promise<{
         pages: PageEntity[];
         totalItems: number;
     }>;
-    getClassifyId(id: number): Promise<number[]>;
+    getClassifyId(idNum: number): Promise<Array<number>>;
 }

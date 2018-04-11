@@ -49,24 +49,24 @@ let FileResolver = class FileResolver {
         return __awaiter(this, void 0, void 0, function* () {
             let data = {
                 code: 200,
-                message: '下载预处理成功',
-                method: 'get',
+                message: "下载预处理成功",
+                method: "get",
                 headers: {
-                    authorization: '',
-                    date: ''
+                    authorization: "",
+                    date: ""
                 },
-                url: 'https://v0.api.upyun.com'
+                url: "https://v0.api.upyun.com"
             };
             let { bucketName, name, type } = body;
             if (!bucketName || !name) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
             let bucket = yield this.bucketRepository.findOne({ name: bucketName });
             if (!bucket) {
-                throw new common_1.HttpException('指定空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("指定空间" + bucketName + "不存在", 401);
             }
             let kind;
-            let status = 'post';
+            let status = "post";
             let file;
             if (this.kindUtil.isImage(type)) {
                 file = yield this.imageRepository.findOne({ name, type, bucketId: bucket.id });
@@ -74,11 +74,11 @@ let FileResolver = class FileResolver {
             else {
             }
             if (!file) {
-                throw new common_1.HttpException('指定文件' + name + '不存在', 404);
+                throw new common_1.HttpException("指定文件" + name + "不存在", 404);
             }
-            data.url += '/' + bucket.name + '/' + bucket.directory + '/' + file.name + '.' + file.type;
+            data.url += "/" + bucket.name + "/" + bucket.directory + "/" + file.name + "." + file.type;
             data.headers.date = new Date(+new Date() + bucket.request_expire * 1000).toUTCString();
-            data.headers.authorization = yield this.authUtil.getHeaderAuth(bucket, 'GET', data.url.replace('https://v0.api.upyun.com', ''), data.headers.date, '');
+            data.headers.authorization = yield this.authUtil.getHeaderAuth(bucket, "GET", data.url.replace("https://v0.api.upyun.com", ""), data.headers.date, "");
             return data;
         });
     }
@@ -86,21 +86,21 @@ let FileResolver = class FileResolver {
         return __awaiter(this, void 0, void 0, function* () {
             let data = {
                 code: 200,
-                message: '上传预处理成功',
-                url: 'https://v0.api.upyun.com',
-                method: 'post',
-                baseUrl: '',
+                message: "上传预处理成功",
+                url: "https://v0.api.upyun.com",
+                method: "post",
+                baseUrl: "",
                 form: {
-                    policy: '',
-                    authorization: ''
+                    policy: "",
+                    authorization: ""
                 }
             };
             let { bucketName, md5, contentName } = body;
             if (!bucketName || !md5 || !contentName) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
             if (md5.length !== 32) {
-                throw new common_1.HttpException('md5参数不正确', 400);
+                throw new common_1.HttpException("md5参数不正确", 400);
             }
             let bucket = yield this.bucketRepository.createQueryBuilder("bucket")
                 .leftJoinAndSelect("bucket.image_config", "image_config")
@@ -109,19 +109,19 @@ let FileResolver = class FileResolver {
                 .where("bucket.name = :name", { name: bucketName })
                 .getOne();
             if (!bucket) {
-                throw new common_1.HttpException('指定空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("指定空间" + bucketName + "不存在", 401);
             }
             data.baseUrl = bucket.base_url;
             let image = yield this.fileService.preSaveFile(bucket, body);
             let policy = {
-                'bucket': '',
-                'save-key': '',
-                'expiration': null,
-                'date': '',
-                'content-md5': md5,
-                'notify-url': 'https://src.029inno.com/upyun/file/notify',
-                'x-upyun-meta-ttl': 180,
-                'ext-param': ''
+                "bucket": "",
+                "save-key": "",
+                "expiration": null,
+                "date": "",
+                "content-md5": md5,
+                "notify-url": "https://src.029inno.com/upyun/file/notify",
+                "x-upyun-meta-ttl": 180,
+                "ext-param": ""
             };
             yield this.fileService.makePolicy(data, policy, bucket, body, image);
             return data;
@@ -131,7 +131,7 @@ let FileResolver = class FileResolver {
         return __awaiter(this, void 0, void 0, function* () {
             let { bucketName, name, type } = body;
             if (!bucketName || !name || !type) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
             let bucket = yield this.bucketRepository.createQueryBuilder("bucket")
                 .leftJoinAndSelect("bucket.image_config", "image_config")
@@ -140,14 +140,14 @@ let FileResolver = class FileResolver {
                 .where("bucket.name = :name", { name: bucketName })
                 .getOne();
             if (!bucket) {
-                throw new common_1.HttpException('指定空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("指定空间" + bucketName + "不存在", 401);
             }
             let kind = this.kindUtil.getKind(type);
             let file;
-            if (kind === 'image') {
+            if (kind === "image") {
                 file = yield this.imageRepository.findOne({ name, bucketId: bucket.id });
                 if (!file) {
-                    throw new common_1.HttpException('指定图片不存在', 404);
+                    throw new common_1.HttpException("指定图片不存在", 404);
                 }
             }
             else {
@@ -160,8 +160,8 @@ let FileResolver = class FileResolver {
         return __awaiter(this, void 0, void 0, function* () {
             let data = {
                 code: 200,
-                message: '获取指定空间下所有文件成功',
-                baseUrl: '',
+                message: "获取指定空间下所有文件成功",
+                baseUrl: "",
                 files: [],
                 images: [],
                 audios: [],
@@ -170,11 +170,11 @@ let FileResolver = class FileResolver {
             };
             let { bucketName } = body;
             if (!bucketName) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
             let bucket = yield this.bucketRepository.findOne({ name: bucketName });
             if (!bucket) {
-                throw new common_1.HttpException('空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("空间" + bucketName + "不存在", 401);
             }
             data.baseUrl = bucket.base_url;
             yield this.fileService.getAll(data, bucket);
@@ -185,57 +185,57 @@ let FileResolver = class FileResolver {
         return __awaiter(this, void 0, void 0, function* () {
             let { bucketName, type, name } = body;
             if (!bucketName || !name || !type) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
             let bucket = yield this.bucketRepository.findOne({ name: bucketName });
             if (!bucket) {
-                throw new common_1.HttpException('空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("空间" + bucketName + "不存在", 401);
             }
             let kind = this.kindUtil.getKind(type);
-            if (kind === 'image') {
+            if (kind === "image") {
                 let image = yield this.imageRepository.findOne({ name, bucketId: bucket.id });
                 if (!image) {
-                    throw new common_1.HttpException('文件md5=' + name + '不存在', 404);
+                    throw new common_1.HttpException("文件md5=" + name + "不存在", 404);
                 }
                 yield this.restfulUtil.deleteFile(bucket, image);
                 yield this.imageRepository.delete({ name, bucketId: bucket.id });
             }
-            return { code: 200, message: '删除文件成功' };
+            return { code: 200, message: "删除文件成功" };
         });
     }
 };
 __decorate([
-    graphql_1.Query('downloadProcess'),
+    graphql_1.Query("downloadProcess"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [http_1.IncomingMessage, Object]),
     __metadata("design:returntype", Promise)
 ], FileResolver.prototype, "downloadProcess", null);
 __decorate([
-    graphql_1.Mutation('uploadProcess'),
+    graphql_1.Mutation("uploadProcess"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [http_1.IncomingMessage, Object]),
     __metadata("design:returntype", Promise)
 ], FileResolver.prototype, "uploadProcess", null);
 __decorate([
-    graphql_1.Query('one'),
+    graphql_1.Query("one"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [http_1.IncomingMessage, Object]),
     __metadata("design:returntype", Promise)
 ], FileResolver.prototype, "getFile", null);
 __decorate([
-    graphql_1.Query('all'),
+    graphql_1.Query("all"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [http_1.IncomingMessage, Object]),
     __metadata("design:returntype", Promise)
 ], FileResolver.prototype, "files", null);
 __decorate([
-    graphql_1.Mutation('deleteFile'),
+    graphql_1.Mutation("deleteFile"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [http_1.IncomingMessage, Object]),
     __metadata("design:returntype", Promise)
 ], FileResolver.prototype, "deleteFile", null);
 FileResolver = __decorate([
-    graphql_1.Resolver('File'),
+    graphql_1.Resolver("File"),
     common_1.UseInterceptors(ExceptionInterceptor_1.ExceptionInterceptor),
     __param(0, common_1.Inject(AuthUtil_1.AuthUtil)),
     __param(1, common_1.Inject(KindUtil_1.KindUtil)),

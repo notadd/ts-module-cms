@@ -53,10 +53,10 @@ let RegistrationService = class RegistrationService {
         return __awaiter(this, void 0, void 0, function* () {
             let message;
             let code;
-            let time = site.startTime;
-            site.startTime = new Date(time.getTime() - time.getTimezoneOffset() * 60 * 1000);
-            let newTime = site.endTime;
-            site.endTime = new Date(newTime.getTime() - newTime.getTimezoneOffset() * 60 * 1000);
+            const time = site.startTime;
+            site.startTime = time;
+            const newTime = site.endTime;
+            site.endTime = newTime;
             try {
                 site.collapse = false;
                 yield this.siteRespository.save(site);
@@ -89,30 +89,30 @@ let RegistrationService = class RegistrationService {
     }
     getAllBlocks(limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.blockRespository.createQueryBuilder().orderBy('"id"', 'ASC').skip(limit * (pages - 1)).take(limit).getManyAndCount().then(a => {
+            const result = yield this.blockRespository.createQueryBuilder().orderBy("id", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount().then(a => {
                 return a;
             });
-            let str = JSON.stringify(result);
-            let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-            let block = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+            const str = JSON.stringify(result);
+            const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+            const block = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             return { blocks: block, totals: Number(num) };
         });
     }
     getSite(limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.siteRespository.createQueryBuilder().orderBy('"id"', 'ASC').skip(limit * (pages - 1)).take(limit).getManyAndCount();
-            let str = JSON.stringify(result);
-            let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-            let site = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+            const result = yield this.siteRespository.createQueryBuilder().orderBy("id", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            const str = JSON.stringify(result);
+            const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+            const site = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             return { sites: site, totals: Number(num) };
         });
     }
     getVisit(limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.visitRespository.createQueryBuilder().orderBy('"id"', 'ASC').skip(limit * (pages - 1)).take(limit).getManyAndCount();
-            let str = JSON.stringify(result);
-            let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-            let visit = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+            const result = yield this.visitRespository.createQueryBuilder().orderBy("id", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            const str = JSON.stringify(result);
+            const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+            const visit = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             return { visits: visit, totals: Number(num) };
         });
     }

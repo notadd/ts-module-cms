@@ -15,8 +15,8 @@ var EnvConfig;
 (function (EnvConfig) {
     EnvConfig[EnvConfig["global"] = 0] = "global";
     EnvConfig[EnvConfig["current"] = 1] = "current";
-    EnvConfig[EnvConfig["level1"] = 2] = "level1";
-    EnvConfig[EnvConfig["level2"] = 3] = "level2";
+    EnvConfig[EnvConfig["level2"] = 2] = "level2";
+    EnvConfig[EnvConfig["level1"] = 3] = "level1";
     EnvConfig[EnvConfig["level3"] = 4] = "level3";
 })(EnvConfig = exports.EnvConfig || (exports.EnvConfig = {}));
 class GetLimit {
@@ -322,14 +322,6 @@ __decorate([
     __metadata("design:type", Object)
 ], DeleteDto.prototype, "id", void 0);
 exports.DeleteDto = DeleteDto;
-class showNextDto {
-}
-__decorate([
-    swagger_1.ApiModelProperty({ type: Number, required: true }),
-    class_validator_1.IsInt(),
-    __metadata("design:type", Object)
-], showNextDto.prototype, "id", void 0);
-exports.showNextDto = showNextDto;
 class PageSerach {
 }
 __decorate([

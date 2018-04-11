@@ -1,4 +1,4 @@
-import { Bucket } from '../model/Bucket.entity';
+import { Bucket } from "../model/Bucket.entity";
 export declare class AuthUtil {
     constructor();
     getHeaderAuth(bucket: Bucket, method: string, url: string, date: string, md5: string): Promise<string>;

@@ -42,11 +42,11 @@ __decorate([
     __metadata("design:type", Number)
 ], PageClassifyEntity.prototype, "groupId", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => PageClassifyEntity_1, PageClassifyEntity => PageClassifyEntity.parent, { cascadeInsert: true }),
+    typeorm_1.OneToMany(type => PageClassifyEntity_1, pageClassifyEntity => pageClassifyEntity.parent, { cascadeInsert: true }),
     __metadata("design:type", Array)
 ], PageClassifyEntity.prototype, "children", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => PageClassifyEntity_1, PageClassifyEntity => PageClassifyEntity.children, { cascadeInsert: true }),
+    typeorm_1.ManyToOne(type => PageClassifyEntity_1, pageClassifyEntity => pageClassifyEntity.children, { cascadeInsert: true }),
     __metadata("design:type", PageClassifyEntity)
 ], PageClassifyEntity.prototype, "parent", void 0);
 __decorate([
@@ -58,11 +58,11 @@ __decorate([
     __metadata("design:type", Date)
 ], PageClassifyEntity.prototype, "updateAt", void 0);
 __decorate([
-    typeorm_1.ManyToOne(type => page_entity_1.PageEntity, PageEntity => PageEntity.classifications),
+    typeorm_1.ManyToOne(type => page_entity_1.PageEntity, pageEntity => pageEntity.classifications),
     __metadata("design:type", page_entity_1.PageEntity)
 ], PageClassifyEntity.prototype, "pages", void 0);
 PageClassifyEntity = PageClassifyEntity_1 = __decorate([
-    typeorm_1.Entity('page_classify_table')
+    typeorm_1.Entity("page_classify_table")
 ], PageClassifyEntity);
 exports.PageClassifyEntity = PageClassifyEntity;
 var PageClassifyEntity_1;

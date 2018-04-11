@@ -12,9 +12,9 @@ export declare class ClassifyEntity {
     isChildType: boolean;
     isAllTop: boolean;
     isPreTop: boolean;
-    children: ClassifyEntity[];
+    children: Array<ClassifyEntity>;
     parent: ClassifyEntity;
     createAt: Date;
     updateAt: Date;
-    articles: ArticleEntity[];
+    articles: Array<ArticleEntity>;
 }

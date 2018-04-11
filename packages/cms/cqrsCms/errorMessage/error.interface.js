@@ -6,7 +6,7 @@ class MessageCodeError extends Error {
         super();
         const errorMessageConfig = this.getMessageFromMessageCode(messageCode);
         if (!errorMessageConfig)
-            throw new Error('Unable to find message code error.');
+            throw new Error("Unable to find message code error.");
         Error.captureStackTrace(this, this.constructor);
         this.name = this.constructor.name;
         this.httpStatus = errorMessageConfig.httpStatus;
@@ -16,15 +16,15 @@ class MessageCodeError extends Error {
     }
     getMessageFromMessageCode(messageCode) {
         let errorMessageConfig;
-        Object.keys(error_config_1.errorMessagesConfig).some(key => {
+        Object.keys(error_config_1.ErrorInterfaceConfig).some(key => {
             if (key === messageCode) {
-                errorMessageConfig = error_config_1.errorMessagesConfig[key];
+                errorMessageConfig = error_config_1.ErrorInterfaceConfig[key];
                 return true;
             }
             return false;
         });
         if (!errorMessageConfig)
-            throw new Error('Unable to find the given message code error.');
+            throw new Error("Unable to find the given message code error.");
         return errorMessageConfig;
     }
 }

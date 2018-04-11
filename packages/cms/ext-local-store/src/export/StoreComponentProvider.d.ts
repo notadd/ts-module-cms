@@ -1,12 +1,12 @@
-import { Repository } from 'typeorm';
-import { ImagePostProcessInfo, ImagePreProcessInfo } from '../interface/file/ImageProcessInfo';
-import { Bucket } from '../model/Bucket.entity';
-import { Image } from '../model/Image.entity';
-import { FileService } from '../service/FileService';
-import { AuthUtil } from '../util/AuthUtil';
-import { FileUtil } from '../util/FileUtil';
-import { KindUtil } from '../util/KindUtil';
-import { ProcessStringUtil } from '../util/ProcessStringUtil';
+import { Repository } from "typeorm";
+import { ImagePostProcessInfo, ImagePreProcessInfo } from "../interface/file/ImageProcessInfo";
+import { Bucket } from "../model/Bucket.entity";
+import { Image } from "../model/Image.entity";
+import { FileService } from "../service/FileService";
+import { AuthUtil } from "../util/AuthUtil";
+import { FileUtil } from "../util/FileUtil";
+import { KindUtil } from "../util/KindUtil";
+import { ProcessStringUtil } from "../util/ProcessStringUtil";
 import { RestfulUtil } from "../util/RestfulUtil";
 export declare class StoreComponent {
     private readonly kindUtil;

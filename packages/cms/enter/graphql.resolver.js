@@ -21,9 +21,11 @@ const graphql_1 = require("@nestjs/graphql");
 const common_paging_1 = require("../export/common.paging");
 const registration_service_1 = require("./registration.service");
 function objToStrMap(obj) {
-    let strMap = new Map();
-    for (let k of Object.keys(obj)) {
-        strMap.set(k, obj[k]);
+    const strMap = new Map();
+    if (obj) {
+        for (const k of Object.keys(obj)) {
+            strMap.set(k, obj[k]);
+        }
     }
     return strMap;
 }
@@ -35,45 +37,45 @@ let EnterResolver = class EnterResolver {
     getAllVisits(obj, arg) {
         return __awaiter(this, void 0, void 0, function* () {
             const str = JSON.stringify(arg);
-            let bToJSon = JSON.parse(str);
+            const bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            const result = yield this.registration.getVisit(map.get('limit'), map.get('pages'));
-            const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
+            const result = yield this.registration.getVisit(map.get("limit"), map.get("pages"));
+            const paging = this.pagerService.getPager(result.totals, map.get("pages"), map.get("limit"));
             return { pagination: paging, visits: result.visits };
         });
     }
     getAllSites(obj, arg) {
         return __awaiter(this, void 0, void 0, function* () {
             const str = JSON.stringify(arg);
-            let bToJSon = JSON.parse(str);
+            const bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            const result = yield this.registration.getSite(map.get('limit'), map.get('pages')).then(a => {
+            const result = yield this.registration.getSite(map.get("limit"), map.get("pages")).then(a => {
                 return a;
             });
-            const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
+            const paging = this.pagerService.getPager(result.totals, map.get("pages"), map.get("limit"));
             return { sites: result.sites, pagination: paging };
         });
     }
     getAllBlocks(obj, arg) {
         return __awaiter(this, void 0, void 0, function* () {
             const str = JSON.stringify(arg);
-            let bToJSon = JSON.parse(str);
+            const bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            const result = yield this.registration.getAllBlocks(map.get('limit'), map.get('pages'));
-            const paging = this.pagerService.getPager(result.totals, map.get('pages'), map.get('limit'));
+            const result = yield this.registration.getAllBlocks(map.get("limit"), map.get("pages"));
+            const paging = this.pagerService.getPager(result.totals, map.get("pages"), map.get("limit"));
             return { blocks: result.blocks, pagination: paging };
         });
     }
     createBlocks(obj, arg) {
         return __awaiter(this, void 0, void 0, function* () {
             const str = JSON.stringify(arg);
-            let bToJSon = JSON.parse(str);
+            const bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            let block = map.get('block');
+            const block = map.get("block");
             const result = yield this.registration.createBlock(block);
             return JSON.stringify(result);
         });
@@ -81,20 +83,20 @@ let EnterResolver = class EnterResolver {
     createSites(obj, arg) {
         return __awaiter(this, void 0, void 0, function* () {
             const str = JSON.stringify(arg);
-            let bToJSon = JSON.parse(str);
+            const bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            let site = map.get('site');
+            const site = map.get("site");
             if (site.eventDate) {
-                let date = site.eventDate.toString();
+                const date = site.eventDate.toString();
                 site.eventDate = new Date(Date.parse(date.replace(/- /g, "/")));
             }
             if (site.startTime) {
-                let date = site.startTime.toString();
+                const date = site.startTime.toString();
                 site.startTime = new Date(Date.parse(date.replace(/- /g, "/")));
             }
             if (site.endTime) {
-                let date = site.endTime.toString();
+                const date = site.endTime.toString();
                 site.endTime = new Date(Date.parse(date.replace(/- /g, "/")));
             }
             const result = yield this.registration.createSite(site);
@@ -104,47 +106,47 @@ let EnterResolver = class EnterResolver {
     createVisits(obj, arg) {
         return __awaiter(this, void 0, void 0, function* () {
             const str = JSON.stringify(arg);
-            let bToJSon = JSON.parse(str);
+            const bToJSon = JSON.parse(str);
             let map = new Map();
             map = objToStrMap(bToJSon);
-            let visit = map.get('visit');
+            const visit = map.get("visit");
             const result = yield this.registration.createVisit(visit);
             return JSON.stringify(result);
         });
     }
 };
 __decorate([
-    graphql_1.Query('getAllVisits'),
+    graphql_1.Query("getAllVisits"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], EnterResolver.prototype, "getAllVisits", null);
 __decorate([
-    graphql_1.Query('getAllSites'),
+    graphql_1.Query("getAllSites"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], EnterResolver.prototype, "getAllSites", null);
 __decorate([
-    graphql_1.Query('getAllBlocks'),
+    graphql_1.Query("getAllBlocks"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], EnterResolver.prototype, "getAllBlocks", null);
 __decorate([
-    graphql_1.Mutation('createBlocks'),
+    graphql_1.Mutation("createBlocks"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], EnterResolver.prototype, "createBlocks", null);
 __decorate([
-    graphql_1.Mutation('createSites'),
+    graphql_1.Mutation("createSites"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], EnterResolver.prototype, "createSites", null);
 __decorate([
-    graphql_1.Mutation('createVisits'),
+    graphql_1.Mutation("createVisits"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)

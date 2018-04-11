@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common";
-export interface IErrorMessages {
+export interface ErrorInterface {
     readonly type: string;
     readonly httpStatus: HttpStatus;
     readonly errorMessage: string;

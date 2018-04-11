@@ -27,34 +27,34 @@ let ClassifyCurdEvent = class ClassifyCurdEvent {
     handle(event) {
         return __awaiter(this, void 0, void 0, function* () {
             if (event.classify.createClassify) {
-                if (event.classify.useFor == 'art') {
+                if (event.classify.useFor === "art") {
                     yield this.classifyservice.createClassifyArt(event.classify.createClassify.art);
                 }
-                if (event.classify.useFor == 'page') {
+                if (event.classify.useFor === "page") {
                     yield this.classifyservice.createClassifyPage(event.classify.createClassify.page);
                 }
             }
             if (event.classify.updateClassify) {
-                if (event.classify.useFor == 'art') {
+                if (event.classify.useFor === "art") {
                     yield this.classifyservice.updateClassifyArt(event.classify.updateClassify.art);
                 }
-                if (event.classify.useFor == 'page') {
+                if (event.classify.useFor === "page") {
                     yield this.classifyservice.updateClassifyPage(event.classify.updateClassify.page);
                 }
             }
             if (event.classify.deleteClassify) {
-                if (event.classify.useFor == 'art') {
+                if (event.classify.useFor === "art") {
                     yield this.classifyservice.deleteMethodFirst(event.classify.deleteClassify);
                 }
-                if (event.classify.useFor == 'page') {
+                if (event.classify.useFor === "page") {
                     yield this.classifyservice.deleteMethodSecond(event.classify.deleteClassify);
                 }
             }
             if (event.classify.mobileClassifyId) {
-                if (event.classify.useFor == 'art') {
+                if (event.classify.useFor === "art") {
                     yield this.classifyservice.mobileClassifyArt(event.classify.mobileClassifyId.id, event.classify.mobileClassifyId.parentId);
                 }
-                if (event.classify.useFor == 'page') {
+                if (event.classify.useFor === "page") {
                     yield this.classifyservice.mobileClassifyPage(event.classify.mobileClassifyId.id, event.classify.mobileClassifyId.parentId);
                 }
             }

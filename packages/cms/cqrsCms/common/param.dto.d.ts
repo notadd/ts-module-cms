@@ -1,8 +1,8 @@
 export declare enum EnvConfig {
     global = 0,
     current = 1,
-    level1 = 2,
-    level2 = 3,
+    level2 = 2,
+    level1 = 3,
     level3 = 4,
 }
 export declare class GetLimit {
@@ -79,9 +79,6 @@ export declare class UpdateClassify {
 }
 export declare class DeleteDto {
     readonly usedFor: any;
-    readonly id: any;
-}
-export declare class showNextDto {
     readonly id: any;
 }
 export declare class PageSerach {

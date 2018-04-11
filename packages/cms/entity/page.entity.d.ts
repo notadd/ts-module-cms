@@ -9,6 +9,6 @@ export declare class PageEntity {
     createAt: Date;
     updateAt: Date;
     check: boolean;
-    contents: PageContentEntity[];
-    classifications: PageClassifyEntity[];
+    contents: Array<PageContentEntity>;
+    classifications: Array<PageClassifyEntity>;
 }

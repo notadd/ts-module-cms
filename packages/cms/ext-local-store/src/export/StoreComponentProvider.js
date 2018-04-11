@@ -44,18 +44,18 @@ let StoreComponent = class StoreComponent {
     delete(bucketName, name, type) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!bucketName || !name || !type) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
             let bucket = yield this.bucketRepository.findOne({ name: bucketName });
             if (!bucket) {
-                throw new common_1.HttpException('指定空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("指定空间" + bucketName + "不存在", 401);
             }
             let file;
             let kind = this.kindUtil.getKind(type);
-            if (kind === 'image') {
+            if (kind === "image") {
                 file = yield this.imageRepository.findOne({ name, bucketId: bucket.id });
                 if (!file) {
-                    throw new common_1.HttpException('文件' + name + '不存在于数据库中', 404);
+                    throw new common_1.HttpException("文件" + name + "不存在于数据库中", 404);
                 }
                 yield this.imageRepository.deleteById(file.id);
             }
@@ -68,36 +68,36 @@ let StoreComponent = class StoreComponent {
     upload(bucketName, rawName, base64, imagePreProcessInfo) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!bucketName || !rawName || !base64) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
-            let bucket = yield this.bucketRepository.createQueryBuilder('bucket')
-                .leftJoinAndSelect('bucket.image_config', 'image_config')
-                .where('bucket.name = :name', { name: bucketName })
+            let bucket = yield this.bucketRepository.createQueryBuilder("bucket")
+                .leftJoinAndSelect("bucket.image_config", "image_config")
+                .where("bucket.name = :name", { name: bucketName })
                 .getOne();
             if (!bucket) {
-                throw new common_1.HttpException('指定空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("指定空间" + bucketName + "不存在", 401);
             }
-            let buffer = Buffer.from(base64, 'base64');
-            let md5 = crypto.createHash('md5').update(buffer).digest('hex');
-            let name = md5 + '_' + (+new Date());
-            let tempPath = os.tmpdir + '/' + rawName;
+            let buffer = Buffer.from(base64, "base64");
+            let md5 = crypto.createHash("md5").update(buffer).digest("hex");
+            let name = md5 + "_" + (+new Date());
+            let tempPath = os.tmpdir + "/" + rawName;
             yield this.fileUtil.write(tempPath, buffer);
             let file;
             let uploadFile = { path: tempPath };
-            let type = rawName.substring(rawName.lastIndexOf('.') + 1);
-            if (bucket.image_config.format === 'webp_damage' || bucket.image_config.format === 'webp_undamage') {
-                type = 'webp';
+            let type = rawName.substring(rawName.lastIndexOf(".") + 1);
+            if (bucket.image_config.format === "webp_damage" || bucket.image_config.format === "webp_undamage") {
+                type = "webp";
             }
             let kind = this.kindUtil.getKind(type);
             try {
-                if (kind === 'image') {
+                if (kind === "image") {
                     file = this.imageRepository.create({
                         bucket,
                         raw_name: rawName,
                         name,
                         type,
                         md5,
-                        status: 'post'
+                        status: "post"
                     });
                     let { width, height, frames } = yield this.resufulUtil.uploadFile(bucket, file, uploadFile, imagePreProcessInfo);
                     let { file_size, file_md5 } = yield this.resufulUtil.getFileInfo(bucket, file);
@@ -111,7 +111,7 @@ let StoreComponent = class StoreComponent {
                         frames,
                         size: file_size,
                         md5: file_md5,
-                        status: 'post'
+                        status: "post"
                     });
                     yield this.imageRepository.save(file);
                 }
@@ -130,22 +130,22 @@ let StoreComponent = class StoreComponent {
     getUrl(req, bucketName, name, type, imagePostProcessInfo) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!bucketName || !name || !type) {
-                throw new common_1.HttpException('缺少参数', 400);
+                throw new common_1.HttpException("缺少参数", 400);
             }
-            let bucket = yield this.bucketRepository.createQueryBuilder('bucket')
-                .leftJoinAndSelect('bucket.image_config', 'image_config')
-                .where('bucket.name = :name', { name: bucketName })
+            let bucket = yield this.bucketRepository.createQueryBuilder("bucket")
+                .leftJoinAndSelect("bucket.image_config", "image_config")
+                .where("bucket.name = :name", { name: bucketName })
                 .getOne();
             if (!bucket) {
-                throw new common_1.HttpException('指定空间' + bucketName + '不存在', 401);
+                throw new common_1.HttpException("指定空间" + bucketName + "不存在", 401);
             }
             let url;
             let file;
             let kind = this.kindUtil.getKind(type);
-            if (kind === 'image') {
+            if (kind === "image") {
                 file = yield this.imageRepository.findOne({ name, bucketId: bucket.id });
                 if (!file) {
-                    throw new common_1.HttpException('指定图片' + name + '.' + type + '不存在', 404);
+                    throw new common_1.HttpException("指定图片" + name + "." + type + "不存在", 404);
                 }
             }
             else {
@@ -162,8 +162,8 @@ StoreComponent = __decorate([
     __param(3, common_1.Inject(RestfulUtil_1.RestfulUtil)),
     __param(4, common_1.Inject(FileService_1.FileService)),
     __param(5, common_1.Inject(ProcessStringUtil_1.ProcessStringUtil)),
-    __param(6, common_1.Inject('UpyunModule.ImageRepository')),
-    __param(7, common_1.Inject('UpyunModule.BucketRepository')),
+    __param(6, common_1.Inject("UpyunModule.ImageRepository")),
+    __param(7, common_1.Inject("UpyunModule.BucketRepository")),
     __metadata("design:paramtypes", [KindUtil_1.KindUtil,
         FileUtil_1.FileUtil,
         AuthUtil_1.AuthUtil,
@@ -175,9 +175,9 @@ StoreComponent = __decorate([
 ], StoreComponent);
 exports.StoreComponent = StoreComponent;
 exports.StoreComponentProvider = {
-    provide: 'StoreComponentToken',
+    provide: "StoreComponentToken",
     useFactory: (kindUtil, fileUtil, authUtil, restfulUtil, fileService, processStringUtil, imageRepository, bucketRepository) => {
         return new StoreComponent(kindUtil, fileUtil, authUtil, restfulUtil, fileService, processStringUtil, imageRepository, bucketRepository);
     },
-    inject: [KindUtil_1.KindUtil, FileUtil_1.FileUtil, AuthUtil_1.AuthUtil, RestfulUtil_1.RestfulUtil, FileService_1.FileService, ProcessStringUtil_1.ProcessStringUtil, 'ImageRepository', 'BucketRepository']
+    inject: [KindUtil_1.KindUtil, FileUtil_1.FileUtil, AuthUtil_1.AuthUtil, RestfulUtil_1.RestfulUtil, FileService_1.FileService, ProcessStringUtil_1.ProcessStringUtil, "ImageRepository", "BucketRepository"]
 };

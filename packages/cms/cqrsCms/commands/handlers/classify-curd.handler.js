@@ -29,50 +29,50 @@ let ClassifyCurdHandler = class ClassifyCurdHandler {
     }
     execute(command, resolver) {
         return __awaiter(this, void 0, void 0, function* () {
-            let id = '0';
+            const id = "0";
             const page = this.publisher.mergeObjectContext(yield this.repositoty.find(id));
-            let value, MessageCodeError;
+            let value, messageCodeError;
             if (!command.classify.getAllClassify) {
                 if (command.classify.createClassify) {
                     if (command.classify.createClassify.art) {
                         const result = yield this.classifyService.classifyCheck(command.classify.useFor, command.classify.createClassify.art.id, command.classify.createClassify.art.groupId, command.classify.createClassify.art.classifyAlias);
                         value = result.Continue;
-                        MessageCodeError = result.MessageCodeError;
+                        messageCodeError = result.MessageCodeError;
                     }
                     if (command.classify.createClassify.page) {
                         const result = yield this.classifyService.classifyCheck(command.classify.useFor, command.classify.createClassify.page.id, command.classify.createClassify.page.groupId, command.classify.createClassify.page.classifyAlias);
                         value = result.Continue;
-                        MessageCodeError = result.MessageCodeError;
+                        messageCodeError = result.MessageCodeError;
                     }
                 }
                 if (command.classify.updateClassify) {
                     if (command.classify.updateClassify.page) {
                         const result = yield this.classifyService.classifyCheck(command.classify.useFor, command.classify.updateClassify.page.id, command.classify.updateClassify.page.groupId, command.classify.updateClassify.page.classifyAlias);
                         value = result.Continue;
-                        MessageCodeError = result.MessageCodeError;
+                        messageCodeError = result.MessageCodeError;
                     }
                     if (command.classify.updateClassify.art) {
                         const result = yield this.classifyService.classifyCheck(command.classify.useFor, command.classify.updateClassify.art.id, command.classify.updateClassify.art.groupId, command.classify.updateClassify.art.classifyAlias);
                         value = result.Continue;
-                        MessageCodeError = result.MessageCodeError;
+                        messageCodeError = result.MessageCodeError;
                     }
                 }
                 if (command.classify.mobileClassifyId) {
                     const result = yield this.classifyService.classifyCheck(command.classify.useFor, command.classify.mobileClassifyId.id, command.classify.mobileClassifyId.parentId);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
                 if (command.classify.deleteClassify) {
-                    const result = yield this.classifyService.classifyCheck(command.classify.useFor, 0, 0, '', command.classify.deleteClassify);
+                    const result = yield this.classifyService.classifyCheck(command.classify.useFor, 0, 0, "", command.classify.deleteClassify);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
-                if (value == undefined)
+                if (value === undefined)
                     value = true;
                 if (value)
                     page.createClassify(command.classify);
             }
-            resolver({ MessageCodeError: MessageCodeError, Continue: value });
+            resolver({ MessageCodeError: messageCodeError, Continue: value });
             page.commit();
         });
     }

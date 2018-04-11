@@ -14,15 +14,15 @@ class AbstractFile {
 }
 __decorate([
     typeorm_1.PrimaryGeneratedColumn({
-        name: 'id',
-        type: 'integer'
+        name: "id",
+        type: "integer"
     }),
     __metadata("design:type", Number)
 ], AbstractFile.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'raw_name',
-        type: 'varchar',
+        name: "raw_name",
+        type: "varchar",
         length: 50,
         nullable: false
     }),
@@ -30,8 +30,8 @@ __decorate([
 ], AbstractFile.prototype, "raw_name", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'name',
-        type: 'varchar',
+        name: "name",
+        type: "varchar",
         length: 100,
         nullable: false,
         unique: true
@@ -40,16 +40,16 @@ __decorate([
 ], AbstractFile.prototype, "name", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'tags',
-        type: 'simple-array',
+        name: "tags",
+        type: "simple-array",
         nullable: true,
     }),
     __metadata("design:type", Array)
 ], AbstractFile.prototype, "tags", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'md5',
-        type: 'varchar',
+        name: "md5",
+        type: "varchar",
         length: 50,
         nullable: false
     }),
@@ -57,8 +57,8 @@ __decorate([
 ], AbstractFile.prototype, "md5", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'type',
-        type: 'varchar',
+        name: "type",
+        type: "varchar",
         length: 20,
         nullable: true
     }),
@@ -66,40 +66,40 @@ __decorate([
 ], AbstractFile.prototype, "type", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'size',
-        type: 'integer',
+        name: "size",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
 ], AbstractFile.prototype, "size", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'content_secret',
-        type: 'varchar',
-        length: '50',
+        name: "content_secret",
+        type: "varchar",
+        length: "50",
         nullable: true
     }),
     __metadata("design:type", String)
 ], AbstractFile.prototype, "content_secret", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'status',
-        type: 'varchar',
+        name: "status",
+        type: "varchar",
         nullable: false
     }),
     __metadata("design:type", String)
 ], AbstractFile.prototype, "status", void 0);
 __decorate([
     typeorm_1.CreateDateColumn({
-        name: 'create_date',
-        type: 'date'
+        name: "create_date",
+        type: "date"
     }),
     __metadata("design:type", Date)
 ], AbstractFile.prototype, "create_date", void 0);
 __decorate([
     typeorm_1.UpdateDateColumn({
-        name: 'update_date',
-        type: 'date'
+        name: "update_date",
+        type: "date"
     }),
     __metadata("design:type", Date)
 ], AbstractFile.prototype, "update_date", void 0);

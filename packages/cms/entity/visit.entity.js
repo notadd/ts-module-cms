@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({ nullable: true, length: 100 }),
     __metadata("design:type", String)
-], VisitEntity.prototype, "WeChat", void 0);
+], VisitEntity.prototype, "weChat", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true, length: 70 }),
     __metadata("design:type", String)
@@ -53,6 +53,6 @@ __decorate([
     __metadata("design:type", Boolean)
 ], VisitEntity.prototype, "collapse", void 0);
 VisitEntity = __decorate([
-    typeorm_1.Entity('visit-appointment-table')
+    typeorm_1.Entity("visit-appointment-table")
 ], VisitEntity);
 exports.VisitEntity = VisitEntity;

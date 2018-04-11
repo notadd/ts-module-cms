@@ -6,9 +6,9 @@ export declare class ArticleCurdVm {
     updateArticle?: {
         article: ArticleEntity;
     };
-    deleteById?: number[];
-    recycleDelete?: number[];
-    reductionArticle?: number[];
+    deleteById?: Array<number>;
+    recycleDelete?: Array<number>;
+    reductionArticle?: Array<number>;
     getAllArticles?: boolean;
     limitNum?: number;
     pages?: number;

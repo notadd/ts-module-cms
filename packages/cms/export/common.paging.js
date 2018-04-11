@@ -2,50 +2,47 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const _ = require("underscore");
 class PagerService {
-    getPager(totalItems, currentPage, pageSize) {
-        if (pageSize == null || pageSize == 0) {
-            pageSize = 1;
+    getPager(totalItem, currentPages, pagesSize) {
+        if (pagesSize === null || pagesSize === 0) {
+            pagesSize = 1;
         }
-        if (currentPage == null || currentPage == 0) {
-            currentPage = 1;
+        if (currentPages === null || currentPages === 0) {
+            currentPages = 1;
         }
-        let totalPages = Math.ceil(totalItems / pageSize);
-        let startPage, endPage;
-        if (totalPages <= 10) {
-            startPage = 1;
-            endPage = totalPages;
+        const totalPage = Math.ceil(totalItem / pagesSize);
+        let startPages, endPages;
+        if (totalPage <= 10) {
+            startPages = 1;
+            endPages = totalPage;
         }
         else {
-            if (currentPage <= 6) {
-                startPage = 1;
-                endPage = 10;
+            if (currentPages <= 6) {
+                startPages = 1;
+                endPages = 10;
             }
-            else if (currentPage + 4 >= totalPages) {
-                startPage = totalPages - 9;
-                endPage = totalPages;
+            else if (currentPages + 4 >= totalPage) {
+                startPages = totalPage - 9;
+                endPages = totalPage;
             }
             else {
-                startPage = currentPage - 5;
-                endPage = currentPage + 4;
+                startPages = currentPages - 5;
+                endPages = currentPages + 4;
             }
         }
-        let startIndex = (currentPage - 1) * pageSize;
-        let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
-        let pages = _.range(startPage, endPage + 1);
+        const startIndexPage = (currentPages - 1) * pagesSize;
+        const endIndexPage = Math.min(startIndexPage + pagesSize - 1, totalItem - 1);
+        const pagesArray = _.range(startPages, endPages + 1);
         return {
-            totalItems: totalItems,
-            currentPage: currentPage,
-            pageSize: pageSize,
-            totalPages: totalPages,
-            startPage: startPage,
-            endPage: endPage,
-            startIndex: startIndex,
-            endIndex: endIndex,
-            pages: pages
+            totalItems: totalItem,
+            currentPage: currentPages,
+            pageSize: pagesSize,
+            totalPages: totalPage,
+            startPage: startPages,
+            endPage: endPages,
+            startIndex: startIndexPage,
+            endIndex: endIndexPage,
+            pages: pagesArray
         };
     }
 }
 exports.PagerService = PagerService;
-class ReturnPage {
-}
-exports.ReturnPage = ReturnPage;

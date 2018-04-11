@@ -17,34 +17,34 @@ __decorate([
     __metadata("design:type", Number)
 ], SitemapEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ length: 20 }),
+    typeorm_1.Column({ length: 20, nullable: true }),
     __metadata("design:type", String)
-], SitemapEntity.prototype, "lc_XML_FileName", void 0);
+], SitemapEntity.prototype, "xmlFileName", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Boolean)
-], SitemapEntity.prototype, "lc_is_Enabled_XML_Sitemap", void 0);
+], SitemapEntity.prototype, "xmlSiteMap", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Boolean)
-], SitemapEntity.prototype, "lc_post_limit1000", void 0);
+], SitemapEntity.prototype, "postLimit1000", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Boolean)
-], SitemapEntity.prototype, "lc_post_select", void 0);
+], SitemapEntity.prototype, "postSelect", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Boolean)
-], SitemapEntity.prototype, "lc_page_select", void 0);
+], SitemapEntity.prototype, "pageSelect", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true }),
     __metadata("design:type", Boolean)
-], SitemapEntity.prototype, "lc_is_update_sitemap_when_post", void 0);
+], SitemapEntity.prototype, "updateWhenPost", void 0);
 __decorate([
     typeorm_1.CreateDateColumn(),
     __metadata("design:type", Date)
 ], SitemapEntity.prototype, "createAt", void 0);
 SitemapEntity = __decorate([
-    typeorm_1.Entity('sitemap_entity_table')
+    typeorm_1.Entity("sitemap_entity_table")
 ], SitemapEntity);
 exports.SitemapEntity = SitemapEntity;

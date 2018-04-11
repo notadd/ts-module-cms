@@ -27,7 +27,7 @@ __decorate([
 __decorate([
     typeorm_1.Column({ nullable: true, length: 100 }),
     __metadata("design:type", String)
-], BlockEntity.prototype, "WeChat", void 0);
+], BlockEntity.prototype, "weChat", void 0);
 __decorate([
     typeorm_1.Column({ nullable: true, length: 70 }),
     __metadata("design:type", String)
@@ -53,6 +53,6 @@ __decorate([
     __metadata("design:type", Boolean)
 ], BlockEntity.prototype, "collapse", void 0);
 BlockEntity = __decorate([
-    typeorm_1.Entity('block-entry-form')
+    typeorm_1.Entity("block-entry-form")
 ], BlockEntity);
 exports.BlockEntity = BlockEntity;

@@ -47,14 +47,14 @@ __decorate([
     __metadata("design:type", Boolean)
 ], PageEntity.prototype, "check", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => page_content_entity_1.PageContentEntity, PageContentEntity => PageContentEntity.page),
+    typeorm_1.OneToMany(type => page_content_entity_1.PageContentEntity, pageContentEntity => pageContentEntity.page),
     __metadata("design:type", Array)
 ], PageEntity.prototype, "contents", void 0);
 __decorate([
-    typeorm_1.OneToMany(type => pageClassify_entity_1.PageClassifyEntity, PageClassifyEntity => PageClassifyEntity.pages),
+    typeorm_1.OneToMany(type => pageClassify_entity_1.PageClassifyEntity, pageClassifyEntity => pageClassifyEntity.pages),
     __metadata("design:type", Array)
 ], PageEntity.prototype, "classifications", void 0);
 PageEntity = __decorate([
-    typeorm_1.Entity('page_entity_table')
+    typeorm_1.Entity("page_entity_table")
 ], PageEntity);
 exports.PageEntity = PageEntity;

@@ -27,10 +27,10 @@ let GetClassifyHandler = class GetClassifyHandler {
     execute(command, resolver) {
         return __awaiter(this, void 0, void 0, function* () {
             let result;
-            if (command.getClassify.useFor == 'page') {
+            if (command.getClassify.useFor === "page") {
                 result = yield this.classifyService.findAllClassifyPage(1);
             }
-            if (command.getClassify.useFor == 'art') {
+            if (command.getClassify.useFor === "art") {
                 result = yield this.classifyService.findAllClassifyArt(1);
             }
             if (command.getClassify.getClassifyById) {

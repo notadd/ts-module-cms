@@ -12,8 +12,7 @@ require("rxjs/add/operator/map");
 const delete_param_command_1 = require("../commands/impl/delete-param.command");
 const article_curd_events_1 = require("../events/impl/article-curd.events");
 const page_curd_event_1 = require("../events/impl/page-curd.event");
-const clc = require('cli-color');
-const itemId = '0';
+const itemId = "0";
 let PageSagas = class PageSagas {
     constructor() {
         this.articleXml = (events$) => {

@@ -31,7 +31,7 @@ __decorate([
 ], Document.prototype, "bucket", void 0);
 Document = __decorate([
     typeorm_1.Entity({
-        name: 'document'
+        name: "document"
     })
 ], Document);
 exports.Document = Document;

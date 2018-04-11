@@ -73,6 +73,6 @@ __decorate([
     __metadata("design:type", Boolean)
 ], SiteEntity.prototype, "collapse", void 0);
 SiteEntity = __decorate([
-    typeorm_1.Entity('site-rental-table')
+    typeorm_1.Entity("site-rental-table")
 ], SiteEntity);
 exports.SiteEntity = SiteEntity;

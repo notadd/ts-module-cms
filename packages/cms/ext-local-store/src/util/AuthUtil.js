@@ -18,70 +18,70 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const common_1 = require("@nestjs/common");
-const crypto = require('crypto');
+const crypto = require("crypto");
 let AuthUtil = class AuthUtil {
     constructor() {
     }
     getHeaderAuth(bucket, method, url, date, md5) {
         return __awaiter(this, void 0, void 0, function* () {
-            let ori = '';
-            ori += method.toUpperCase() + '&';
-            ori += url + '&';
+            let ori = "";
+            ori += method.toUpperCase() + "&";
+            ori += url + "&";
             ori += date;
-            if (md5 && md5 !== '') {
-                ori += '&' + md5;
+            if (md5 && md5 !== "") {
+                ori += "&" + md5;
             }
-            let signTemp = crypto.createHmac('sha1', bucket.password).update(ori).digest().toString('base64');
-            return 'UPYUN ' + bucket.operator + ':' + signTemp;
+            let signTemp = crypto.createHmac("sha1", bucket.password).update(ori).digest().toString("base64");
+            return "UPYUN " + bucket.operator + ":" + signTemp;
         });
     }
     getBodyAuth(bucket, method, policy) {
         return __awaiter(this, void 0, void 0, function* () {
-            let ori = '';
-            ori += method.toUpperCase() + '&';
-            ori += '/' + policy['bucket'] + '&';
-            ori += policy.date + '&';
-            ori += Buffer.from(JSON.stringify(policy)).toString('base64');
-            if (policy['content-md5'] && policy['content-md5'] !== '') {
-                ori += '&' + policy['content-md5'];
+            let ori = "";
+            ori += method.toUpperCase() + "&";
+            ori += "/" + policy["bucket"] + "&";
+            ori += policy.date + "&";
+            ori += Buffer.from(JSON.stringify(policy)).toString("base64");
+            if (policy["content-md5"] && policy["content-md5"] !== "") {
+                ori += "&" + policy["content-md5"];
             }
-            let signTemp = crypto.createHmac('sha1', bucket.password).update(ori).digest('base64');
-            return 'UPYUN ' + bucket.operator + ':' + signTemp;
+            let signTemp = crypto.createHmac("sha1", bucket.password).update(ori).digest("base64");
+            return "UPYUN " + bucket.operator + ":" + signTemp;
         });
     }
     getToken(bucket, url) {
         return __awaiter(this, void 0, void 0, function* () {
             let expireTime = Math.floor((+new Date()) / 1000) + bucket.token_expire;
-            let str = bucket.token_secret_key + '&' + expireTime + '&' + url;
-            let md5 = crypto.createHash('md5').update(str).digest('hex');
+            let str = bucket.token_secret_key + "&" + expireTime + "&" + url;
+            let md5 = crypto.createHash("md5").update(str).digest("hex");
             let middle8 = md5.substring(12, 20);
             return middle8 + expireTime;
         });
     }
     notifyVerify(auth, bucket, method, url, date, contentMd5, body) {
         return __awaiter(this, void 0, void 0, function* () {
-            let rawBody = '';
+            let rawBody = "";
             let keys = Object.keys(body);
             keys.forEach((key, index) => {
-                if (body[key] && !isNaN(parseInt(body[key])) && key !== 'task_ids') {
+                if (body[key] && !isNaN(parseInt(body[key])) && key !== "task_ids") {
                     body[key] = parseInt(body[key]);
                 }
-                rawBody += key + '=' + encodeURIComponent(body[key]);
+                rawBody += key + "=" + encodeURIComponent(body[key]);
                 if (index < keys.length - 1) {
-                    rawBody += '&';
+                    rawBody += "&";
                 }
             });
-            let genarateMd5 = crypto.createHash('md5').update(rawBody).digest('hex');
+            let genarateMd5 = crypto.createHash("md5").update(rawBody).digest("hex");
             if (genarateMd5 !== contentMd5) {
                 return false;
             }
-            let ori = '';
-            ori += method.toUpperCase() + '&';
-            ori += url + '&';
-            ori += date + '&';
+            let ori = "";
+            ori += method.toUpperCase() + "&";
+            ori += url + "&";
+            ori += date + "&";
             ori += contentMd5;
-            let localSign = crypto.createHmac('sha1', bucket.password).update(ori).digest('base64');
-            let remoteSign = auth.substr(auth.lastIndexOf(':') + 1);
+            let localSign = crypto.createHmac("sha1", bucket.password).update(ori).digest("base64");
+            let remoteSign = auth.substr(auth.lastIndexOf(":") + 1);
             if (localSign === remoteSign) {
                 return true;
             }
@@ -90,17 +90,17 @@ let AuthUtil = class AuthUtil {
     }
     taskNotifyVerify(auth, bucket, method, url, date, contentMd5, body) {
         return __awaiter(this, void 0, void 0, function* () {
-            let genarateMd5 = crypto.createHash('md5').update(JSON.stringify(body)).digest('hex');
+            let genarateMd5 = crypto.createHash("md5").update(JSON.stringify(body)).digest("hex");
             if (contentMd5 !== genarateMd5) {
                 return false;
             }
-            let ori = '';
-            ori += method.toUpperCase() + '&';
-            ori += url + '&';
-            ori += date + '&';
+            let ori = "";
+            ori += method.toUpperCase() + "&";
+            ori += url + "&";
+            ori += date + "&";
             ori += contentMd5;
-            let localSign = crypto.createHmac('sha1', bucket.password).update(ori).digest('base64');
-            let remoteSign = auth.substr(auth.lastIndexOf(':') + 1);
+            let localSign = crypto.createHmac("sha1", bucket.password).update(ori).digest("base64");
+            let remoteSign = auth.substr(auth.lastIndexOf(":") + 1);
             if (localSign === remoteSign) {
                 return true;
             }

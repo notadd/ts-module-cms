@@ -15,23 +15,23 @@ let VideoConfig = class VideoConfig {
 };
 __decorate([
     typeorm_1.PrimaryColumn({
-        name: 'id',
-        type: 'integer'
+        name: "id",
+        type: "integer"
     }),
     __metadata("design:type", Number)
 ], VideoConfig.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'format',
-        type: 'varchar',
+        name: "format",
+        type: "varchar",
         nullable: true
     }),
     __metadata("design:type", String)
 ], VideoConfig.prototype, "format", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'resolution',
-        type: 'varchar',
+        name: "resolution",
+        type: "varchar",
         nullable: true
     }),
     __metadata("design:type", String)
@@ -43,7 +43,7 @@ __decorate([
 ], VideoConfig.prototype, "bucket", void 0);
 VideoConfig = __decorate([
     typeorm_1.Entity({
-        name: 'video_config'
+        name: "video_config"
     })
 ], VideoConfig);
 exports.VideoConfig = VideoConfig;

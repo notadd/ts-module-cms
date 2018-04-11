@@ -22,15 +22,15 @@ let Bucket = class Bucket {
 };
 __decorate([
     typeorm_1.PrimaryColumn({
-        name: 'id',
-        type: 'integer'
+        name: "id",
+        type: "integer"
     }),
     __metadata("design:type", Number)
 ], Bucket.prototype, "id", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'public_or_private',
-        type: 'varchar',
+        name: "public_or_private",
+        type: "varchar",
         length: 20,
         nullable: false,
         unique: true
@@ -39,8 +39,8 @@ __decorate([
 ], Bucket.prototype, "public_or_private", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'name',
-        type: 'varchar',
+        name: "name",
+        type: "varchar",
         length: 50,
         nullable: false,
         unique: true
@@ -49,8 +49,8 @@ __decorate([
 ], Bucket.prototype, "name", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'operator',
-        type: 'varchar',
+        name: "operator",
+        type: "varchar",
         length: 50,
         nullable: false
     }),
@@ -58,8 +58,8 @@ __decorate([
 ], Bucket.prototype, "operator", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'password',
-        type: 'varchar',
+        name: "password",
+        type: "varchar",
         length: 50,
         nullable: false
     }),
@@ -67,8 +67,8 @@ __decorate([
 ], Bucket.prototype, "password", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'directory',
-        type: 'varchar',
+        name: "directory",
+        type: "varchar",
         length: 20,
         nullable: false
     }),
@@ -76,16 +76,16 @@ __decorate([
 ], Bucket.prototype, "directory", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'request_expire',
-        type: 'integer',
+        name: "request_expire",
+        type: "integer",
         nullable: false
     }),
     __metadata("design:type", Number)
 ], Bucket.prototype, "request_expire", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'base_url',
-        type: 'varchar',
+        name: "base_url",
+        type: "varchar",
         length: 50,
         nullable: false,
         unique: true
@@ -94,8 +94,8 @@ __decorate([
 ], Bucket.prototype, "base_url", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'token_secret_key',
-        type: 'varchar',
+        name: "token_secret_key",
+        type: "varchar",
         length: 250,
         nullable: true
     }),
@@ -103,8 +103,8 @@ __decorate([
 ], Bucket.prototype, "token_secret_key", void 0);
 __decorate([
     typeorm_1.Column({
-        name: 'token_expire',
-        type: 'integer',
+        name: "token_expire",
+        type: "integer",
         nullable: true
     }),
     __metadata("design:type", Number)
@@ -178,7 +178,7 @@ __decorate([
 ], Bucket.prototype, "documents", void 0);
 Bucket = __decorate([
     typeorm_1.Entity({
-        name: 'bucket'
+        name: "bucket"
     })
 ], Bucket);
 exports.Bucket = Bucket;

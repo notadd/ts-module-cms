@@ -1,10 +1,10 @@
 export declare class SitemapEntity {
     id: number;
-    lc_XML_FileName: string;
-    lc_is_Enabled_XML_Sitemap: boolean;
-    lc_post_limit1000: boolean;
-    lc_post_select: boolean;
-    lc_page_select: boolean;
-    lc_is_update_sitemap_when_post: boolean;
+    xmlFileName: string;
+    xmlSiteMap: boolean;
+    postLimit1000: boolean;
+    postSelect: boolean;
+    pageSelect: boolean;
+    updateWhenPost: boolean;
     createAt: Date;
 }

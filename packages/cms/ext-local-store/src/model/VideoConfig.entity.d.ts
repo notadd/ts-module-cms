@@ -1,4 +1,4 @@
-import { Bucket } from './Bucket.entity';
+import { Bucket } from "./Bucket.entity";
 export declare class VideoConfig {
     id: number;
     format: string;

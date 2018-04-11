@@ -1,4 +1,4 @@
-import { IErrorMessages } from "../common/error.interface";
-export declare const errorMessagesConfig: {
-    [messageCode: string]: IErrorMessages;
+import { ErrorInterface } from "../common/error.interface";
+export declare const ErrorInterfaceConfig: {
+    [messageCode: string]: ErrorInterface;
 };

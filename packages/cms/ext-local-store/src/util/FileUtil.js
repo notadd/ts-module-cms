@@ -32,7 +32,7 @@ let FileUtil = class FileUtil {
             yield this.promiseUtil.do((resolver, reject) => {
                 fs.writeFile(path, buffer, (err) => {
                     if (err) {
-                        reject(new common_1.HttpException('文件写入磁盘错误:' + err.toString(), 406));
+                        reject(new common_1.HttpException("文件写入磁盘错误:" + err.toString(), 406));
                     }
                     resolver();
                 });
@@ -45,7 +45,7 @@ let FileUtil = class FileUtil {
             yield this.promiseUtil.do((resolver, reject) => {
                 fs.readFile(path, (err, buffer) => {
                     if (err) {
-                        reject(new common_1.HttpException('读取文件错误:' + err.toString(), 406));
+                        reject(new common_1.HttpException("读取文件错误:" + err.toString(), 406));
                     }
                     result = buffer;
                     resolver();
@@ -59,7 +59,7 @@ let FileUtil = class FileUtil {
             yield this.promiseUtil.do((resolver, reject) => {
                 fs.unlink(path, (err) => {
                     if (err) {
-                        reject(new common_1.HttpException('文件删除错误:' + err.toString(), 406));
+                        reject(new common_1.HttpException("文件删除错误:" + err.toString(), 406));
                     }
                     resolver();
                 });
@@ -72,7 +72,7 @@ let FileUtil = class FileUtil {
                 yield this.promiseUtil.do((resolver, reject) => {
                     fs.unlink(path, (err) => {
                         if (err) {
-                            reject(new common_1.HttpException('文件删除错误:' + err.toString(), 406));
+                            reject(new common_1.HttpException("文件删除错误:" + err.toString(), 406));
                         }
                         resolver();
                     });
@@ -87,7 +87,7 @@ let FileUtil = class FileUtil {
                 yield this.promiseUtil.do((resolver, reject) => {
                     fs.stat(path, (err, stats) => {
                         if (err) {
-                            reject(new common_1.HttpException('获取文件状态错误:' + err.toString(), 406));
+                            reject(new common_1.HttpException("获取文件状态错误:" + err.toString(), 406));
                         }
                         size = stats.size;
                         resolver();
@@ -108,7 +108,7 @@ let FileUtil = class FileUtil {
             yield this.promiseUtil.do((resolver, reject) => {
                 fs.mkdir(path, (err) => {
                     if (err) {
-                        reject(new common_1.HttpException('创建目录错误:' + err.toString(), 406));
+                        reject(new common_1.HttpException("创建目录错误:" + err.toString(), 406));
                     }
                     resolver();
                 });

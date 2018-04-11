@@ -38,34 +38,34 @@ let ArticleService = class ArticleService {
     getArticleAll(limit, hidden, pages) {
         return __awaiter(this, void 0, void 0, function* () {
             let title = 0;
-            let resultAll = [];
+            const resultAll = [];
             let newresult = [];
             let str;
             let num;
-            if (hidden == true) {
-                let newArray = [];
-                const result = yield this.respository.createQueryBuilder().where('"recycling"<> :recycling and hidden=true', { recycling: true }).orderBy('"publishedTime"', 'DESC').skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            if (hidden === true) {
+                const newArray = [];
+                const result = yield this.respository.createQueryBuilder().where("\"recycling\"<> :recycling and hidden=true", { recycling: true }).orderBy("ArticleEntity.publishedTime", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
                 str = JSON.stringify(result);
-                newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
-                for (let t in newresult) {
+                newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
+                for (const t in newresult) {
                     if (newresult[t].hidden) {
                         newArray.push(newresult[t]);
                     }
                 }
-                num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
+                num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
                 newresult = newArray;
             }
-            if (hidden == false) {
-                const result = yield this.respository.createQueryBuilder().where('"recycling"<> :recycling  and hidden=false', { recycling: true }).orderBy('"publishedTime"', 'DESC').skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            if (hidden === false) {
+                const result = yield this.respository.createQueryBuilder().where("\"recycling\"<> :recycling  and hidden=false", { recycling: true }).orderBy("ArticleEntity.publishedTime", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
                 str = JSON.stringify(result);
-                num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-                newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+                num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+                newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             }
-            if (hidden == undefined) {
-                const result = yield this.respository.createQueryBuilder().where('recycling=false or recycling is null').orderBy('"publishedTime"', 'DESC').skip(limit * (pages - 1)).take(limit).getManyAndCount();
+            if (hidden === undefined) {
+                const result = yield this.respository.createQueryBuilder().where("recycling=false or recycling is null").orderBy("ArticleEntity.publishedTime", "DESC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
                 str = JSON.stringify(result);
-                num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-                newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+                num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+                newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             }
             title = Number(num);
             resultAll.push(...newresult);
@@ -74,37 +74,37 @@ let ArticleService = class ArticleService {
     }
     searchArticles(name, limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
-            let strArt = `%${name}%`;
-            let array = yield this.classifyService.getClassifyIdForArt();
-            if (array.length != 0) {
+            const strArt = `%${name}%`;
+            const array = yield this.classifyService.getClassifyIdForArt();
+            if (array.length !== 0) {
                 const result = yield this.respository.createQueryBuilder()
-                    .where('"classifyId" in (:id)', { id: array })
-                    .andWhere('"name"like :name and "recycling" =\'false\' or recycling isnull ', { name: strArt })
-                    .orderBy('"publishedTime"', 'DESC')
+                    .where("\"classifyId\" in (:id)", { id: array })
+                    .andWhere("\"name\"like :name and \"recycling\" =\'false\' or recycling isnull ", { name: strArt })
+                    .orderBy("ArticleEntity.publishedTime", "DESC")
                     .skip(limit * (pages - 1))
                     .take(limit)
                     .getManyAndCount();
-                let str = JSON.stringify(result);
-                let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-                let newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+                const str = JSON.stringify(result);
+                const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+                const newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
                 return { articles: newresult, totalItems: Number(num) };
             }
             else {
-                let articles = [];
-                return { articles: articles, totalItems: 0 };
+                const newArticles = [];
+                return { articles: newArticles, totalItems: 0 };
             }
         });
     }
     deleteArticles(array) {
         return __awaiter(this, void 0, void 0, function* () {
             let count = 0;
-            for (let t in array) {
-                let article = yield this.respository.findOneById(array[t]);
-                if (article == null)
-                    throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
+            for (const t in array) {
+                const article = yield this.respository.findOneById(array[t]);
+                if (article === null)
+                    throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
                 article.recycling = true;
                 article.updateAt = new Date();
-                let newArticle = article;
+                const newArticle = article;
                 this.respository.updateById(newArticle.id, newArticle);
                 count++;
             }
@@ -113,54 +113,54 @@ let ArticleService = class ArticleService {
     }
     createArticle(article) {
         return __awaiter(this, void 0, void 0, function* () {
-            let entity = yield this.classifyService.findOneByIdArt(article.classifyId);
-            if (article.classifyId != null && article.classifyId != 0 && entity == null)
-                throw new error_interface_2.MessageCodeError('page:classify:classifyIdMissing');
-            let num = yield this.classifyService.findLevel(article.classifyId);
-            let level = this.classifyService.interfaceChange(num);
-            if (article.topPlace == null) {
-                article.topPlace = 'cancel';
+            const entity = yield this.classifyService.findOneByIdArt(article.classifyId);
+            if (article.classifyId !== null && article.classifyId !== 0 && entity === null)
+                throw new error_interface_2.MessageCodeError("page:classify:classifyIdMissing");
+            const num = yield this.classifyService.findLevel(article.classifyId);
+            const level = this.classifyService.interfaceChange(num);
+            if (article.topPlace === null) {
+                article.topPlace = "cancel";
             }
-            let levelGive = article.topPlace.toString();
-            if (level == 'level1' && levelGive == 'level2' || levelGive == 'level3')
-                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
-            if (level == 'level2' && levelGive == 'level3')
-                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
+            const levelGive = article.topPlace;
+            if (level === "level1" && levelGive === "level2" || levelGive === "level3")
+                throw new error_interface_2.MessageCodeError("create:level:lessThanLevel");
+            if (level === "level2" && levelGive === "level3")
+                throw new error_interface_2.MessageCodeError("create:level:lessThanLevel");
             article.recycling = false;
-            yield this.respository.createQueryBuilder().insert().into(article_entity_1.ArticleEntity).values(article).output('id').execute().then(a => {
+            yield this.respository.createQueryBuilder().insert().into(article_entity_1.ArticleEntity).values(article).output("id").execute().then(a => {
                 return a;
             });
         });
     }
     updateArticle(article) {
         return __awaiter(this, void 0, void 0, function* () {
-            let art = yield this.respository.findOneById(article.id);
-            if (art == null)
-                throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
-            let entity = yield this.classifyService.findOneByIdArt(article.classifyId);
-            if (article.classifyId != null && article.classifyId != 0 && entity == null)
-                throw new error_interface_2.MessageCodeError('page:classify:classifyIdMissing');
-            let num = yield this.classifyService.findLevel(article.classifyId);
-            let level = this.classifyService.interfaceChange(num);
-            let levelGive = article.topPlace;
-            if (level == 'level1' && levelGive == 'level2' || levelGive == 'level3')
-                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
-            if (level == 'level2' && levelGive == 'level3')
-                throw new error_interface_2.MessageCodeError('create:level:lessThanLevel');
+            const art = yield this.respository.findOneById(article.id);
+            if (art === null)
+                throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+            const entity = yield this.classifyService.findOneByIdArt(article.classifyId);
+            if (article.classifyId !== null && article.classifyId !== 0 && entity === null)
+                throw new error_interface_2.MessageCodeError("page:classify:classifyIdMissing");
+            const num = yield this.classifyService.findLevel(article.classifyId);
+            const level = this.classifyService.interfaceChange(num);
+            const levelGive = article.topPlace;
+            if (level === "level1" && levelGive === "level2" || levelGive === "level3")
+                throw new error_interface_2.MessageCodeError("create:level:lessThanLevel");
+            if (level === "level2" && levelGive === "level3")
+                throw new error_interface_2.MessageCodeError("create:level:lessThanLevel");
             article.updateAt = new Date();
-            let newArt = article;
+            const newArt = article;
             yield this.respository.updateById(newArt.id, newArt);
         });
     }
     recycleFind(limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.respository.createQueryBuilder()
-                .where('"recycling"= :recycling', { recycling: true })
-                .orderBy('"publishedTime"', 'ASC')
+                .where("recycling= :recycling", { recycling: true })
+                .orderBy("ArticleEntity.publishedTime", "ASC")
                 .skip(limit * (pages - 1)).take(limit).getManyAndCount();
-            let str = JSON.stringify(result);
-            let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-            let newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+            const str = JSON.stringify(result);
+            const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+            const newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             return { articles: newresult, totalItems: Number(num) };
         });
     }
@@ -170,13 +170,13 @@ let ArticleService = class ArticleService {
             try {
                 result = yield this.respository.createQueryBuilder().delete()
                     .from(article_entity_1.ArticleEntity).whereInIds(array)
-                    .output('id').execute()
+                    .output("id").execute()
                     .then(a => {
                     return a;
                 });
             }
             catch (err) {
-                throw new common_1.HttpException('删除错误' + err.toString(), 401);
+                throw new common_1.HttpException("删除错误" + err.toString(), 401);
             }
             return result;
         });
@@ -184,13 +184,13 @@ let ArticleService = class ArticleService {
     reductionArticle(array) {
         return __awaiter(this, void 0, void 0, function* () {
             let num = 0;
-            for (let t in array) {
-                let article = yield this.respository.findOneById(array[t]);
-                if (article == null)
-                    throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
+            for (const t in array) {
+                const article = yield this.respository.findOneById(array[t]);
+                if (article === null)
+                    throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
                 article.recycling = false;
                 article.updateAt = new Date();
-                let newArticle = article;
+                const newArticle = article;
                 this.respository.updateById(newArticle.id, newArticle);
                 num++;
             }
@@ -200,52 +200,52 @@ let ArticleService = class ArticleService {
     findTopPlace(limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
             const result = yield this.respository.createQueryBuilder()
-                .where('"topPlace"= :topPlace', { topPlace: 'global' })
-                .orderBy('"updateAt"', 'DESC')
+                .where("\"topPlace\"= :topPlace", { topPlace: "global" })
+                .orderBy("ArticleEntity.updateAt", "DESC")
                 .skip(limit * (pages - 1)).take(limit).getManyAndCount();
-            let str = JSON.stringify(result);
-            let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-            let newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+            const str = JSON.stringify(result);
+            const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+            const newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             return { articles: newresult, totalItems: Number(num) };
         });
     }
     reductionClassity(id, limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
-            let entity = yield this.classifyService.findOneByIdArt(id);
-            if (entity == null)
-                throw new error_interface_2.MessageCodeError('page:classify:classifyIdMissing');
-            let array = yield this.classifyService.getClassifyId(id).then(a => {
+            const entity = yield this.classifyService.findOneByIdArt(id);
+            if (entity === null)
+                throw new error_interface_2.MessageCodeError("page:classify:classifyIdMissing");
+            const array = yield this.classifyService.getClassifyId(id).then(a => {
                 return a;
             });
             array.push(id);
-            let newArray = Array.from(new Set(array));
+            const newArray = Array.from(new Set(array));
             const result = yield this.respository.createQueryBuilder()
-                .where('"classifyId" in (:classifyId)  and recycling=true', { classifyId: newArray })
-                .orderBy('id', 'ASC')
+                .where("\"classifyId\" in (:classifyId)  and recycling=true", { classifyId: newArray })
+                .orderBy("id", "ASC")
                 .skip(limit * (pages - 1)).take(limit).getManyAndCount();
-            let str = JSON.stringify(result);
-            let num = str.substring(str.lastIndexOf(',') + 1, str.lastIndexOf(']'));
-            let newresult = Array.from(JSON.parse(str.substring(str.indexOf('[') + 1, str.lastIndexOf(','))));
+            const str = JSON.stringify(result);
+            const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
+            const newresult = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
             return { articles: newresult, totalItems: Number(num) };
         });
     }
     getLevelByClassifyId(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            let entity = yield this.classifyService.findOneByIdArt(id);
-            if (entity == null)
-                throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
-            let num = yield this.classifyService.findLevel(entity.id).then(a => {
+            const entity = yield this.classifyService.findOneByIdArt(id);
+            if (entity === null)
+                throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+            const num = yield this.classifyService.findLevel(entity.id).then(a => {
                 return a;
             });
-            let level = this.classifyService.interfaceChange(num);
-            let topPlace = '';
-            if (level == 'level1') {
+            const level = this.classifyService.interfaceChange(num);
+            let topPlace = "";
+            if (level === "level1") {
                 topPlace = `global,current`;
             }
-            else if (level == 'level2') {
+            else if (level === "level2") {
                 topPlace = `global,level1,current`;
             }
-            else if (level == 'level3') {
+            else if (level === "level3") {
                 topPlace = `global,level1,current,level2`;
             }
             else {
@@ -259,14 +259,14 @@ let ArticleService = class ArticleService {
             let result;
             let update = true;
             if (id > 0) {
-                let aliasEntity = yield this.respository.findOneById(id);
-                if (aliasEntity == null)
+                const aliasEntity = yield this.respository.findOneById(id);
+                if (aliasEntity === null)
                     result = "当前文章不存在";
                 update = false;
             }
             if (classifyId > 0) {
-                let entity = yield this.classifyService.findOneByIdArt(classifyId);
-                if (entity == null)
+                const entity = yield this.classifyService.findOneByIdArt(classifyId);
+                if (entity === null)
                     result = "对应分类不存在";
                 update = false;
             }
@@ -280,27 +280,27 @@ let ArticleService = class ArticleService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (id > 0) {
-                    let entity = yield this.respository.findOneById(id);
-                    if (entity && entity.bucketName != null) {
-                        let entitys = yield this.respository.find({ pictureUrl: entity.pictureUrl });
-                        if (entitys.length == 1) {
+                    const entity = yield this.respository.findOneById(id);
+                    if (entity && entity.bucketName !== null) {
+                        const entitys = yield this.respository.find({ pictureUrl: entity.pictureUrl });
+                        if (entitys.length === 1) {
                             yield this.storeService.delete(entity.bucketName, entity.pictureName, entity.type);
                         }
                     }
                 }
-                let imagePreProcessInfo = new error_interface_1.ImagePreProcessInfo();
+                const imagePreProcessInfo = new error_interface_1.ImagePreProcessInfo();
                 imagePreProcessInfo.watermark = false;
-                let result = yield this.storeService.upload(bucketName, rawName, base64, imagePreProcessInfo).then(a => {
+                const result = yield this.storeService.upload(bucketName, rawName, base64, imagePreProcessInfo).then(a => {
                     return a;
                 });
-                let map = this.objToStrMap(result);
-                let bucket = map.get('bucketName');
-                let name = map.get('name');
-                let type = map.get('type');
-                let url = yield this.storeService.getUrl(req.get('obj'), bucket, name, type, imagePreProcessInfo).then(a => {
+                const map = this.objToStrMap(result);
+                const bucket = map.get("bucketName");
+                const name = map.get("name");
+                const types = map.get("type");
+                const url = yield this.storeService.getUrl(req.get("obj"), bucket, name, types, imagePreProcessInfo).then(a => {
                     return a;
                 });
-                return { pictureUrl: url, bucketName: bucket, pictureName: name, type: type, MessageCodeError: "上传成功" };
+                return { pictureUrl: url, bucketName: bucket, pictureName: name, type: types, MessageCodeError: "上传成功" };
             }
             catch (err) {
                 return { MessageCodeError: "上传失败" };
@@ -308,20 +308,20 @@ let ArticleService = class ArticleService {
         });
     }
     objToStrMap(obj) {
-        let strMap = new Map();
-        for (let k of Object.keys(obj)) {
+        const strMap = new Map();
+        for (const k of Object.keys(obj)) {
             strMap.set(k, obj[k]);
         }
         return strMap;
     }
     getArticleById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            let Array = [];
-            let article = yield this.respository.findOneById(id);
-            if (article == null)
-                throw new error_interface_2.MessageCodeError('delete:recycling:idMissing');
-            Array.push(article);
-            return { articles: Array };
+            const array = [];
+            const article = yield this.respository.findOneById(id);
+            if (article === null)
+                throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+            array.push(article);
+            return { articles: array };
         });
     }
 };
@@ -329,7 +329,7 @@ ArticleService = __decorate([
     common_1.Component(),
     __param(0, typeorm_1.InjectRepository(article_entity_1.ArticleEntity)),
     __param(1, typeorm_1.InjectRepository(classify_entity_1.ClassifyEntity)),
-    __param(3, common_1.Inject('StoreComponentToken')),
+    __param(3, common_1.Inject("StoreComponentToken")),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository,
         classify_service_1.ClassifyService, Object])

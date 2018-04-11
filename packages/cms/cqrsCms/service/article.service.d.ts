@@ -16,15 +16,15 @@ export declare class ArticleService {
         articles: ArticleEntity[];
         totalItems: number;
     }>;
-    deleteArticles(array: number[]): Promise<number>;
+    deleteArticles(array: Array<number>): Promise<number>;
     createArticle(article: ArticleEntity): Promise<void>;
     updateArticle(article: ArticleEntity): Promise<void>;
     recycleFind(limit?: number, pages?: number): Promise<{
         articles: ArticleEntity[];
         totalItems: number;
     }>;
-    recycleDelete(array: number[]): Promise<any>;
-    reductionArticle(array: number[]): Promise<number>;
+    recycleDelete(array: Array<number>): Promise<any>;
+    reductionArticle(array: Array<number>): Promise<number>;
     findTopPlace(limit?: number, pages?: number): Promise<{
         articles: ArticleEntity[];
         totalItems: number;

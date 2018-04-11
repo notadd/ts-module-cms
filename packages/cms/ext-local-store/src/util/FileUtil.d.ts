@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { PromiseUtil } from './PromiseUtil';
+import { PromiseUtil } from "./PromiseUtil";
 export declare class FileUtil {
     private readonly promiseUtil;
     constructor(promiseUtil: PromiseUtil);

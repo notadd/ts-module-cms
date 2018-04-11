@@ -26,7 +26,7 @@ let SitemapUpdateHandler = class SitemapUpdateHandler {
     }
     handle(event) {
         return __awaiter(this, void 0, void 0, function* () {
-            let url = 'www.baidu.com';
+            const url = "www.baidu.com";
             yield this.sitemapService.UpdateXMLFile(0, url);
         });
     }

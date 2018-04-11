@@ -31,33 +31,33 @@ let ArticleCurdHandler = class ArticleCurdHandler {
     }
     execute(command, resolver) {
         return __awaiter(this, void 0, void 0, function* () {
-            let id = '0';
+            const id = "0";
             const page = this.publisher.mergeObjectContext(yield this.repositoty.find(id));
             let result;
             if (!command.article.getAllArticles) {
-                let value, MessageCodeError;
+                let value, messageCodeError;
                 if (command.article.createArticle) {
-                    let result = yield this.articleService.CurdArticleCheck(command.article.createArticle.article.classifyId, 0).then(a => {
+                    const result = yield this.articleService.CurdArticleCheck(command.article.createArticle.article.classifyId, 0).then(a => {
                         return a;
                     });
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
                 if (command.article.updateArticle) {
                     const result = yield this.articleService.CurdArticleCheck(command.article.updateArticle.article.classifyId, command.article.updateArticle.article.id);
                     value = result.Continue;
-                    MessageCodeError = result.MessageCodeError;
+                    messageCodeError = result.MessageCodeError;
                 }
                 if (command.article.pictureUpload) {
                     const result = yield this.articleService.upLoadPicture(command.article.pictureUpload.url, command.article.pictureUpload.bucketName, command.article.pictureUpload.rawName, command.article.pictureUpload.base64, command.article.pictureUpload.id);
                     value = false;
                     resolver(result);
                 }
-                if (value == undefined)
+                if (value === undefined)
                     value = true;
                 if (value)
                     page.createArticle(command.article);
-                resolver({ MessageCodeError: MessageCodeError, Continue: value });
+                resolver({ MessageCodeError: messageCodeError, Continue: value });
             }
             if (command.article.getAllArticles && command.article.getArticles.getArticleAll) {
                 result = yield this.articleService.getArticleAll(command.article.limitNum, command.article.getArticles.hidden, command.article.pages);
