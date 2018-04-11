@@ -67,7 +67,7 @@ export class RegistrationService {
 
     /*获取街区入驻信息*/
     async getAllBlocks(limit?: number, pages?: number) {
-        const result = await this.blockRespository.createQueryBuilder().orderBy("'id'", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount().then(a => {
+        const result = await this.blockRespository.createQueryBuilder().orderBy("id", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount().then(a => {
             return a;
         });
         const str: string = JSON.stringify(result);
@@ -78,7 +78,7 @@ export class RegistrationService {
 
     /*获取场地租用信息*/
     async getSite(limit?: number, pages?: number) {
-        const result = await this.siteRespository.createQueryBuilder().orderBy("'id'", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+        const result = await this.siteRespository.createQueryBuilder().orderBy("id", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
         const str: string = JSON.stringify(result);
         const num: string = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
         const site: Array<SiteEntity> = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
@@ -87,7 +87,7 @@ export class RegistrationService {
 
     /*获取参观预约信息*/
     async getVisit(limit?: number, pages?: number) {
-        const result = await this.visitRespository.createQueryBuilder().orderBy("'id'", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
+        const result = await this.visitRespository.createQueryBuilder().orderBy("id", "ASC").skip(limit * (pages - 1)).take(limit).getManyAndCount();
         const str: string = JSON.stringify(result);
         const num: string = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
         const visit: Array<VisitEntity> = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
