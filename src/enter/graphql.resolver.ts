@@ -7,8 +7,10 @@ import { RegistrationService } from "./registration.service";
 
 function objToStrMap(obj): Map<string, string> {
     const strMap = new Map();
-    for (const k of Object.keys(obj)) {
-        strMap.set(k, obj[ k ]);
+    if (obj) {
+        for (const k of Object.keys(obj)) {
+            strMap.set(k, obj[ k ]);
+        }
     }
     return strMap;
 }
