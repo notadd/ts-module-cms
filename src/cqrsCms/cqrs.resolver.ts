@@ -63,67 +63,52 @@ export class CqrsResolver {
      */
 
     @Query()
-    async getArticlesLimit(obj, arg) {
-        const str: string = JSON.stringify(arg);
-        const bToJSon = JSON.parse(str);
-        let map = new Map();
-        map = this.objToStrMap(bToJSon);
+    async getArticlesLimit(obj, body: {getArticleAll: { hidden: boolean, limitNum: number, pages: number },
+        recycleFind: { limitNum: number, pages: number }, reductionGetByClassifyId: { id: number , limitNum: number, pages: number},
+        findTopPlace: { limitNum: number, pages: number}, serachArticle: { keyWords: string, classifyId: number, topPlace: boolean , limitNum: number, pages: number },
+        keywordSearch: { keyWords: string, limitNum: number, pages: number }
+    }) {
+        const { getArticleAll, recycleFind, reductionGetByClassifyId, findTopPlace, serachArticle, keywordSearch} = body;
         let result: Array<ArticleEntity>;
-        const getArticle = map.get("getArticleAll");
         const articleVM: ArticleCurdVm = new ArticleCurdVm();
-        if (getArticle !== null || getArticle !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(getArticle);
-            articleVM.getArticles = { getArticleAll: true, hidden: amap.get("hidden") };
-            articleVM.limitNum = amap.get("limitNum");
-            articleVM.pages = amap.get("pages");
+        if (getArticleAll !== null && getArticleAll !== undefined) {
+            articleVM.getArticles = { getArticleAll: true, hidden: getArticleAll.hidden };
+            articleVM.limitNum = getArticleAll.limitNum;
+            articleVM.pages = getArticleAll.pages;
         }
-        const recycleFind = map.get("recycleFind");
-        if (recycleFind !== null || recycleFind !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(recycleFind);
+        if (recycleFind !== null && recycleFind !== undefined) {
             articleVM.getArticles = { recycleFind: true };
-            articleVM.limitNum = amap.get("limitNum");
-            articleVM.pages = amap.get("pages");
+            articleVM.limitNum = recycleFind.limitNum;
+            articleVM.pages = recycleFind.pages;
         }
-        const reductionGetByClassifyId = map.get("reductionGetByClassifyId");
-        if (reductionGetByClassifyId !== null || reductionGetByClassifyId !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(reductionGetByClassifyId);
-            articleVM.getArticles = { reductionGetByClassifyId: amap.get("id") };
-            articleVM.limitNum = amap.get("limitNum");
-            articleVM.pages = amap.get("pages");
+        if (reductionGetByClassifyId !== null && reductionGetByClassifyId !== undefined) {
+            articleVM.getArticles = { reductionGetByClassifyId: reductionGetByClassifyId.id };
+            articleVM.limitNum = reductionGetByClassifyId.limitNum;
+            articleVM.pages = reductionGetByClassifyId.pages;
         }
-        const findTopPlace = map.get("findTopPlace");
-        if (findTopPlace !== null || findTopPlace !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(findTopPlace);
+        if (findTopPlace !== null && findTopPlace !== undefined) {
             articleVM.getArticles = { findTopPlace: true };
-            articleVM.limitNum = amap.get("limitNum");
-            articleVM.pages = amap.get("pages");
+            articleVM.limitNum = findTopPlace.limitNum;
+            articleVM.pages = findTopPlace.pages;
         }
-        const serachArticle = map.get("serachArticle");
-        if (serachArticle !== null || serachArticle !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(serachArticle);
-            let keyWords: string = amap.get("keyWords");
-            const limitNum: number = amap.get("limitNum");
-            const pages: number = amap.get("pages");
-            const groupId: number = amap.get("classifyId");
-            const findTop: boolean = amap.get("topPlace");
+        if (serachArticle !== null && serachArticle !== undefined) {
+            let keyWords: string = serachArticle.keyWords;
+            const limitNum: number = serachArticle.limitNum;
+            const pages: number = serachArticle.pages;
+            const groupId: number = serachArticle.classifyId;
+            const findTop: boolean = serachArticle.topPlace;
             if (!keyWords) keyWords = "";
             articleVM.getArticles = { getArticleByClassifyId: { classifyId: groupId, top: findTop, name: keyWords } };
             articleVM.limitNum = limitNum;
             articleVM.pages = pages;
         }
-        const keywordSearch = map.get("keywordSearch");
-        if (keywordSearch !== null || keywordSearch !== undefined) {
+        if (keywordSearch !== null && keywordSearch !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(keywordSearch);
-            const keyWords: string = amap.get("keyWords");
+            const keyWords: string = keywordSearch.keyWords;
             articleVM.getArticles = { keywordSearch: { keywords: keyWords } };
-            articleVM.limitNum = amap.get("limitNum");
-            articleVM.pages = amap.get("pages");
+            articleVM.limitNum = keywordSearch.limitNum;
+            articleVM.pages = keywordSearch.pages;
         }
         articleVM.getAllArticles = true;
         const resultArt = await this.sitemapService.articleCurd(articleVM);
@@ -140,40 +125,25 @@ export class CqrsResolver {
      * @returns {Promise<any>}
      */
     @Query()
-    async getArticlesNoLimit(obj, arg) {
-        const str: string = JSON.stringify(arg);
-        const bToJSon = JSON.parse(str);
-        let map = new Map();
-        map = this.objToStrMap(bToJSon);
-        const articleVM: ArticleCurdVm = new ArticleCurdVm();
-        const showNext = map.get("showNext");
+    async getArticlesNoLimit(obj, body: {getArticleById: { id: number }, showNext: { id: number }, superiorArticle: { id: number}, getCurrentClassifyArticles: { id: number}}) {
+        const {getArticleById, showNext, superiorArticle, getCurrentClassifyArticles } = body;
         let result: Array<ArticleEntity>;
-        if (showNext !== null || showNext !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(showNext);
-            articleVM.getArticles = { showNext: amap.get("id") };
+        const articleVM: ArticleCurdVm = new ArticleCurdVm();
+        if (showNext !== null && showNext !== undefined) {
+            articleVM.getArticles = { showNext: showNext.id };
         }
-        const getArticleById = map.get("getArticleById");
-        if (getArticleById !== null || getArticleById !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(getArticleById);
-            articleVM.getArticles = { getArticleById: amap.get("id") };
+        if (getArticleById !== null && getArticleById !== undefined) {
+            articleVM.getArticles = { getArticleById: getArticleById.id };
         }
-        const superiorArticle = map.get("superiorArticle");
-        if (superiorArticle !== null || superiorArticle !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(superiorArticle);
-            articleVM.getArticles = { superiorArticle: amap.get("id") };
+        if (superiorArticle !== null && superiorArticle !== undefined) {
+            articleVM.getArticles = { superiorArticle: superiorArticle.id };
         }
-        const getCurrentClassifyArticles = map.get("getCurrentClassifyArticles");
-        if (getCurrentClassifyArticles !== null || getCurrentClassifyArticles !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(getCurrentClassifyArticles);
-            articleVM.getArticles = { getCurrentClassifyArticles: amap.get("id") };
+        if (getCurrentClassifyArticles !== null && getCurrentClassifyArticles !== undefined) {
+            articleVM.getArticles = { getCurrentClassifyArticles: getCurrentClassifyArticles.id };
         }
         /*未定是否开放*/
         /*  let getLevelByClassifyId=map.get("getLevelByClassifyId");
-          if(getLevelByClassifyId!==null || getLevelByClassifyId !==undefined){
+          if(getLevelByClassifyId!==null && getLevelByClassifyId !==undefined){
               let amap=new Map();
               amap=this.objToStrMap(getLevelByClassifyId);
               articleVM.getArticles={getLevelByClassifyId:amap.get("id")};
@@ -194,20 +164,14 @@ export class CqrsResolver {
      * @returns {any}
      */
     @Query()
-    getClassifys(obj, arg) {
-        const str: string = JSON.stringify(arg);
-        const bToJSon = JSON.parse(str);
-        let map = new Map();
-        map = this.objToStrMap(bToJSon);
+    getClassifys(obj, body: {getAllClassify: { useFor: string, id: number}}) {
+        const { getAllClassify } = body;
         let result;
         const classifyVM: ClassifyCurdVm = new ClassifyCurdVm();
-        const getAllClassify = map.get("getAllClassify");
-        if (getAllClassify !== null || getAllClassify !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(getAllClassify);
-            const useFor: string = amap.get("useFor");
-            let id: number = amap.get("id");
-            if (id === null || id === 0) {
+        if (getAllClassify !== null && getAllClassify !== undefined) {
+            const useFor: string = getAllClassify.useFor;
+            let id: number = getAllClassify.id;
+            if (id === null && id === 0) {
                 id = 1;
             }
             classifyVM.useFor = useFor;
@@ -218,20 +182,14 @@ export class CqrsResolver {
     }
 
     @Query()
-    async getClassifyById(obj, arg) {
-        const str: string = JSON.stringify(arg);
-        const bToJSon = JSON.parse(str);
-        let map = new Map();
-        map = this.objToStrMap(bToJSon);
+    async getClassifyById(obj, body: {getClassifyById: { useFor: string, id: number}}) {
+        const {getClassifyById} = body;
         let result;
         const classifyVM: ClassifyCurdVm = new ClassifyCurdVm();
-        const getClassifyById = map.get("getClassifyById");
-        if (getClassifyById !== null || getClassifyById !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(getClassifyById);
-            const usedFor: string = amap.get("useFor");
-            let idNum: number = amap.get("id");
-            if (idNum === null || idNum === 0) {
+        if (getClassifyById !== null && getClassifyById !== undefined) {
+            const usedFor: string = getClassifyById.useFor;
+            let idNum: number = getClassifyById.id;
+            if (idNum === null && idNum === 0) {
                 idNum = 1;
             }
             classifyVM.getClassifyById = { useFor: usedFor, id: idNum };
@@ -254,7 +212,7 @@ export class CqrsResolver {
         map = this.objToStrMap(bToJSon);
         const getAllPage = map.get("getAllPage");
         const pageParam: GetPageVm = new GetPageVm();
-        if (getAllPage !== null || getAllPage !== undefined) {
+        if (getAllPage !== null && getAllPage !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(getAllPage);
             pageParam.getAll = true;
@@ -262,7 +220,7 @@ export class CqrsResolver {
             pageParam.pages = amap.get("pages");
         }
         const serachPages = map.get("serachPages");
-        if (serachPages !== null || serachPages !== undefined) {
+        if (serachPages !== null && serachPages !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(serachPages);
             pageParam.keywords = amap.get("keywords");
@@ -270,13 +228,14 @@ export class CqrsResolver {
             pageParam.pages = amap.get("pages");
         }
         const getPagesByClassifyId = map.get("getPagesByClassifyId");
-        if (getPagesByClassifyId !== null || getPagesByClassifyId !== undefined) {
+        if (getPagesByClassifyId !== null && getPagesByClassifyId !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(getPagesByClassifyId);
             pageParam.classifyId = amap.get("id");
             pageParam.limit = amap.get("limitNum");
             pageParam.pages = amap.get("pages");
         }
+
         const resultPage = await this.sitemapService.getPages(pageParam).then(a => {
             return a;
         });
@@ -297,7 +256,7 @@ export class CqrsResolver {
         let map = new Map();
         map = this.objToStrMap(bToJSon);
         const findPageById = map.get("findPageById");
-        if (findPageById !== null || findPageById !== undefined) {
+        if (findPageById !== null && findPageById !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(findPageById);
             const pageParam: GetPageVm = new GetPageVm();
@@ -325,7 +284,7 @@ export class CqrsResolver {
         articleVM.limitNum = map.get("limitNum");
         articleVM.pages = map.get("pages");
         articleVM.hidden = map.get("hidden");
-        if (createArt !== null || createArt !== undefined) {
+        if (createArt !== null && createArt !== undefined) {
             const art: ArticleEntity = createArt;
             if (art.publishedTime) {
                 const date: string = art.publishedTime.toString();
@@ -345,7 +304,7 @@ export class CqrsResolver {
             articleVM.createArticle = { article: newArticle };
         }
         const updateArt = map.get("updateArt");
-        if (updateArt !== null || updateArt !== undefined) {
+        if (updateArt !== null && updateArt !== undefined) {
             const art: ArticleEntity = updateArt;
             if (art.publishedTime) {
                 const date: string = art.publishedTime.toString();
@@ -364,21 +323,21 @@ export class CqrsResolver {
 
         }
         const deleteById = map.get("deleteById");
-        if (deleteById !== null || deleteById !== undefined) {
+        if (deleteById !== null && deleteById !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(deleteById);
             const array: [ number ] = amap.get("id");
             articleVM.deleteById = array;
         }
         const recycleDelete = map.get("recycleDelete");
-        if (recycleDelete !== null || recycleDelete !== undefined) {
+        if (recycleDelete !== null && recycleDelete !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(recycleDelete);
             const array: [ number ] = amap.get("id");
             articleVM.recycleDelete = array;
         }
         const reductionArticle = map.get("reductionArticle");
-        if (reductionArticle !== null || reductionArticle !== undefined) {
+        if (reductionArticle !== null && reductionArticle !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(reductionArticle);
             const array: [ number ] = amap.get("id");
@@ -386,7 +345,7 @@ export class CqrsResolver {
         }
         /*批量反向置顶,暂不修改*/
         const classifyTopPlace = map.get("classifyTopPlace");
-        if (classifyTopPlace !== null || classifyTopPlace !== undefined) {
+        if (classifyTopPlace !== null && classifyTopPlace !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(classifyTopPlace);
             const id = amap.get("id");
@@ -395,7 +354,7 @@ export class CqrsResolver {
             return result;
         }
         const pictureUpload = map.get("pictureUpload");
-        if (pictureUpload !== null || pictureUpload !== undefined) {
+        if (pictureUpload !== null && pictureUpload !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(pictureUpload);
             const ws = new Map();
@@ -427,12 +386,12 @@ export class CqrsResolver {
         map = this.objToStrMap(bToJSon);
         const createArt = map.get("createClass");
         const classifyVM: ClassifyCurdVm = new ClassifyCurdVm();
-        if (createArt !== null || createArt !== undefined) {
+        if (createArt !== null && createArt !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(createArt);
             const useFor: string = amap.get("useFor");
             let id: number = amap.get("id");
-            if (id === null || id === 0) {
+            if (id === null && id === 0) {
                 id = 1;
             }
             classifyVM.useFor = useFor;
@@ -444,12 +403,12 @@ export class CqrsResolver {
             }
         }
         const updateClass = map.get("updateClass");
-        if (updateClass !== null || updateClass !== undefined) {
+        if (updateClass !== null && updateClass !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(updateClass);
             const useFor: string = amap.get("useFor");
             let id: number = amap.get("id");
-            if (id === null || id === 0) {
+            if (id === null && id === 0) {
                 id = 1;
             }
             classifyVM.useFor = useFor;
@@ -461,12 +420,12 @@ export class CqrsResolver {
             }
         }
         const deleteClassifyById = map.get("deleteClassifyById");
-        if (deleteClassifyById !== null || deleteClassifyById !== undefined) {
+        if (deleteClassifyById !== null && deleteClassifyById !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(deleteClassifyById);
             const useFor: string = amap.get("useFor");
             let id: number = amap.get("id");
-            if (id === null || id === 0) {
+            if (id === null && id === 0) {
                 id = 1;
             }
             if (id === 1) throw new MessageCodeError("drop:table:ById1");
@@ -474,13 +433,13 @@ export class CqrsResolver {
             classifyVM.deleteClassify = id;
         }
         const mobileTheClassify = map.get("mobileTheClassify");
-        if (mobileTheClassify !== null || mobileTheClassify !== undefined) {
+        if (mobileTheClassify !== null && mobileTheClassify !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(mobileTheClassify);
             const useFor: string = amap.get("useFor");
             const idNum: number = amap.get("id");
             let parentIdNum: number = amap.get("parentId");
-            if (parentIdNum === null || parentIdNum === 0) {
+            if (parentIdNum === null && parentIdNum === 0) {
                 parentIdNum = 1;
             }
             classifyVM.useFor = useFor;
@@ -498,7 +457,7 @@ export class CqrsResolver {
         map = this.objToStrMap(bToJSon);
         const createPages = map.get("createPages");
         const createParam: CreatePageVm = new CreatePageVm();
-        if (createPages !== null || createPages !== undefined) {
+        if (createPages !== null && createPages !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(createPages);
             const page = new PageEntity();
@@ -519,7 +478,7 @@ export class CqrsResolver {
             createParam.pages = amap.get("pages");
         }
         const updatePages = map.get("updatePages");
-        if (updatePages !== null || updatePages !== undefined) {
+        if (updatePages !== null && updatePages !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(updatePages);
             const page: PageEntity = new PageEntity();
@@ -544,7 +503,7 @@ export class CqrsResolver {
             createParam.pages = amap.get("pages");
         }
         const deletePages = map.get("deletePages");
-        if (deletePages !== null || deletePages !== undefined) {
+        if (deletePages !== null && deletePages !== undefined) {
             let amap = new Map();
             amap = this.objToStrMap(deletePages);
             const array: [ number ] = amap.get("id");
@@ -563,8 +522,10 @@ export class CqrsResolver {
      */
     objToStrMap(obj): Map<string, string> {
         const strMap = new Map();
-        for (const k of Object.keys(obj)) {
-            strMap.set(k, obj[ k ]);
+        if (obj) {
+            for (const k of Object.keys(obj)) {
+                strMap.set(k, obj[ k ]);
+            }
         }
         return strMap;
     }
