@@ -7,8 +7,8 @@ export declare class SitemapService {
     private readonly pageRepository;
     private readonly siteRepository;
     constructor(artRepository: Repository<ArticleEntity>, pageRepository: Repository<PageEntity>, siteRepository: Repository<SitemapEntity>);
-    commitXML(array_baidu_sitemap_options: any, url: string): Promise<void>;
+    commitXML(arrayOptions: any, url: string): Promise<void>;
     UpdateXMLFile($mes: number, url: string): Promise<void>;
-    getBaiduOptions(getBaiduOptions?: any): Promise<any[]>;
+    getBaiduOptions(getBaiduOptions?: any): Promise<SitemapEntity>;
     buildSitemapXml(url: string): Promise<void>;
 }
