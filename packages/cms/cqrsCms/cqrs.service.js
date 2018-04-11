@@ -38,7 +38,7 @@ let CqrsService = class CqrsService {
     }
     updateXml() {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.commonbus.execute(new delete_param_command_1.DeleteParamCommand('10000', '10000'));
+            const result = yield this.commonbus.execute(new delete_param_command_1.DeleteParamCommand("10000", "10000"));
             return result;
         });
     }
