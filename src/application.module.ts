@@ -12,23 +12,22 @@ import { CmsModule } from "./cms.injection";
     ],
 })
 export class ApplicationModule implements NestModule {
-    K
-
+    K;
     constructor(private readonly graphqlFactory: GraphQLFactory) {
     }
 
-    //中间件设置
+    /*中间件设置*/
     configure(consumer: MiddlewaresConsumer) {
         const schema = this.createSchema();
-        consumer.apply(graphiqlExpress({ endpointURL: '/graphql' }))
-            .forRoutes({ path: '/graphiql', method: RequestMethod.GET })
+        consumer.apply(graphiqlExpress({ endpointURL: "/graphql" }))
+            .forRoutes({ path: "/graphiql", method: RequestMethod.GET })
             .apply(graphqlExpress(req => ({ schema, rootValue: req })))
-            .forRoutes({ path: '/graphql', method: RequestMethod.ALL })
+            .forRoutes({ path: "/graphql", method: RequestMethod.ALL });
 
     }
 
     createSchema() {
-        const typeDefs = this.graphqlFactory.mergeTypesByPaths('**/*.types.graphql');
+        const typeDefs = this.graphqlFactory.mergeTypesByPaths("**/*.types.graphql");
         const schema = this.graphqlFactory.createSchema({ typeDefs });
 
         return schema;
