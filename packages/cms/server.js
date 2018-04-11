@@ -16,7 +16,7 @@ const cross = (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     res.header("Access-Control-Allow-Headers", "Content-Type,Authorization,Content-Length,X-Requested-With");
-    if ("OPTIONS" == req.method) {
+    if ("OPTIONS" === req.method) {
         res.sendStatus(200);
     }
     else {
@@ -27,8 +27,8 @@ function bootstrap() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(application_module_1.ApplicationModule);
         app.use(cross);
-        app.use(bodyParser.json({ limit: '100000kb' }));
+        app.use(bodyParser.json({ limit: "100000kb" }));
         yield app.listen(3001);
     });
 }
-bootstrap().then(() => console.log('Application is listening on port 3001'));
+bootstrap().then(() => console.log("Application is listening on port 3001"));
