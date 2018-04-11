@@ -1,16 +1,16 @@
 import { Repository } from "typeorm";
-import { AudioFormatConfig } from "../interface/config/AudioFormatConfig";
-import { BucketConfig } from "../interface/config/BucketConfig";
-import { EnableImageWatermarkConfig } from "../interface/config/EnableImageWatermarkConfig";
-import { ImageFormatConfig } from "../interface/config/ImageFormatConfig";
-import { VideoFormatConfig } from "../interface/config/VideoFormatConfig";
-import { AudioConfig } from "../model/AudioConfig.entity";
-import { Bucket } from "../model/Bucket.entity";
-import { Image } from "../model/Image.entity";
-import { ImageConfig } from "../model/ImageConfig.entity";
-import { VideoConfig } from "../model/VideoConfig.entity";
-import { FileUtil } from "../util/FileUtil";
-import { RestfulUtil } from "../util/RestfulUtil";
+import { AudioFormatConfig } from "../interface/config/audio.format.config";
+import { BucketConfig } from "../interface/config/bucket.config";
+import { EnableImageWatermarkConfig } from "../interface/config/enable.image.watermark.config";
+import { ImageFormatConfig } from "../interface/config/image.format.config";
+import { VideoFormatConfig } from "../interface/config/video.format.config";
+import { AudioConfig } from "../model/audio.config.entity";
+import { Bucket } from "../model/bucket.entity";
+import { Image } from "../model/image.entity";
+import { ImageConfig } from "../model/image.config.entity";
+import { VideoConfig } from "../model/video.config.entity";
+import { FileUtil } from "../util/file.util";
+import { RestfulUtil } from "../util/restful.util";
 export declare class ConfigService {
     private readonly fileUtil;
     private readonly restfulUtil;

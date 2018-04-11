@@ -24,13 +24,13 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const crypto = require("crypto");
 const typeorm_2 = require("typeorm");
-const AudioConfig_entity_1 = require("../model/AudioConfig.entity");
-const Bucket_entity_1 = require("../model/Bucket.entity");
-const Image_entity_1 = require("../model/Image.entity");
-const ImageConfig_entity_1 = require("../model/ImageConfig.entity");
-const VideoConfig_entity_1 = require("../model/VideoConfig.entity");
-const FileUtil_1 = require("../util/FileUtil");
-const RestfulUtil_1 = require("../util/RestfulUtil");
+const audio_config_entity_1 = require("../model/audio.config.entity");
+const bucket_entity_1 = require("../model/bucket.entity");
+const image_entity_1 = require("../model/image.entity");
+const image_config_entity_1 = require("../model/image.config.entity");
+const video_config_entity_1 = require("../model/video.config.entity");
+const file_util_1 = require("../util/file.util");
+const restful_util_1 = require("../util/restful.util");
 let ConfigService = class ConfigService {
     constructor(fileUtil, restfulUtil, imageRepository, bucketRepository, imageConfigRepository, audioConfigRepository, videoConfigRepository) {
         this.fileUtil = fileUtil;
@@ -44,21 +44,21 @@ let ConfigService = class ConfigService {
     saveBucketConfig(body) {
         return __awaiter(this, void 0, void 0, function* () {
             let exist;
-            let newBucket = this.bucketRepository.create({
+            const newBucket = this.bucketRepository.create({
                 name: body.name,
                 operator: body.operator,
                 password: crypto.createHash("md5").update(body.password).digest("hex"),
                 directory: body.directory,
-                base_url: body.base_url,
-                request_expire: body.request_expire
+                baseUrl: body.baseUrl,
+                requestExpire: body.requestExpire
             });
             if (body.isPublic) {
                 exist = yield this.bucketRepository.findOneById(1);
             }
             else {
                 exist = yield this.bucketRepository.findOneById(2);
-                newBucket.token_expire = body.token_expire;
-                newBucket.token_secret_key = body.token_secret_key;
+                newBucket.tokenExpire = body.tokenExpire;
+                newBucket.tokenSecretKey = body.tokenSecretKey;
             }
             if (exist) {
                 try {
@@ -69,23 +69,23 @@ let ConfigService = class ConfigService {
                 }
                 return newBucket;
             }
-            let audio_config = new AudioConfig_entity_1.AudioConfig();
-            let video_config = new VideoConfig_entity_1.VideoConfig();
-            let image_config = new ImageConfig_entity_1.ImageConfig();
+            const audioConfig = new audio_config_entity_1.AudioConfig();
+            const videoConfig = new video_config_entity_1.VideoConfig();
+            const imageConfig = new image_config_entity_1.ImageConfig();
             if (body.isPublic) {
                 newBucket.id = 1;
-                newBucket.public_or_private = "public";
+                newBucket.publicOrPrivate = "public";
             }
             else {
                 newBucket.id = 2;
-                newBucket.public_or_private = "private";
+                newBucket.publicOrPrivate = "private";
             }
-            audio_config.id = newBucket.id;
-            video_config.id = newBucket.id;
-            image_config.id = newBucket.id;
-            newBucket.audio_config = audio_config;
-            newBucket.video_config = video_config;
-            newBucket.image_config = image_config;
+            audioConfig.id = newBucket.id;
+            videoConfig.id = newBucket.id;
+            imageConfig.id = newBucket.id;
+            newBucket.audioConfig = audioConfig;
+            newBucket.videoConfig = videoConfig;
+            newBucket.imageConfig = imageConfig;
             try {
                 yield this.bucketRepository.save(newBucket);
             }
@@ -99,16 +99,16 @@ let ConfigService = class ConfigService {
         return __awaiter(this, void 0, void 0, function* () {
             let { format } = body;
             format = format.toLowerCase();
-            if (format != "raw" && format != "webp_damage" && format != "webp_undamage") {
+            if (format !== "raw" && format !== "webp_damage" && format !== "webp_undamage") {
                 throw new common_1.HttpException("图片保存格式不正确", 400);
             }
-            let buckets = yield this.bucketRepository.find({ relations: ["image_config"] });
+            const buckets = yield this.bucketRepository.find({ relations: ["imageConfig"] });
             if (buckets.length !== 2) {
                 throw new common_1.HttpException("空间配置不存在", 401);
             }
             try {
                 for (let i = 0; i < buckets.length; i++) {
-                    yield this.imageConfigRepository.updateById(buckets[i].image_config.id, { format });
+                    yield this.imageConfigRepository.updateById(buckets[i].imageConfig.id, { format });
                 }
             }
             catch (err) {
@@ -119,20 +119,20 @@ let ConfigService = class ConfigService {
     }
     saveEnableImageWatermarkConfig(body) {
         return __awaiter(this, void 0, void 0, function* () {
-            let buckets = yield this.bucketRepository.find({ relations: ["image_config"] });
+            const buckets = yield this.bucketRepository.find({ relations: ["imageConfig"] });
             if (buckets.length !== 2) {
                 throw new common_1.HttpException("空间配置不存在", 401);
             }
-            let watermark_enable;
+            let watermarkEnable;
             if (body.enable) {
-                watermark_enable = 1;
+                watermarkEnable = 1;
             }
             else {
-                watermark_enable = 0;
+                watermarkEnable = 0;
             }
             try {
                 for (let i = 0; i < buckets.length; i++) {
-                    yield this.imageConfigRepository.updateById(buckets[i].image_config.id, { watermark_enable });
+                    yield this.imageConfigRepository.updateById(buckets[i].imageConfig.id, { watermarkEnable });
                 }
             }
             catch (err) {
@@ -142,30 +142,30 @@ let ConfigService = class ConfigService {
     }
     saveImageWatermarkConfig(file, obj) {
         return __awaiter(this, void 0, void 0, function* () {
-            let buckets = yield this.bucketRepository.find({ relations: ["image_config"] });
+            const buckets = yield this.bucketRepository.find({ relations: ["imageConfig"] });
             let type = file.name.substr(file.name.lastIndexOf(".") + 1).toLowerCase();
             if (buckets.length !== 2) {
                 throw new common_1.HttpException("空间配置不存在", 401);
             }
-            let buffer = yield this.fileUtil.read(file.path);
-            let md5 = crypto.createHash("md5").update(buffer).digest("hex");
+            const buffer = yield this.fileUtil.read(file.path);
+            const md5 = crypto.createHash("md5").update(buffer).digest("hex");
             for (let i = 0; i < buckets.length; i++) {
-                if (buckets[i].image_config.format === "webp_damage" || buckets[i].image_config.format === "webp_undamage") {
+                if (buckets[i].imageConfig.format === "webp_damage" || buckets[i].imageConfig.format === "webp_undamage") {
                     type = "webp";
                 }
-                let image = new Image_entity_1.Image();
+                const image = new image_entity_1.Image();
                 image.bucket = buckets[i];
-                image.raw_name = file.name;
+                image.rawName = file.name;
                 image.name = md5 + "_" + (+new Date());
                 image.type = type;
                 image.status = "post";
-                let { width, height, frames } = yield this.restfulUtil.uploadFile(buckets[i], image, file, null);
-                let { file_size, file_md5 } = yield this.restfulUtil.getFileInfo(buckets[i], image);
+                const { width, height, frames } = yield this.restfulUtil.uploadFile(buckets[i], image, file, undefined);
+                const { fileSize, fileMd5 } = yield this.restfulUtil.getFileInfo(buckets[i], image);
                 image.width = width;
                 image.height = height;
                 image.frames = frames;
-                image.size = file_size;
-                image.md5 = file_md5;
+                image.size = fileSize;
+                image.md5 = fileMd5;
                 try {
                     yield this.imageRepository.save(image);
                 }
@@ -173,13 +173,13 @@ let ConfigService = class ConfigService {
                     throw new common_1.HttpException("水印图片保存失败" + err.toString(), 403);
                 }
                 try {
-                    yield this.imageConfigRepository.updateById(buckets[i].image_config.id, {
-                        watermark_save_key: "/" + buckets[i].directory + "/" + image.name + "." + image.type,
-                        watermark_gravity: obj.gravity,
-                        watermark_opacity: obj.opacity,
-                        watermark_ws: obj.ws,
-                        watermark_x: obj.x,
-                        watermark_y: obj.y
+                    yield this.imageConfigRepository.updateById(buckets[i].imageConfig.id, {
+                        watermarkSaveKey: "/" + buckets[i].directory + "/" + image.name + "." + image.type,
+                        watermarkGravity: obj.gravity,
+                        watermarkOpacity: obj.opacity,
+                        watermarkWs: obj.ws,
+                        watermarkX: obj.x,
+                        watermarkY: obj.y
                     });
                 }
                 catch (err) {
@@ -193,16 +193,16 @@ let ConfigService = class ConfigService {
         return __awaiter(this, void 0, void 0, function* () {
             let { format } = body;
             format = format.toLowerCase();
-            if (format != "raw" && format != "mp3" && format != "aac") {
+            if (format !== "raw" && format !== "mp3" && format !== "aac") {
                 throw new common_1.HttpException("音频保存格式不正确", 400);
             }
-            let buckets = yield this.bucketRepository.find({ relations: ["audio_config"] });
+            const buckets = yield this.bucketRepository.find({ relations: ["audioConfig"] });
             if (buckets.length !== 2) {
                 throw new common_1.HttpException("空间配置不存在", 401);
             }
             try {
                 for (let i = 0; i < buckets.length; i++) {
-                    yield this.audioConfigRepository.updateById(buckets[i].audio_config.id, { format });
+                    yield this.audioConfigRepository.updateById(buckets[i].audioConfig.id, { format });
                 }
             }
             catch (err) {
@@ -214,20 +214,20 @@ let ConfigService = class ConfigService {
         return __awaiter(this, void 0, void 0, function* () {
             let { format, resolution } = body;
             format = format.toLowerCase();
-            if (format != "raw" && format != "vp9" && format != "h264" && format != "h265") {
+            if (format !== "raw" && format !== "vp9" && format !== "h264" && format !== "h265") {
                 throw new common_1.HttpException("视频编码格式不正确", 400);
             }
             resolution = resolution.toLowerCase();
-            if (resolution != "raw" && resolution != "p1080" && resolution != "p720" && resolution != "p480") {
+            if (resolution !== "raw" && resolution !== "p1080" && resolution !== "p720" && resolution !== "p480") {
                 throw new common_1.HttpException("视频分辨率格式不正确", 400);
             }
-            let buckets = yield this.bucketRepository.find({ relations: ["video_config"] });
+            const buckets = yield this.bucketRepository.find({ relations: ["videoConfig"] });
             if (buckets.length !== 2) {
                 throw new common_1.HttpException("空间配置不存在", 401);
             }
             try {
                 for (let i = 0; i < buckets.length; i++) {
-                    yield this.videoConfigRepository.updateById(buckets[i].video_config.id, { format, resolution });
+                    yield this.videoConfigRepository.updateById(buckets[i].videoConfig.id, { format, resolution });
                 }
             }
             catch (err) {
@@ -239,15 +239,15 @@ let ConfigService = class ConfigService {
 };
 ConfigService = __decorate([
     common_1.Component(),
-    __param(0, common_1.Inject(FileUtil_1.FileUtil)),
-    __param(1, common_1.Inject(RestfulUtil_1.RestfulUtil)),
-    __param(2, typeorm_1.InjectRepository(Image_entity_1.Image)),
-    __param(3, typeorm_1.InjectRepository(Bucket_entity_1.Bucket)),
-    __param(4, typeorm_1.InjectRepository(ImageConfig_entity_1.ImageConfig)),
-    __param(5, typeorm_1.InjectRepository(AudioConfig_entity_1.AudioConfig)),
-    __param(6, typeorm_1.InjectRepository(VideoConfig_entity_1.VideoConfig)),
-    __metadata("design:paramtypes", [FileUtil_1.FileUtil,
-        RestfulUtil_1.RestfulUtil,
+    __param(0, common_1.Inject(file_util_1.FileUtil)),
+    __param(1, common_1.Inject(restful_util_1.RestfulUtil)),
+    __param(2, typeorm_1.InjectRepository(image_entity_1.Image)),
+    __param(3, typeorm_1.InjectRepository(bucket_entity_1.Bucket)),
+    __param(4, typeorm_1.InjectRepository(image_config_entity_1.ImageConfig)),
+    __param(5, typeorm_1.InjectRepository(audio_config_entity_1.AudioConfig)),
+    __param(6, typeorm_1.InjectRepository(video_config_entity_1.VideoConfig)),
+    __metadata("design:paramtypes", [file_util_1.FileUtil,
+        restful_util_1.RestfulUtil,
         typeorm_2.Repository,
         typeorm_2.Repository,
         typeorm_2.Repository,
