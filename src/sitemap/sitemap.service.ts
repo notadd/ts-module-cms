@@ -108,14 +108,15 @@ export class SitemapService {
         const fs = require("fs");
         const file = `${(__dirname).substring(0, (__dirname).lastIndexOf("/"))}/public/`;
         const ws = fs.createWriteStream(`${file}${arrayOptions.xmlFileName}.xml`);
-        const root = builder.create("urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'");
+        const builder = require("xmlbuilder");
+        const root = builder.create("urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"");
         let num = 1;
         /*链接包括文章*/
         if (arrayOptions.postSelect) {
             const mini: Array<ArticleEntity> = await this.artRepository.createQueryBuilder("art").orderBy("art.updateAt", "DESC").limit(limit / 2).getMany();
             for (const t in mini) {
                 const newTime: Date = mini[ t ].updateAt;
-                const update: Date = new Date(newTime.getTime() + newTime.getTimezoneOffset() * 2 * 30 * 1000);
+                const update: Date = newTime;
                 const item = root.ele("url");
                 const sequence = num++;
                 item.ele("sequence", sequence);
@@ -130,7 +131,7 @@ export class SitemapService {
             const mini: Array<PageEntity> = await this.pageRepository.createQueryBuilder("page").orderBy("page.updateAt", "DESC").limit(limit / 2).getMany();
             for (const t in mini) {
                 const newTime: Date = mini[ t ].updateAt;
-                const update: Date = new Date(newTime.getTime() + newTime.getTimezoneOffset() * 2 * 30 * 1000);
+                const update: Date = newTime;
                 const item = root.ele("url");
                 const sequence = num++;
                 item.ele("sequence", sequence);

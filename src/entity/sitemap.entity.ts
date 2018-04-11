@@ -6,7 +6,7 @@ export class SitemapEntity {
     @PrimaryGeneratedColumn() id: number;
 
     /*文件名*/
-    @Column({ length: 20 })
+    @Column({ length: 20 , nullable: true })
     xmlFileName: string;
 
     /*生成xml地图*/
