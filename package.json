@@ -48,7 +48,7 @@
         "typeorm": "^0.1.9",
         "typescript": "^2.8.1",
         "body-parser": "^1.18.2",
-      "underscore": "latest",
+        "underscore": "latest",
         "xmlbuilder": "latest"
     },
     "devDependencies": {
