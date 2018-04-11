@@ -5,7 +5,7 @@ import { PageEntity } from "../../../entity/page.entity";
 export class PageCreateEvent implements IEvent {
     constructor(
         public  page: PageEntity,
-        public content: PageContentEntity[],
+        public content: Array<PageContentEntity>,
     ) {
     }
 }
