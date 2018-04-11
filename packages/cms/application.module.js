@@ -20,13 +20,13 @@ let ApplicationModule = class ApplicationModule {
     }
     configure(consumer) {
         const schema = this.createSchema();
-        consumer.apply(apollo_server_express_1.graphiqlExpress({ endpointURL: '/graphql' }))
-            .forRoutes({ path: '/graphiql', method: common_1.RequestMethod.GET })
+        consumer.apply(apollo_server_express_1.graphiqlExpress({ endpointURL: "/graphql" }))
+            .forRoutes({ path: "/graphiql", method: common_1.RequestMethod.GET })
             .apply(apollo_server_express_1.graphqlExpress(req => ({ schema, rootValue: req })))
-            .forRoutes({ path: '/graphql', method: common_1.RequestMethod.ALL });
+            .forRoutes({ path: "/graphql", method: common_1.RequestMethod.ALL });
     }
     createSchema() {
-        const typeDefs = this.graphqlFactory.mergeTypesByPaths('**/*.types.graphql');
+        const typeDefs = this.graphqlFactory.mergeTypesByPaths("**/*.types.graphql");
         const schema = this.graphqlFactory.createSchema({ typeDefs });
         return schema;
     }
