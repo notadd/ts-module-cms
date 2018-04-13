@@ -19,10 +19,10 @@ gulp.task("default", function() {
     modules.forEach(module => {
         gulp.watch(
             [
-                `${source}/${module}/**/*.graphql`,
-                `${source}/${module}/*.graphql`,
-                `${source}/${module}/**/*.ts`,
-                `${source}/${module}/*.ts`,
+                `${source}/**/*.graphql`,
+                `${source}/*.graphql`,
+                `${source}/**/*.ts`,
+                `${source}/*.ts`,
                 `${source}/*.ts`,
             ],
             [module]
@@ -43,8 +43,8 @@ gulp.task("clean:lib", function() {
 modules.forEach(module => {
     gulp.task(module, () => {
         gulp.src([
-            `${source}/${module}/**/*.original.graphql`,
-            `${source}/${module}/*.original.graphql`,
+            `${source}/**/*.original.graphql`,
+            `${source}/*.original.graphql`,
         ]).pipe(rename(function (path) {
             path.basename = path.basename.replace(".original", ".types");
         })).pipe(gulp.dest(`${dist}`));
