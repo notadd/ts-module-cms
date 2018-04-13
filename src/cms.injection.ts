@@ -1,7 +1,7 @@
 import { Module } from "@notadd/injection";
 import { CqrsModule } from "./cqrsCms/cqrs.module";
 import { RegistrationModule } from "./enter/registration.module";
-import { UpyunModule } from "./ext-local-store/src/upyun.module";
+import { UpyunModule } from "@notadd/addon-upyun";
 
 @Module({
     authors: [

@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const injection_1 = require("@notadd/injection");
 const cqrs_module_1 = require("./cqrsCms/cqrs.module");
 const registration_module_1 = require("./enter/registration.module");
-const upyun_module_1 = require("./ext-local-store/src/upyun.module");
+const addon_upyun_1 = require("@notadd/addon-upyun");
 let CmsModule = class CmsModule {
 };
 CmsModule = __decorate([
@@ -29,7 +29,7 @@ CmsModule = __decorate([
         version: "2.0.3",
         imports: [
             cqrs_module_1.CqrsModule,
-            upyun_module_1.UpyunModule,
+            addon_upyun_1.UpyunModule,
             registration_module_1.RegistrationModule,
         ],
     })
