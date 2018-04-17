@@ -122,7 +122,7 @@ let SitemapService = class SitemapService {
                 limit = 10000;
             }
             const fs = require("fs");
-            const file = `${(__dirname).substring(0, (__dirname).lastIndexOf("/"))}/public/`;
+            const file = `${(process.cwd()).substring(0, (process.cwd()).lastIndexOf("/"))}/public/`;
             const ws = fs.createWriteStream(`${file}${arrayOptions.xmlFileName}.xml`);
             const builder = require("xmlbuilder");
             const root = builder.create("urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"");
