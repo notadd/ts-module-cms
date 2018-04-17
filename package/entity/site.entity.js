@@ -17,59 +17,97 @@ __decorate([
     __metadata("design:type", Number)
 ], SiteEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 50 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 50,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "applicant", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 20 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 20,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "telPhone", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 160 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 160,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "activityName", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], SiteEntity.prototype, "eventDate", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], SiteEntity.prototype, "startTime", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], SiteEntity.prototype, "endTime", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 20 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 20,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "peopleScale", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 50 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 50,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "siteSelection", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 150 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 150,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "equipment", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 700 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 700,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "activityIntroduce", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 600 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 600,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "mainGuest", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 500 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 500,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "plansMedia", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 700 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 700,
+    }),
     __metadata("design:type", String)
 ], SiteEntity.prototype, "descr", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], SiteEntity.prototype, "collapse", void 0);
 SiteEntity = __decorate([

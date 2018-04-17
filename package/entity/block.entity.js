@@ -17,39 +17,65 @@ __decorate([
     __metadata("design:type", Number)
 ], BlockEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "username", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 20 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 20
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "telPhone", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 100 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 100
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "weChat", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 70 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 70
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "email", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "companyName", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 130 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 130
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "industryInvolved", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 30 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 30
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "employees", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 700 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 700
+    }),
     __metadata("design:type", String)
 ], BlockEntity.prototype, "companyIntroduction", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true
+    }),
     __metadata("design:type", Boolean)
 ], BlockEntity.prototype, "collapse", void 0);
 BlockEntity = __decorate([

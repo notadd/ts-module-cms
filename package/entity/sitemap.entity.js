@@ -17,27 +17,40 @@ __decorate([
     __metadata("design:type", Number)
 ], SitemapEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ length: 20, nullable: true }),
+    typeorm_1.Column({
+        length: 20,
+        nullable: true,
+    }),
     __metadata("design:type", String)
 ], SitemapEntity.prototype, "xmlFileName", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], SitemapEntity.prototype, "xmlSiteMap", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], SitemapEntity.prototype, "postLimit1000", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], SitemapEntity.prototype, "postSelect", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], SitemapEntity.prototype, "pageSelect", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], SitemapEntity.prototype, "updateWhenPost", void 0);
 __decorate([

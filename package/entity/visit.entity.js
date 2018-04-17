@@ -17,39 +17,64 @@ __decorate([
     __metadata("design:type", Number)
 ], VisitEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 50 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 50,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "name", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 20 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 20,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "telPhone", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 100 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 100,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "weChat", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 70 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 70,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "email", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "companyName", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 130 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 130,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "industryInvolved", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 30 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 30,
+    }),
     __metadata("design:type", String)
 ], VisitEntity.prototype, "employees", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], VisitEntity.prototype, "appointmentDate", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], VisitEntity.prototype, "collapse", void 0);
 VisitEntity = __decorate([

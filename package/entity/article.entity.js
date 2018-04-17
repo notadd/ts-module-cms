@@ -18,27 +18,44 @@ __decorate([
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 120 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 120,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "name", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 100 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 100,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "classify", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "classifyId", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "url", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 120 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 120,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "source", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "sourceUrl", void 0);
 __decorate([
@@ -46,47 +63,73 @@ __decorate([
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "topPlace", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: false }),
+    typeorm_1.Column({
+        nullable: false,
+    }),
     __metadata("design:type", Boolean)
 ], ArticleEntity.prototype, "hidden", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Boolean)
 ], ArticleEntity.prototype, "recycling", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], ArticleEntity.prototype, "publishedTime", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 500 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 500,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "abstract", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 65532 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 65532,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "content", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "display", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], ArticleEntity.prototype, "startTime", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Date)
 ], ArticleEntity.prototype, "endTime", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 300 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 300,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "activityAddress", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "organizer", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Number)
 ], ArticleEntity.prototype, "peopleNum", void 0);
 __decorate([
@@ -98,23 +141,37 @@ __decorate([
     __metadata("design:type", Date)
 ], ArticleEntity.prototype, "updateAt", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 20 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 20,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "bucketName", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 500 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 500,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "pictureName", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 30 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 30,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "type", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 500 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 500,
+    }),
     __metadata("design:type", String)
 ], ArticleEntity.prototype, "pictureUrl", void 0);
 __decorate([
-    typeorm_1.Column({ default: false }),
+    typeorm_1.Column({
+        default: false,
+    }),
     __metadata("design:type", Boolean)
 ], ArticleEntity.prototype, "check", void 0);
 __decorate([

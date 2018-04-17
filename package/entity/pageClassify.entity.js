@@ -18,27 +18,44 @@ __decorate([
     __metadata("design:type", Number)
 ], PageClassifyEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: false, length: 120 }),
+    typeorm_1.Column({
+        nullable: false,
+        length: 120,
+    }),
     __metadata("design:type", String)
 ], PageClassifyEntity.prototype, "title", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: false, length: 120 }),
+    typeorm_1.Column({
+        nullable: false,
+        length: 120,
+    }),
     __metadata("design:type", String)
 ], PageClassifyEntity.prototype, "classifyAlias", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], PageClassifyEntity.prototype, "chainUrl", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 200 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], PageClassifyEntity.prototype, "describe", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 40 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 40,
+    }),
     __metadata("design:type", String)
 ], PageClassifyEntity.prototype, "color", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Number)
 ], PageClassifyEntity.prototype, "groupId", void 0);
 __decorate([

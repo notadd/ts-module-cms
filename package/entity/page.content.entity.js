@@ -22,7 +22,10 @@ __decorate([
     __metadata("design:type", Number)
 ], PageContentEntity.prototype, "parentId", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true, length: 10000 }),
+    typeorm_1.Column({
+        nullable: true,
+        length: 10000,
+    }),
     __metadata("design:type", String)
 ], PageContentEntity.prototype, "content", void 0);
 __decorate([

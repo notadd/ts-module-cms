@@ -19,19 +19,28 @@ __decorate([
     __metadata("design:type", Number)
 ], PageEntity.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column({ length: 200 }),
+    typeorm_1.Column({
+        length: 200,
+    }),
     __metadata("design:type", String)
 ], PageEntity.prototype, "title", void 0);
 __decorate([
-    typeorm_1.Column({ length: 200, nullable: true }),
+    typeorm_1.Column({
+        length: 200,
+        nullable: true,
+    }),
     __metadata("design:type", String)
 ], PageEntity.prototype, "alias", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", Number)
 ], PageEntity.prototype, "classifyId", void 0);
 __decorate([
-    typeorm_1.Column({ nullable: true }),
+    typeorm_1.Column({
+        nullable: true,
+    }),
     __metadata("design:type", String)
 ], PageEntity.prototype, "classify", void 0);
 __decorate([
@@ -43,7 +52,9 @@ __decorate([
     __metadata("design:type", Date)
 ], PageEntity.prototype, "updateAt", void 0);
 __decorate([
-    typeorm_1.Column({ default: false }),
+    typeorm_1.Column({
+        default: false,
+    }),
     __metadata("design:type", Boolean)
 ], PageEntity.prototype, "check", void 0);
 __decorate([
