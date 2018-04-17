@@ -18,7 +18,7 @@ SiteMapModule = __decorate([
     common_1.Module({
         imports: [typeorm_1.TypeOrmModule.forFeature([article_entity_1.ArticleEntity, page_entity_1.PageEntity, sitemap_entity_1.SitemapEntity])],
         components: [sitemap_service_1.SitemapService],
-        exports: [sitemap_service_1.SitemapService]
+        exports: [sitemap_service_1.SitemapService],
     })
 ], SiteMapModule);
 exports.SiteMapModule = SiteMapModule;

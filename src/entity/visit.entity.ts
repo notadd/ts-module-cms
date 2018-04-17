@@ -41,5 +41,4 @@ export class VisitEntity {
     /*无用*/
     @Column({ nullable: true })
     collapse: boolean;
-
 }

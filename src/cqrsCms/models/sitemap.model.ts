@@ -14,8 +14,8 @@ export class Sitemap extends AggregateRoot {
     }
 
     createxml(createParam: CreateXmlVm) {
-     /* logic*/
-     this.apply(new SitemapCreateEvent(createParam));
-}
+        /* logic*/
+        this.apply(new SitemapCreateEvent(createParam));
+    }
 
 }

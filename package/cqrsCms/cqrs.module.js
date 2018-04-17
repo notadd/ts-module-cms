@@ -44,8 +44,29 @@ let CqrsModule = class CqrsModule {
 };
 CqrsModule = __decorate([
     common_1.Module({
-        imports: [cqrs_1.CQRSModule, sitemap_module_1.SiteMapModule, typeorm_1.TypeOrmModule.forFeature([article_entity_1.ArticleEntity, classify_entity_1.ClassifyEntity, page_entity_1.PageEntity, pageClassify_entity_1.PageClassifyEntity, page_content_entity_1.PageContentEntity])],
-        components: [article_service_1.ArticleService, classify_service_1.ClassifyService, page_service_1.PageService, cqrs_resolver_1.CqrsResolver, cqrs_service_1.CqrsService, pageRepository_1.PageRepository, ...handlers_1.CommandHandlers, ...handlers_2.EventHandlers, page_sagas_1.PageSagas, common_paging_1.PagerService]
+        imports: [
+            cqrs_1.CQRSModule,
+            sitemap_module_1.SiteMapModule,
+            typeorm_1.TypeOrmModule.forFeature([
+                article_entity_1.ArticleEntity,
+                classify_entity_1.ClassifyEntity,
+                page_entity_1.PageEntity,
+                pageClassify_entity_1.PageClassifyEntity,
+                page_content_entity_1.PageContentEntity,
+            ]),
+        ],
+        components: [
+            article_service_1.ArticleService,
+            classify_service_1.ClassifyService,
+            page_service_1.PageService,
+            cqrs_resolver_1.CqrsResolver,
+            cqrs_service_1.CqrsService,
+            pageRepository_1.PageRepository,
+            ...handlers_1.CommandHandlers,
+            ...handlers_2.EventHandlers,
+            page_sagas_1.PageSagas,
+            common_paging_1.PagerService,
+        ],
     }),
     __metadata("design:paramtypes", [core_1.ModuleRef,
         cqrs_1.CommandBus,

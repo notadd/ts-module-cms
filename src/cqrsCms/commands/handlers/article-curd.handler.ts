@@ -6,10 +6,12 @@ import { ArticleParamCommand } from "../impl/article-param.command";
 
 @CommandHandler(ArticleParamCommand)
 export class ArticleCurdHandler implements ICommandHandler<ArticleParamCommand> {
-    constructor(private readonly repositoty: PageRepository,
-                private readonly publisher: EventPublisher,
-                private readonly articleService: ArticleService,
-                private readonly classifyService: ClassifyService) {
+    constructor(
+        private readonly repositoty: PageRepository,
+        private readonly publisher: EventPublisher,
+        private readonly articleService: ArticleService,
+        private readonly classifyService: ClassifyService,
+    ) {
     }
 
     async execute(command: ArticleParamCommand, resolver: (value) => void): Promise<any> {
@@ -21,14 +23,20 @@ export class ArticleCurdHandler implements ICommandHandler<ArticleParamCommand> 
             let value, messageCodeError;
             /*增加、修改、删除、文章*/
             if (command.article.createArticle) {
-                const result = await this.articleService.CurdArticleCheck(command.article.createArticle.article.classifyId, 0).then(a => {
-                    return a;
-                });
+                const result = await this.articleService
+                    .CurdArticleCheck(
+                        command.article.createArticle.article.classifyId,
+                        0,
+                    );
                 value = result.Continue;
                 messageCodeError = result.MessageCodeError;
             }
             if (command.article.updateArticle) {
-                const result = await this.articleService.CurdArticleCheck(command.article.updateArticle.article.classifyId, command.article.updateArticle.article.id);
+                const result = await this.articleService
+                    .CurdArticleCheck(
+                        command.article.updateArticle.article.classifyId,
+                        command.article.updateArticle.article.id,
+                    );
                 value = result.Continue;
                 messageCodeError = result.MessageCodeError;
             }

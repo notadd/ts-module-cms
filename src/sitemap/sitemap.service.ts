@@ -4,13 +4,13 @@ import { Repository } from "typeorm";
 import { ArticleEntity } from "../entity/article.entity";
 import { PageEntity } from "../entity/page.entity";
 import { SitemapEntity } from "../entity/sitemap.entity";
-import builder from "xmlbuilder";
 
 @Component()
 export class SitemapService {
-    constructor(@InjectRepository(ArticleEntity) private readonly artRepository: Repository<ArticleEntity>,
-                @InjectRepository(PageEntity) private readonly pageRepository: Repository<PageEntity>,
-                @InjectRepository(SitemapEntity) private readonly siteRepository: Repository<SitemapEntity>
+    constructor(
+        @InjectRepository(ArticleEntity) private readonly artRepository: Repository<ArticleEntity>,
+        @InjectRepository(PageEntity) private readonly pageRepository: Repository<PageEntity>,
+        @InjectRepository(SitemapEntity) private readonly siteRepository: Repository<SitemapEntity>,
     ) {
     }
 
@@ -18,6 +18,7 @@ export class SitemapService {
      * 设置参数
      * @param arrayOptions
      * @param {string} url
+     *
      * @returns {Promise<void>}
      */
     public async commitXML(arrayOptions, url: string) {

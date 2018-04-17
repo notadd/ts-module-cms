@@ -8,6 +8,7 @@ export enum EnvConfig {
     level1,
     level3
 }
+
 export class GetLimit {
     @ApiModelProperty({ type: Number })
     @IsInt()
@@ -114,7 +115,6 @@ export class CreateArticle {
     @ApiModelProperty({ type: String })
     @IsString()
     readonly sourceUrl;
-
 }
 
 export class UpdateArticle {
@@ -161,7 +161,6 @@ export class UpdateArticle {
     @ApiModelProperty({ type: String })
     @IsString()
     readonly sourceUrl;
-
 }
 
 export class GetClassify {
@@ -248,7 +247,6 @@ export class DeleteDto {
     readonly id;
 }
 
-
 export class PageSerach {
     @ApiModelProperty({ type: String })
     @IsString()
@@ -261,7 +259,6 @@ export class PageSerach {
     @ApiModelProperty({ type: Number })
     @IsInt()
     readonly pages;
-
 }
 
 export class MobileClassify {
@@ -306,7 +303,6 @@ export class CreatePage {
     @ApiModelProperty({ type: Number })
     @IsInt()
     readonly pages;
-
 }
 
 export class ContentMap {
@@ -338,5 +334,4 @@ export class UpdatePage {
 
     @ApiModelProperty({ type: ContentMap })
     readonly contents: [ ContentMap ];
-
 }

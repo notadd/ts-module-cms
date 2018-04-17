@@ -8,7 +8,7 @@ import { SitemapService } from "./sitemap.service";
 @Module({
     imports: [ TypeOrmModule.forFeature([ ArticleEntity, PageEntity, SitemapEntity ]) ],
     components: [ SitemapService ],
-    exports: [ SitemapService ]
+    exports: [ SitemapService ],
 })
 export class SiteMapModule {
 }

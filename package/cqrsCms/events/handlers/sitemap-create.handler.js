@@ -33,7 +33,7 @@ let SitemapCreateHandler = class SitemapCreateHandler {
                 updateWhenPost: event.createXml.updateWhenPost,
                 postLimit1000: event.createXml.postLimit1000,
                 pageSelect: event.createXml.pageSelect,
-                postSelect: event.createXml.postSelect
+                postSelect: event.createXml.postSelect,
             };
             this.sitemapService.commitXML(arrayBaiduSiteMapOptions, url);
         });

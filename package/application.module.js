@@ -27,8 +27,7 @@ let ApplicationModule = class ApplicationModule {
     }
     createSchema() {
         const typeDefs = this.graphqlFactory.mergeTypesByPaths("**/*.types.graphql");
-        const schema = this.graphqlFactory.createSchema({ typeDefs });
-        return schema;
+        return this.graphqlFactory.createSchema({ typeDefs });
     }
 };
 ApplicationModule = __decorate([

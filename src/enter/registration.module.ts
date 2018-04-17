@@ -9,8 +9,7 @@ import { RegistrationService } from "./registration.service";
 
 @Module({
     imports: [ TypeOrmModule.forFeature([ SiteEntity, BlockEntity, VisitEntity ]) ],
-    components: [ RegistrationService, EnterResolver, PagerService ]
+    components: [ RegistrationService, EnterResolver, PagerService ],
 })
-
 export class RegistrationModule {
 }

@@ -5,7 +5,7 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
 } from "typeorm";
 import { PageEntity } from "./page.entity";
 

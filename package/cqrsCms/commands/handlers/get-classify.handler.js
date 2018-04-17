@@ -34,9 +34,8 @@ let GetClassifyHandler = class GetClassifyHandler {
                 result = yield this.classifyService.findAllClassifyArt(1);
             }
             if (command.getClassify.getClassifyById) {
-                result = yield this.classifyService.findClassifyById(command.getClassify.getClassifyById.useFor, command.getClassify.getClassifyById.id).then(a => {
-                    return a;
-                });
+                result = yield this.classifyService
+                    .findClassifyById(command.getClassify.getClassifyById.useFor, command.getClassify.getClassifyById.id);
             }
             resolver(result);
         });

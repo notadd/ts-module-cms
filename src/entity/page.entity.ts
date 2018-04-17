@@ -35,5 +35,4 @@ export class PageEntity {
 
     @OneToMany(type => PageClassifyEntity, pageClassifyEntity => pageClassifyEntity.pages)
     classifications: Array<PageClassifyEntity>;
-
 }

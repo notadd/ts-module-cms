@@ -6,6 +6,12 @@ import { GetPageHandler } from "./get-page.handler";
 import { CreatePageHandler } from "./page-curd.handler";
 import { UpdateSitemapHandler } from "./update-sitemap.handler";
 
-export const CommandHandlers = [ CreatePageHandler, CreateSitemapHandler,
-    UpdateSitemapHandler, GetPageHandler, ClassifyCurdHandler, ArticleCurdHandler
-    , GetClassifyHandler ];
+export const CommandHandlers = [
+    CreatePageHandler,
+    CreateSitemapHandler,
+    UpdateSitemapHandler,
+    GetPageHandler,
+    ClassifyCurdHandler,
+    ArticleCurdHandler,
+    GetClassifyHandler,
+];

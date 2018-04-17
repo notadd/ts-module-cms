@@ -25,6 +25,7 @@ export class MessageCodeError extends Error {
     /**
      * @description: Find the error config by the given message code.
      * @param {string} messageCode
+     *
      * @return {ErrorInterface}
      */
     private getMessageFromMessageCode(messageCode: string): ErrorInterface {
@@ -37,8 +38,10 @@ export class MessageCodeError extends Error {
             return false;
         });
 
-        if (!errorMessageConfig) throw new Error("Unable to find the given message code error.");
+        if (!errorMessageConfig) {
+            throw new Error("Unable to find the given message code error.");
+        }
+
         return errorMessageConfig;
     }
-
 }

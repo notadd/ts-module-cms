@@ -5,7 +5,7 @@ import {
     ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
 } from "typeorm";
 import { ArticleEntity } from "./article.entity";
 

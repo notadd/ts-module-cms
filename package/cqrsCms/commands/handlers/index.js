@@ -7,6 +7,12 @@ const get_classify_handler_1 = require("./get-classify.handler");
 const get_page_handler_1 = require("./get-page.handler");
 const page_curd_handler_1 = require("./page-curd.handler");
 const update_sitemap_handler_1 = require("./update-sitemap.handler");
-exports.CommandHandlers = [page_curd_handler_1.CreatePageHandler, create_sitemap_handler_1.CreateSitemapHandler,
-    update_sitemap_handler_1.UpdateSitemapHandler, get_page_handler_1.GetPageHandler, classify_curd_handler_1.ClassifyCurdHandler, article_curd_handler_1.ArticleCurdHandler,
-    get_classify_handler_1.GetClassifyHandler];
+exports.CommandHandlers = [
+    page_curd_handler_1.CreatePageHandler,
+    create_sitemap_handler_1.CreateSitemapHandler,
+    update_sitemap_handler_1.UpdateSitemapHandler,
+    get_page_handler_1.GetPageHandler,
+    classify_curd_handler_1.ClassifyCurdHandler,
+    article_curd_handler_1.ArticleCurdHandler,
+    get_classify_handler_1.GetClassifyHandler,
+];

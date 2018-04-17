@@ -5,7 +5,7 @@ import {
     JoinColumn,
     ManyToOne,
     PrimaryGeneratedColumn,
-    UpdateDateColumn
+    UpdateDateColumn,
 } from "typeorm";
 import { PageEntity } from "./page.entity";
 
@@ -27,7 +27,7 @@ export class PageContentEntity {
         onDelete: "CASCADE",
         lazy: false,
         eager: false,
-        nullable: true
+        nullable: true,
     })
     @JoinColumn({ name: "parentId", referencedColumnName: "id" })
     page: PageEntity;
@@ -37,5 +37,4 @@ export class PageContentEntity {
 
     /*修改时间*/
     @UpdateDateColumn() updateAt: Date;
-
 }

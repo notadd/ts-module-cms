@@ -21,13 +21,13 @@ const cqrs_1 = require("@nestjs/cqrs");
 const pageRepository_1 = require("../../repository/pageRepository");
 const delete_param_command_1 = require("../impl/delete-param.command");
 let UpdateSitemapHandler = class UpdateSitemapHandler {
-    constructor(repositoty, publisher) {
-        this.repositoty = repositoty;
+    constructor(repository, publisher) {
+        this.repository = repository;
         this.publisher = publisher;
     }
     execute(command, resolver) {
         return __awaiter(this, void 0, void 0, function* () {
-            const sitemap = this.publisher.mergeObjectContext(yield this.repositoty.siteMap());
+            const sitemap = this.publisher.mergeObjectContext(yield this.repository.siteMap());
             sitemap.updatexml("0");
             resolver();
             sitemap.commit();

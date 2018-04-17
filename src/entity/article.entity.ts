@@ -83,5 +83,4 @@ export class ArticleEntity {
 
     @ManyToOne(type => ClassifyEntity, classifyEntity => classifyEntity.articles, { cascadeUpdate: true })
     classifications: ClassifyEntity;
-
 }

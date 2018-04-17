@@ -63,12 +63,13 @@ export class CqrsResolver {
      */
 
     @Query()
-    async getArticlesLimit(obj, body: {getArticleAll: { hidden: boolean, limitNum: number, pages: number },
-        recycleFind: { limitNum: number, pages: number }, reductionGetByClassifyId: { id: number , limitNum: number, pages: number},
-        findTopPlace: { limitNum: number, pages: number}, serachArticle: { keyWords: string, classifyId: number, topPlace: boolean , limitNum: number, pages: number },
+    async getArticlesLimit(obj, body: {
+        getArticleAll: { hidden: boolean, limitNum: number, pages: number },
+        recycleFind: { limitNum: number, pages: number }, reductionGetByClassifyId: { id: number, limitNum: number, pages: number },
+        findTopPlace: { limitNum: number, pages: number }, serachArticle: { keyWords: string, classifyId: number, topPlace: boolean, limitNum: number, pages: number },
         keywordSearch: { keyWords: string, limitNum: number, pages: number }
     }) {
-        const { getArticleAll, recycleFind, reductionGetByClassifyId, findTopPlace, serachArticle, keywordSearch} = body;
+        const { getArticleAll, recycleFind, reductionGetByClassifyId, findTopPlace, serachArticle, keywordSearch } = body;
         let result: Array<ArticleEntity>;
         const articleVM: ArticleCurdVm = new ArticleCurdVm();
         if (getArticleAll !== null && getArticleAll !== undefined) {
@@ -125,8 +126,8 @@ export class CqrsResolver {
      * @returns {Promise<any>}
      */
     @Query()
-    async getArticlesNoLimit(obj, body: {getArticleById: { id: number }, showNext: { id: number }, superiorArticle: { id: number}, getCurrentClassifyArticles: { id: number}}) {
-        const {getArticleById, showNext, superiorArticle, getCurrentClassifyArticles } = body;
+    async getArticlesNoLimit(obj, body: { getArticleById: { id: number }, showNext: { id: number }, superiorArticle: { id: number }, getCurrentClassifyArticles: { id: number } }) {
+        const { getArticleById, showNext, superiorArticle, getCurrentClassifyArticles } = body;
         let result: Array<ArticleEntity>;
         const articleVM: ArticleCurdVm = new ArticleCurdVm();
         if (showNext !== null && showNext !== undefined) {
@@ -164,7 +165,7 @@ export class CqrsResolver {
      * @returns {any}
      */
     @Query()
-    getClassifys(obj, body: {getAllClassify: { useFor: string, id: number}}) {
+    getClassifys(obj, body: { getAllClassify: { useFor: string, id: number } }) {
         const { getAllClassify } = body;
         let result;
         const classifyVM: ClassifyCurdVm = new ClassifyCurdVm();
@@ -182,8 +183,8 @@ export class CqrsResolver {
     }
 
     @Query()
-    async getClassifyById(obj, body: {getClassifyById: { useFor: string, id: number}}) {
-        const {getClassifyById} = body;
+    async getClassifyById(obj, body: { getClassifyById: { useFor: string, id: number } }) {
+        const { getClassifyById } = body;
         let result;
         const classifyVM: ClassifyCurdVm = new ClassifyCurdVm();
         if (getClassifyById !== null && getClassifyById !== undefined) {
@@ -364,7 +365,7 @@ export class CqrsResolver {
                 rawName: amap.get("rawName"),
                 base64: amap.get("base64"),
                 url: ws,
-                id: amap.get("id")
+                id: amap.get("id"),
             };
         }
         const result = await this.sitemapService.articleCurd(articleVM);

@@ -37,9 +37,12 @@ let PageService = class PageService {
     }
     getAllPage(limit, page) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.repository.createQueryBuilder()
+            const result = yield this.repository
+                .createQueryBuilder()
                 .orderBy("PageEntity.updateAt", "DESC")
-                .skip(limit * (page - 1)).take(limit).getManyAndCount();
+                .skip(limit * (page - 1))
+                .take(limit)
+                .getManyAndCount();
             const str = JSON.stringify(result);
             const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
             const pageEntitys = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
@@ -55,7 +58,8 @@ let PageService = class PageService {
                 .skip(limit * (page - 1)).take(limit).getManyAndCount();
             const str = JSON.stringify(result);
             const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
-            const pageEntitys = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
+            const pageEntitys = Array.from(JSON.parse(str.substring(str.indexOf("[")
+                + 1, str.lastIndexOf(","))));
             return { pages: pageEntitys, totalItems: Number(num) };
         });
     }
@@ -79,8 +83,9 @@ let PageService = class PageService {
             if (page.alias === null)
                 throw new error_interface_1.MessageCodeError("create:page:missingAlias");
             const entity = yield this.classifyService.findOneByIdPage(page.classifyId);
-            if (page.classifyId !== null && page.classifyId !== 0 && entity === null)
+            if (page.classifyId !== null && page.classifyId !== 0 && entity === null) {
                 throw new error_interface_1.MessageCodeError("page:classify:classifyIdMissing");
+            }
             if (entity === null)
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
             const aliasEntity = yield this.repository.createQueryBuilder().where("\"alias\"= :alias", { alias: page.alias }).getMany();
@@ -123,14 +128,17 @@ let PageService = class PageService {
     updatePages(page, content, limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
             const entityPage = yield this.repository.findOneById(page.id);
-            if (entityPage === null)
+            if (entityPage === null) {
                 throw new error_interface_1.MessageCodeError("delete:page:deleteById");
+            }
             const aliasEntity = yield this.repository.createQueryBuilder().where("\"alias\"= :alias", { alias: page.alias }).getMany();
-            if (aliasEntity.length > 0)
+            if (aliasEntity.length > 0) {
                 throw new error_interface_1.MessageCodeError("create:classify:aliasRepeat");
+            }
             const entity = yield this.classifyService.findOneByIdPage(page.classifyId);
-            if (page.classifyId !== null && page.classifyId !== 0 && entity === null)
+            if (page.classifyId !== null && page.classifyId !== 0 && entity === null) {
                 throw new error_interface_1.MessageCodeError("page:classify:classifyIdMissing");
+            }
             page.updateAt = new Date();
             for (const t in content) {
                 if (content[t].id === 0) {
@@ -155,9 +163,8 @@ let PageService = class PageService {
                 page.classifyId = entityPage.classifyId;
             if (page.classify === null || page.classify === undefined)
                 page.classify = entityPage.classify;
-            const newPage = page;
             try {
-                yield this.repository.updateById(entityPage.id, newPage);
+                yield this.repository.updateById(entityPage.id, page);
             }
             catch (error) {
                 throw new error_interface_1.MessageCodeError("dataBase:curd:error");
@@ -166,8 +173,7 @@ let PageService = class PageService {
     }
     findPageById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield this.repository.findOneById(id, { relations: ["contents"] });
-            return result;
+            return this.repository.findOneById(id, { relations: ["contents"] });
         });
     }
     findPageByClassifyId(id, limit, page) {
@@ -185,7 +191,8 @@ let PageService = class PageService {
                 .orderBy("PageEntity.updateAt", "DESC").skip(limit * (page - 1)).take(limit).getManyAndCount();
             const str = JSON.stringify(result);
             const num = str.substring(str.lastIndexOf(",") + 1, str.lastIndexOf("]"));
-            const pageEntities = Array.from(JSON.parse(str.substring(str.indexOf("[") + 1, str.lastIndexOf(","))));
+            const pageEntities = Array.from(JSON.parse(str.substring(str.indexOf("[")
+                + 1, str.lastIndexOf(","))));
             return { pages: pageEntities, totalItems: Number(num) };
         });
     }

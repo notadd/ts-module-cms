@@ -54,8 +54,10 @@
         "xmlbuilder": "latest"
     },
     "devDependencies": {
+        "@types/body-parser": "^1.16.8",
         "@types/node": "^9.4.7",
         "@types/sharp": "^0.17.6",
+        "@types/underscore": "^1.8.8",
         "gulp": "^3.9.1",
         "gulp-clean": "^0.4.0",
         "gulp-rename": "^1.2.2",

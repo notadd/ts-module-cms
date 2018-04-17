@@ -74,6 +74,5 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
         }
         resolver({ MessageCodeError: messageCodeError, Continue: value });
         page.commit();
-
     }
 }

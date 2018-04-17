@@ -36,13 +36,13 @@ export const ErrorInterfaceConfig: { [ messageCode: string ]: ErrorInterface } =
         type: "BadRequest",
         httpStatus: HttpStatus.BAD_REQUEST,
         errorMessage: "The upper level classification does not exist.",
-        userMessage: "The upper level classification does not exist."
+        userMessage: "The upper level classification does not exist.",
     },
     "create:level:lessThanLevel": {
         type: "BadRequest",
         httpStatus: HttpStatus.BAD_REQUEST,
         errorMessage: "Cannot select a category smaller than the current classification.",
-        userMessage: "Cannot select a category smaller than the current classification."
+        userMessage: "Cannot select a category smaller than the current classification.",
     },
     "create:classify:aliasRepeat": {
         type: "BadRequest",
@@ -90,18 +90,18 @@ export const ErrorInterfaceConfig: { [ messageCode: string ]: ErrorInterface } =
         type: "BadRequest",
         httpStatus: HttpStatus.BAD_REQUEST,
         errorMessage: "There are articles under the current classification and cannot be deleted.",
-        userMessage: "There are articles under the current classification and cannot be deleted."
+        userMessage: "There are articles under the current classification and cannot be deleted.",
     },
     "delete:page:ClassifyIdIncludePages": {
         type: "BadRequest",
         httpStatus: HttpStatus.BAD_REQUEST,
         errorMessage: "There are pages under the current classification and cannot be deleted.",
-        userMessage: "There are pages under the current classification and cannot be deleted."
+        userMessage: "There are pages under the current classification and cannot be deleted.",
     },
     "dataBase:curd:error": {
         type: "BadRequest",
         httpStatus: HttpStatus.BAD_REQUEST,
         errorMessage: "数据库错误.",
-        userMessage: "数据库错误."
-    }
+        userMessage: "数据库错误.",
+    },
 };

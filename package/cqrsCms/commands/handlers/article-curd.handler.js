@@ -37,14 +37,14 @@ let ArticleCurdHandler = class ArticleCurdHandler {
             if (!command.article.getAllArticles) {
                 let value, messageCodeError;
                 if (command.article.createArticle) {
-                    const result = yield this.articleService.CurdArticleCheck(command.article.createArticle.article.classifyId, 0).then(a => {
-                        return a;
-                    });
+                    const result = yield this.articleService
+                        .CurdArticleCheck(command.article.createArticle.article.classifyId, 0);
                     value = result.Continue;
                     messageCodeError = result.MessageCodeError;
                 }
                 if (command.article.updateArticle) {
-                    const result = yield this.articleService.CurdArticleCheck(command.article.updateArticle.article.classifyId, command.article.updateArticle.article.id);
+                    const result = yield this.articleService
+                        .CurdArticleCheck(command.article.updateArticle.article.classifyId, command.article.updateArticle.article.id);
                     value = result.Continue;
                     messageCodeError = result.MessageCodeError;
                 }

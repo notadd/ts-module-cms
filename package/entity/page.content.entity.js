@@ -33,7 +33,7 @@ __decorate([
         onDelete: "CASCADE",
         lazy: false,
         eager: false,
-        nullable: true
+        nullable: true,
     }),
     typeorm_1.JoinColumn({ name: "parentId", referencedColumnName: "id" }),
     __metadata("design:type", page_entity_1.PageEntity)

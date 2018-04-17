@@ -6,10 +6,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const addon_upyun_1 = require("@notadd/addon-upyun");
 const injection_1 = require("@notadd/injection");
 const cqrs_module_1 = require("./cqrsCms/cqrs.module");
 const registration_module_1 = require("./enter/registration.module");
-const addon_upyun_1 = require("@notadd/addon-upyun");
 let CmsModule = class CmsModule {
 };
 CmsModule = __decorate([

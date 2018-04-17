@@ -41,7 +41,7 @@ class PagerService {
             endPage: endPages,
             startIndex: startIndexPage,
             endIndex: endIndexPage,
-            pages: pagesArray
+            pages: pagesArray,
         };
     }
 }

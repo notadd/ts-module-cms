@@ -33,8 +33,12 @@ export class ArticleCurdEvent implements IEventHandler<ArticleCurdEvents> {
         }
         if (event.article.pictureUpload) {
             /*图片上传*/
-            await this.articleService.upLoadPicture(event.article.pictureUpload.url, event.article.pictureUpload.bucketName, event.article.pictureUpload.rawName,
-                event.article.pictureUpload.base64);
+            await this.articleService.upLoadPicture(
+                event.article.pictureUpload.url,
+                event.article.pictureUpload.bucketName,
+                event.article.pictureUpload.rawName,
+                event.article.pictureUpload.base64,
+            );
         }
     }
 }

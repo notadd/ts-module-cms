@@ -307,7 +307,7 @@ let CqrsResolver = class CqrsResolver {
                     rawName: amap.get("rawName"),
                     base64: amap.get("base64"),
                     url: ws,
-                    id: amap.get("id")
+                    id: amap.get("id"),
                 };
             }
             const result = yield this.sitemapService.articleCurd(articleVM);

@@ -19,7 +19,7 @@ let RegistrationModule = class RegistrationModule {
 RegistrationModule = __decorate([
     common_1.Module({
         imports: [typeorm_1.TypeOrmModule.forFeature([site_entity_1.SiteEntity, block_entity_1.BlockEntity, visit_entity_1.VisitEntity])],
-        components: [registration_service_1.RegistrationService, graphql_resolver_1.EnterResolver, common_paging_1.PagerService]
+        components: [registration_service_1.RegistrationService, graphql_resolver_1.EnterResolver, common_paging_1.PagerService],
     })
 ], RegistrationModule);
 exports.RegistrationModule = RegistrationModule;

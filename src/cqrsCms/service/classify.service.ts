@@ -14,7 +14,8 @@ export class ClassifyService {
         @InjectRepository(ClassifyEntity) private readonly repository: Repository<ClassifyEntity>,
         @InjectRepository(ArticleEntity) private readonly artRepository: Repository<ArticleEntity>,
         @InjectRepository(PageClassifyEntity) private readonly pageRepository: Repository<PageClassifyEntity>,
-        @InjectRepository(PageEntity) private readonly repositoryPage: Repository<PageEntity>) {
+        @InjectRepository(PageEntity) private readonly repositoryPage: Repository<PageEntity>,
+    ) {
     }
 
     /**
@@ -30,21 +31,30 @@ export class ClassifyService {
             newClassify.groupId = undefined;
             newClassify.classifyAlias = "无";
             newClassify.title = "无";
-            const id = await this.repository.createQueryBuilder().insert().into(ClassifyEntity).values(newClassify).output("id").execute().then(a => {
-                return a;
-            });
+            const id = await this.repository
+                .createQueryBuilder()
+                .insert()
+                .into(ClassifyEntity)
+                .values(newClassify)
+                .output("id")
+                .execute();
             const str: string = JSON.stringify(id).split(":")[ 1 ];
             const numb: string = str.substring(0, str.lastIndexOf("}"));
             const newId: number = Number(numb);
             entity.groupId = newId;
             await this.repository.insert(entity);
         } else {
-            const newClassify: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: -entity.classifyAlias }).getMany();
+            const newClassify: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where(
+                "\"classifyAlias\"= :classifyAlias",
+                { classifyAlias: -entity.classifyAlias },
+            ).getMany();
             /*别名不能重复*/
             if (newClassify.length > 0) throw new MessageCodeError("create:classify:aliasRepeat");
             const parentClassify: ClassifyEntity = await this.repository.findOneById(entity.groupId);
             /*通过父级id确定父级是否存在*/
-            if (entity.groupId !== 0 && parentClassify === null) throw new MessageCodeError("create:classify:parentIdMissing");
+            if (entity.groupId !== 0 && parentClassify === null) {
+                throw new MessageCodeError("create:classify:parentIdMissing");
+            }
             const first: ClassifyEntity = await this.repository.findOneById(1);
             if (entity.groupId === 0 && first === null) {
                 entity.groupId = undefined;
@@ -54,6 +64,7 @@ export class ClassifyService {
             const classify: ClassifyEntity = entity;
             await this.repository.insert(classify);
         }
+
         return this.findAllClassifyArt(limit);
     }
 
@@ -69,21 +80,33 @@ export class ClassifyService {
             newClassify.groupId = undefined;
             newClassify.classifyAlias = "无";
             newClassify.title = "无";
-            const id = await this.pageRepository.createQueryBuilder().insert().into(PageClassifyEntity).values(newClassify).output("id").execute().then(a => {
-                return a;
-            });
+            const id = await this.pageRepository
+                .createQueryBuilder()
+                .insert()
+                .into(PageClassifyEntity)
+                .values(newClassify)
+                .output("id")
+                .execute();
             const str: string = JSON.stringify(id).split(":")[ 1 ];
             const numb: string = str.substring(0, str.lastIndexOf("}"));
             const newId: number = Number(numb);
             entity.groupId = newId;
             await this.pageRepository.insert(entity);
         } else {
-            const newClassify: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: -entity.classifyAlias }).getMany();
+            const newClassify: Array<PageClassifyEntity> = await this.pageRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyAlias\"= :classifyAlias",
+                    { classifyAlias: -entity.classifyAlias },
+                )
+                .getMany();
             /*别名不能重复*/
             if (newClassify.length > 0) throw new MessageCodeError("create:classify:aliasRepeat");
             const parentClassify: PageClassifyEntity = await this.pageRepository.findOneById(entity.groupId);
             /*通过父级id确定父级是否存在*/
-            if (entity.groupId !== 0 && entity.groupId !== null && parentClassify === null) throw new MessageCodeError("create:classify:parentIdMissing");
+            if (entity.groupId !== 0 && entity.groupId !== null && parentClassify === null) {
+                throw new MessageCodeError("create:classify:parentIdMissing");
+            }
             const first: PageClassifyEntity = await this.pageRepository.findOneById(1);
             if (entity.groupId === 0 && first === null) {
                 entity.groupId = undefined;
@@ -93,6 +116,7 @@ export class ClassifyService {
             const classify: PageClassifyEntity = entity;
             await this.pageRepository.insert(classify);
         }
+
         return this.findAllClassifyPage(limit);
     }
 
@@ -106,7 +130,13 @@ export class ClassifyService {
         const classify: ClassifyEntity = await this.repository.findOneById(entity.id);
         if (classify === null) throw new MessageCodeError("update:classify:updateById");
         if (entity.classifyAlias !== classify.classifyAlias) {
-            const newClassify: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: entity.classifyAlias }).getMany();
+            const newClassify: Array<ClassifyEntity> = await this.repository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyAlias\"= :classifyAlias",
+                    { classifyAlias: entity.classifyAlias },
+                )
+                .getMany();
             /*别名不能重复*/
             if (newClassify.length > 0) throw new MessageCodeError("create:classify:aliasRepeat");
         }
@@ -118,6 +148,7 @@ export class ClassifyService {
         entity.updateAt = new Date();
         const finalClassify: ClassifyEntity = entity;
         await this.repository.updateById(entity.id, finalClassify);
+
         return this.findAllClassifyArt(id);
     }
 
@@ -130,7 +161,13 @@ export class ClassifyService {
         const classify: PageClassifyEntity = await this.pageRepository.findOneById(entity.id);
         if (classify === null) throw new MessageCodeError("update:classify:updateById");
         if (entity.classifyAlias !== classify.classifyAlias) {
-            const newClassify: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: entity.classifyAlias }).getMany();
+            const newClassify: Array<PageClassifyEntity> = await this.pageRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyAlias\"= :classifyAlias",
+                    { classifyAlias: entity.classifyAlias },
+                )
+                .getMany();
             /*别名不能重复*/
             if (newClassify.length > 0) throw new MessageCodeError("create:classify:aliasRepeat");
         }
@@ -150,9 +187,22 @@ export class ClassifyService {
      * @returns {Promise<Array<ClassifyEntity>>}
      */
     async findAllClassifyArt(idNum: number): Promise<Array<ClassifyEntity>> {
-        const idFindOne: ClassifyEntity = await this.repository.createQueryBuilder().where("\"id\"= :id", { id: idNum, }).getOne();
+        const idFindOne: ClassifyEntity = await this.repository
+            .createQueryBuilder()
+            .where(
+                "\"id\"= :id",
+                { id: idNum },
+            )
+            .getOne();
         if (idFindOne) {
-            const list: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"groupId\"= :groupId", { groupId: idNum, }).orderBy("id", "ASC").getMany();
+            const list: Array<ClassifyEntity> = await this.repository
+                .createQueryBuilder()
+                .where(
+                    "\"groupId\"= :groupId",
+                    { groupId: idNum },
+                )
+                .orderBy("id", "ASC")
+                .getMany();
             const result: Array<ClassifyEntity> = [];
             const resultArray: Array<ClassifyEntity> = await this.Artrecursion(idNum, list);
             idFindOne.children = resultArray;
@@ -171,9 +221,22 @@ export class ClassifyService {
      * @returns {Promise<Array<PageClassifyEntity>>}
      */
     async findAllClassifyPage(idNum: number): Promise<Array<PageClassifyEntity>> {
-        const idFindOne: PageClassifyEntity = await this.pageRepository.createQueryBuilder().where("\"id\"= :id", { id: idNum, }).getOne();
+        const idFindOne: PageClassifyEntity = await this.pageRepository
+            .createQueryBuilder()
+            .where(
+                "\"id\"= :id",
+                { id: idNum },
+            )
+            .getOne();
         if (idFindOne) {
-            const list: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"groupId\"= :id", { id: idNum, }).orderBy("id", "ASC").getMany();
+            const list: Array<PageClassifyEntity> = await this.pageRepository
+                .createQueryBuilder()
+                .where(
+                    "\"groupId\"= :id",
+                    { id: idNum },
+                )
+                .orderBy("id", "ASC")
+                .getMany();
             const result: Array<PageClassifyEntity> = [];
             const resultArray: Array<PageClassifyEntity> = await this.Pagerecursion(idNum, list);
             idFindOne.children = resultArray;
@@ -198,7 +261,14 @@ export class ClassifyService {
             const groupIdFirst: number = listFirst[ t ].id;
             let navigationArray = new PageClassifyEntity();
             navigationArray = listFirst[ t ];
-            const listSecond: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"groupId\"= :id", { id: groupIdFirst, }).orderBy("id", "ASC").getMany();
+            const listSecond: Array<PageClassifyEntity> = await this.pageRepository
+                .createQueryBuilder()
+                .where(
+                    "\"groupId\"= :id",
+                    { id: groupIdFirst },
+                )
+                .orderBy("id", "ASC")
+                .getMany();
             if (listSecond.length > 0) {
                 for (const h in listSecond) {
                     const theEnd: Array<PageClassifyEntity> = await this.Pagerecursion(listSecond[ h ].id, listSecond);
@@ -226,7 +296,14 @@ export class ClassifyService {
             const groupIdFirst: number = listFirst[ t ].id;
             let navigationArray = new ClassifyEntity();
             navigationArray = listFirst[ t ];
-            const listSecond: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"groupId\"= :id", { id: groupIdFirst, }).orderBy("id", "ASC").getMany();
+            const listSecond: Array<ClassifyEntity> = await this.repository
+                .createQueryBuilder()
+                .where(
+                    "\"groupId\"= :id",
+                    { id: groupIdFirst },
+                )
+                .orderBy("id", "ASC")
+                .getMany();
             if (listSecond.length > 0) {
                 for (const h in listSecond) {
                     const theEnd: Array<ClassifyEntity> = await this.Artrecursion(listSecond[ h ].id, listSecond);
@@ -277,17 +354,23 @@ export class ClassifyService {
         const classify: ClassifyEntity = await this.repository.findOneById(id);
         if (classify === null) throw new MessageCodeError("update:classify:updateById");
         await getManager().query("update public.article_classify_table set \"parentId\" = \"groupId\"");
-        const result = await this.repository.createQueryBuilder("article_classify_table")
+        const result = await this.repository
+            .createQueryBuilder("article_classify_table")
             .innerJoinAndSelect("article_classify_table.children", "children")
-            .orderBy("article_classify_table.id").getMany();
+            .orderBy("article_classify_table.id")
+            .getMany();
         const resultArray: Array<ClassifyEntity> = result;
         await getManager().query("update public.article_classify_table set \"parentId\" = null");
-        const array: Array<number> = await this.getClassifyId(id).then(a => {
-            return a;
-        });
+        const array: Array<number> = await this.getClassifyId(id);
         array.push(id);
         const newArray: Array<number> = Array.from(new Set(array));
-        const artiicles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).getMany();
+        const artiicles: Array<ArticleEntity> = await this.artRepository
+            .createQueryBuilder()
+            .where(
+                "\"classifyId\" in (:id)",
+                { id: newArray },
+            )
+            .getMany();
         if (artiicles.length > 0) throw new MessageCodeError("delete:art:ClassifyIdIncludeArts");
         const res: Array<number> = await this.deleteClassifyArt(id, result);
         return this.findAllClassifyArt(1);
@@ -302,16 +385,25 @@ export class ClassifyService {
         const classify: PageClassifyEntity = await this.pageRepository.findOneById(id);
         if (classify === null) throw new MessageCodeError("update:classify:updateById");
         await getManager().query("update public.page_classify_table set \"parentId\" = \"groupId\"");
-        const result = await this.pageRepository.createQueryBuilder("page_classify_table").innerJoinAndSelect("page_classify_table.children", "children").orderBy("page_classify_table.id").getMany();
+        const result = await this.pageRepository
+            .createQueryBuilder("page_classify_table")
+            .innerJoinAndSelect(
+                "page_classify_table.children",
+                "children",
+            )
+            .orderBy("page_classify_table.id")
+            .getMany();
         await getManager().query("update public.page_classify_table set \"parentId\"=null");
-        const array: Array<number> = await this.getClassifyIdPage(id).then(a => {
-            return a;
-        });
+        const array: Array<number> = await this.getClassifyIdPage(id);
         array.push(id);
         const newArray: Array<number> = Array.from(new Set(array));
-        const artiicles: Array<PageEntity> = await this.repositoryPage.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).getMany();
+        const artiicles: Array<PageEntity> = await this.repositoryPage.createQueryBuilder().where(
+            "\"classifyId\" in (:id)",
+            { id: newArray },
+        ).getMany();
         if (artiicles.length > 0) throw new MessageCodeError("delete:page:ClassifyIdIncludePages");
         const res: Array<number> = await this.deleteClassifyPage(id, result);
+
         return this.findAllClassifyPage(1);
     }
 
@@ -355,7 +447,13 @@ export class ClassifyService {
     async updateArticleClassify(classifyArray: Array<number>, useFor: string) {
         if (useFor === "art") {
             for (const t in classifyArray) {
-                const article: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"= :classifyId", { classifyId: classifyArray[ t ] }).getMany();
+                const article: Array<ArticleEntity> = await this.artRepository
+                    .createQueryBuilder()
+                    .where(
+                        "\"classifyId\"= :classifyId",
+                        { classifyId: classifyArray[ t ] },
+                    )
+                    .getMany();
                 const id: number = await this.findTheDefaultByAlias("默认分类", "art");
                 for (const h in article) {
                     const newArticle: ArticleEntity = article[ h ];
@@ -367,7 +465,13 @@ export class ClassifyService {
             }
         } else if (useFor === "page") {
             for (const t in classifyArray) {
-                const article: Array<PageEntity> = await this.repositoryPage.createQueryBuilder().where("\"classifyId\"= :classifyId", { classifyId: classifyArray[ t ] }).getMany();
+                const article: Array<PageEntity> = await this.repositoryPage
+                    .createQueryBuilder()
+                    .where(
+                        "\"classifyId\"= :classifyId",
+                        { classifyId: classifyArray[ t ] },
+                    )
+                    .getMany();
                 const id = await this.findTheDefaultByAlias("默认分类", "page");
                 for (const h in article) {
                     const newArticle: PageEntity = article[ h ];
@@ -388,6 +492,7 @@ export class ClassifyService {
      */
     async findOneByIdArt(id: number): Promise<ClassifyEntity> {
         const entity: ClassifyEntity = await this.repository.findOneById(id);
+
         return entity;
     }
 
@@ -398,6 +503,7 @@ export class ClassifyService {
      */
     async findOneByIdPage(id: number): Promise<PageClassifyEntity> {
         const entity: PageClassifyEntity = await this.pageRepository.findOneById(id);
+
         return entity;
     }
 
@@ -409,17 +515,26 @@ export class ClassifyService {
     async showNextTitle(id: number) {
         const articleArray: Array<ArticleEntity> = [];
         const arrayNum: Array<number> = [];
-        const classifications: Array<ClassifyEntity> = await this.repository.createQueryBuilder()
+        const classifications: Array<ClassifyEntity> = await this.repository
+            .createQueryBuilder()
             .where("\"groupId\"= :groupId", {
-                groupId: id
-            }).getMany();
+                groupId: id,
+            })
+            .getMany();
         for (const t in classifications) {
             arrayNum.push(classifications[ t ].id);
         }
         for (const h in arrayNum) {
-            const art: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"= :classifyId", {
-                classifyId: arrayNum[ h ]
-            }).orderBy("ArticleEntity.id", "ASC").getMany();
+            const art: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\"= :classifyId",
+                    {
+                        classifyId: arrayNum[ h ],
+                    },
+                )
+                .orderBy("ArticleEntity.id", "ASC")
+                .getMany();
             articleArray.push(...art);
         }
         return { articles: articleArray };
@@ -434,11 +549,16 @@ export class ClassifyService {
         const classify: ClassifyEntity = await this.repository.findOneById(id);
         if (classify === null) throw new MessageCodeError("page:classify:classifyIdMissing");
         const articleArray: Array<ArticleEntity> = [];
-        const currentArticle: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"= :classifyId and \"topPlace\"=\'current\'", { classifyId: classify.groupId }).orderBy("ArticleEntity.updateAt", "ASC").getMany();
+        const currentArticle: Array<ArticleEntity> = await this.artRepository
+            .createQueryBuilder()
+            .where(
+                "\"classifyId\"= :classifyId and \"topPlace\"=\'current\'",
+                { classifyId: classify.groupId },
+            )
+            .orderBy("ArticleEntity.updateAt", "ASC")
+            .getMany();
         articleArray.push(...currentArticle);
-        const array: Array<number> = await this.getClassifyId(classify.groupId).then(a => {
-            return a;
-        });
+        const array: Array<number> = await this.getClassifyId(classify.groupId);
         array.push(id);
         const newArray: Array<number> = Array.from(new Set(array));
         const finalArray: Array<number> = [];
@@ -449,13 +569,46 @@ export class ClassifyService {
         }
         const level: number = await this.findLevel(classify.groupId);
         if (level === 1) {
-            const newArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).andWhere("\"topPlace\"= :topPlace", { topPlace: "level1" }).orderBy("ArticleEntity.updateAt", "ASC").getMany();
+            const newArticles: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in (:id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\"= :topPlace", { topPlace: "level1" })
+                .orderBy(
+                    "ArticleEntity.updateAt",
+                    "ASC",
+                )
+                .getMany();
             articleArray.push(...newArticles);
         } else if (level === 2) {
-            const newArticles = await this.artRepository.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).andWhere("\"topPlace\" :topPlace", { topPlace: "level2" }).orderBy("ArticleEntity.updateAt", "ASC").getMany();
+            const newArticles = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in (:id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\" :topPlace", { topPlace: "level2" })
+                .orderBy(
+                    "ArticleEntity.updateAt",
+                    "ASC",
+                )
+                .getMany();
             articleArray.push(...newArticles);
         } else if (level === 3) {
-            const newArticles = await this.artRepository.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).andWhere("\"topPlace\" :topPlace", { topPlace: "level3" }).orderBy("ArticleEntity.updateAt", "ASC").getMany();
+            const newArticles = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in (:id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\" :topPlace", { topPlace: "level3" })
+                .orderBy(
+                    "ArticleEntity.updateAt",
+                    "ASC",
+                )
+                .getMany();
             articleArray.push(...newArticles);
         }
         return { articles: articleArray };
@@ -470,7 +623,10 @@ export class ClassifyService {
         const classify: ClassifyEntity = await this.repository.findOneById(idNum);
         if (classify === null) throw new MessageCodeError("page:classify:classifyIdMissing");
         const articleArray: Array<ArticleEntity> = [];
-        const current: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"=:id", { id: idNum }).orderBy("ArticleEntity.updateAt", "ASC").getMany();
+        const current: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where(
+            "\"classifyId\"=:id",
+            { id: idNum },
+        ).orderBy("ArticleEntity.updateAt", "ASC").getMany();
         articleArray.push(...current);
         return { articles: articleArray };
     }
@@ -493,7 +649,18 @@ export class ClassifyService {
         /*置顶：无 获取对应关键字或分类 对应的文章,是：获取对应分类下，置顶到1、2 、 3级分类的文章,否：获取对应分类下置顶到4、 5 分类的文章*/
         if (show === true) {
             const global: Array<ArticleEntity> = [];
-            const globalArts: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"topPlace\"= :topPlace", { topPlace: "global" }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const globalArts: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"topPlace\"= :topPlace",
+                    { topPlace: "global" },
+                )
+                .andWhere("\"name\"like :name and recycling=false", { name: str })
+                .orderBy(
+                    "ArticleEntity.publishedTime",
+                    "DESC",
+                )
+                .getMany();
             for (const t in globalArts) {
                 if (globalArts[ t ].display !== null) {
                     const newArray: Array<string> = globalArts[ t ].display.split(",");
@@ -509,7 +676,19 @@ export class ClassifyService {
             articles.push(...global);
         }
         if (show === false) {
-            const newArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in( :id)", { id: newArray }).andWhere("\"topPlace\"=\"current\" or \"topPlace\"=\"cancel\"").andWhere("\"name\"like :name", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const newArticles: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in( :id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\"=\"current\" or \"topPlace\"=\"cancel\"")
+                .andWhere(
+                    "\"name\"like :name",
+                    { name: str },
+                )
+                .orderBy("ArticleEntity.publishedTime", "DESC")
+                .getMany();
             articles.push(...newArticles);
             level = 5;
         }
@@ -517,22 +696,94 @@ export class ClassifyService {
             level = 4;
         }
         if (level === 1) {
-            const newArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in ( :id)", { id: newArray }).andWhere("\"topPlace\"= :topPlace", { topPlace: "level1" }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const newArticles: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in ( :id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\"= :topPlace", { topPlace: "level1" })
+                .andWhere(
+                    "\"name\"like :name and recycling=false",
+                    { name: str },
+                )
+                .orderBy("ArticleEntity.publishedTime", "DESC")
+                .getMany();
             articles.push(...newArticles);
-            const finalArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"= :classifyId  and \"topPlace\"<>\"global\"", { classifyId: id }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const finalArticles: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\"= :classifyId  and \"topPlace\"<>\"global\"",
+                    { classifyId: id },
+                )
+                .andWhere("\"name\"like :name and recycling=false", { name: str })
+                .orderBy(
+                    "ArticleEntity.publishedTime",
+                    "DESC",
+                )
+                .getMany();
             articles.push(...finalArticles);
         } else if (level === 2) {
-            const newArticles = await this.artRepository.createQueryBuilder().where("\"classifyId\" in ( :id)", { id: newArray }).andWhere("\"topPlace\"= :topPlace", { topPlace: "level2" }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const newArticles = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in ( :id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\"= :topPlace", { topPlace: "level2" })
+                .andWhere(
+                    "\"name\"like :name and recycling=false",
+                    { name: str },
+                )
+                .orderBy("ArticleEntity.publishedTime", "DESC")
+                .getMany();
             articles.push(...newArticles);
-            const finalArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"= :classifyId and \"topPlace\"<>\"level1\" and \"topPlace\"<>\"global\"", { classifyId: id }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const finalArticles: Array<ArticleEntity> = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\"= :classifyId and \"topPlace\"<>\"level1\" and \"topPlace\"<>\"global\"",
+                    { classifyId: id },
+                )
+                .andWhere("\"name\"like :name and recycling=false", { name: str })
+                .orderBy(
+                    "ArticleEntity.publishedTime",
+                    "DESC",
+                )
+                .getMany();
             articles.push(...finalArticles);
         } else if (level === 3) {
-            const newArticles = await this.artRepository.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).andWhere("\"topPlace\"= :topPlace", { topPlace: "level3" }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const newArticles = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in (:id)",
+                    { id: newArray },
+                )
+                .andWhere("\"topPlace\"= :topPlace", { topPlace: "level3" })
+                .andWhere(
+                    "\"name\"like :name and recycling=false",
+                    { name: str },
+                )
+                .orderBy("ArticleEntity.publishedTime", "DESC")
+                .getMany();
             articles.push(...newArticles);
-            const finalArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\"= :classifyId and \"topPlace\"<>\"level2\" and \"topPlace\"<>\"global\"", { classifyId: id }).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const finalArticles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where(
+                "\"classifyId\"= :classifyId and \"topPlace\"<>\"level2\" and \"topPlace\"<>\"global\"",
+                { classifyId: id },
+            ).andWhere("\"name\"like :name and recycling=false", { name: str }).orderBy(
+                "ArticleEntity.publishedTime",
+                "DESC",
+            ).getMany();
             articles.push(...finalArticles);
         } else if (level === 4) {
-            const newArticles = await this.artRepository.createQueryBuilder().where("\"classifyId\" in ( :id) and recycling=false", { id: newArray }).andWhere("\"name\"like :name", { name: str }).orderBy("ArticleEntity.publishedTime", "DESC").getMany();
+            const newArticles = await this.artRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyId\" in ( :id) and recycling=false",
+                    { id: newArray },
+                )
+                .andWhere("\"name\"like :name", { name: str })
+                .orderBy("ArticleEntity.publishedTime", "DESC")
+                .getMany();
             articles.push(...newArticles);
         }
         const num: number = articles.length;
@@ -543,7 +794,9 @@ export class ClassifyService {
     async Fenji(art: Array<ArticleEntity>, limit?: number, pages?: number): Promise<Array<ArticleEntity>> {
         let newArt: Array<ArticleEntity> = [];
         if (limit) {
-            newArt = art.splice(limit * (pages - 1), limit);
+            newArt = art.splice(limit * (
+                pages - 1
+            ), limit);
         } else {
             newArt = art;
         }
@@ -556,7 +809,8 @@ export class ClassifyService {
      * @returns {Promise<Array<number>>}
      */
     async getClassifyIdForArt() {
-        const custom: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"classifyAlias\"=\'活动\' or \"classifyAlias\"=\'资讯\'").getMany();
+        const custom: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where(
+            "\"classifyAlias\"=\'活动\' or \"classifyAlias\"=\'资讯\'").getMany();
         let customArray: Array<number> = [];
         for (const t in custom) {
             customArray.push(custom[ t ].id);
@@ -575,10 +829,26 @@ export class ClassifyService {
      */
     async getClassifyId(idNum: number): Promise<Array<number>> {
         await getManager().query("update public.article_classify_table set \"parentId\" = \"groupId\"");
-        const entity: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"groupId\"= :groupId", { groupId: idNum }).getMany();
+        const entity: Array<ClassifyEntity> = await this.repository
+            .createQueryBuilder()
+            .where(
+                "\"groupId\"= :groupId",
+                { groupId: idNum },
+            )
+            .getMany();
         const array: Array<number> = [];
         if (entity.length > 0) {
-            const result = await this.repository.createQueryBuilder("article_classify_table").where("article_classify_table.id= :id", { id: idNum }).innerJoinAndSelect("article_classify_table.children", "children").orderBy("article_classify_table.id").getMany();
+            const result = await this.repository
+                .createQueryBuilder("article_classify_table")
+                .where(
+                    "article_classify_table.id= :id",
+                    { id: idNum },
+                )
+                .innerJoinAndSelect(
+                    "article_classify_table.children",
+                    "children",
+                )
+                .orderBy("article_classify_table.id").getMany();
             const firstArray: Array<ClassifyEntity> = result;
             for (const t in firstArray) {
                 array.push(firstArray[ t ].id);
@@ -602,9 +872,18 @@ export class ClassifyService {
     async getClassifyIdPage(idNum: number): Promise<Array<number>> {
         await getManager().query("update public.page_classify_table set \"parentId\" = \"groupId\"");
         const array: Array<number> = [];
-        const entity: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"groupId\"= :groupId", { groupId: idNum }).getMany();
+        const entity: Array<PageClassifyEntity> = await this.pageRepository
+            .createQueryBuilder()
+            .where(
+                "\"groupId\"= :groupId",
+                { groupId: idNum },
+            )
+            .getMany();
         if (entity.length > 0) {
-            const result = await this.pageRepository.createQueryBuilder("page_classify_table").where("page_classify_table.id= :id", { id: idNum }).innerJoinAndSelect("page_classify_table.children", "children").getMany();
+            const result = await this.pageRepository.createQueryBuilder("page_classify_table").where(
+                "page_classify_table.id= :id",
+                { id: idNum },
+            ).innerJoinAndSelect("page_classify_table.children", "children").getMany();
             const firstArray: Array<PageClassifyEntity> = result;
             for (const t in firstArray) {
                 array.push(firstArray[ t ].id);
@@ -627,15 +906,14 @@ export class ClassifyService {
      */
     public async findLevel(id: number): Promise<number> {
         const arr: Array<ClassifyEntity> = await this.repository.find();
-        const final: Array<ClassifyEntity> = await this.showClassifyLevel(arr, id, 0).then(a => {
-            return a;
-        });
+        const final: Array<ClassifyEntity> = await this.showClassifyLevel(arr, id, 0);
         let num: number;
         for (const t in final) {
             if (final[ t ].id === 1) {
                 num = final[ t ].level;
             }
         }
+
         return num;
     }
 
@@ -712,10 +990,17 @@ export class ClassifyService {
     /**
      * 重置置顶关系
      * @param {Array<number>} arr
+     *
      * @returns {Promise<void>}
      */
     public async resetTheSetTop(arr: Array<number>) {
-        const articles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in ( :id)", { id: arr }).getMany();
+        const articles: Array<ArticleEntity> = await this.artRepository
+            .createQueryBuilder()
+            .where(
+                "\"classifyId\" in ( :id)",
+                { id: arr },
+            )
+            .getMany();
         for (const t in articles) {
             let arr = new ArticleEntity();
             arr = articles[ t ];
@@ -745,6 +1030,7 @@ export class ClassifyService {
         classify.updateAt = new Date();
         const newClassify: PageClassifyEntity = classify;
         this.pageRepository.updateById(newClassify.id, newClassify);
+
         return this.findAllClassifyPage(1);
     }
 
@@ -755,6 +1041,7 @@ export class ClassifyService {
      */
     public async findOnePageClassifyById(id: number): Promise<PageClassifyEntity> {
         const final: PageClassifyEntity = await this.pageRepository.findOneById(id);
+
         return final;
     }
 
@@ -767,33 +1054,71 @@ export class ClassifyService {
     public async findTheDefaultByAlias(alias: string, useFor: string) {
         let numId = 0;
         if (useFor === "art") {
-            const defaultArt: ClassifyEntity = await this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getOne();
+            const defaultArt: ClassifyEntity = await this.repository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyAlias\"= :classifyAlias",
+                    { classifyAlias: alias },
+                )
+                .getOne();
             if (defaultArt === null) {
                 const classify = new ClassifyEntity();
                 classify.groupId = 1;
                 classify.title = "默认分类";
                 classify.classifyAlias = "默认分类";
                 classify.describe = "默认分类";
-                const result: string = await this.repository.createQueryBuilder().insert().into(ClassifyEntity).values(classify).output("id").execute();
+                const result: string = await this.repository
+                    .createQueryBuilder()
+                    .insert()
+                    .into(ClassifyEntity)
+                    .values(classify)
+                    .output("id")
+                    .execute();
                 const str: string = JSON.stringify(result);
-                const newstr: string = str.replace("{", "").replace("}", "").replace("[", "").replace("]", "");
-                const finalStr: Array<string> = newstr.replace("'", "").replace("'", "").split(":");
+                const newstr: string = str
+                    .replace("{", "")
+                    .replace("}", "")
+                    .replace("[", "")
+                    .replace("]", "");
+                const finalStr: Array<string> = newstr
+                    .replace("'", "")
+                    .replace("'", "")
+                    .split(":");
                 numId = Number(finalStr[ 1 ]);
             } else {
                 numId = defaultArt.id;
             }
         } else if (useFor === "page") {
-            const defaultPage: PageClassifyEntity = await this.pageRepository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getOne();
+            const defaultPage: PageClassifyEntity = await this.pageRepository
+                .createQueryBuilder()
+                .where(
+                    "\"classifyAlias\"= :classifyAlias",
+                    { classifyAlias: alias },
+                )
+                .getOne();
             if (defaultPage === null) {
                 const classify = new PageClassifyEntity();
                 classify.groupId = 1;
                 classify.title = "默认分类";
                 classify.classifyAlias = "默认分类";
                 classify.describe = "默认分类";
-                const result = await this.pageRepository.createQueryBuilder().insert().into(PageClassifyEntity).values(classify).output("id").execute();
+                const result = await this.pageRepository
+                    .createQueryBuilder()
+                    .insert()
+                    .into(PageClassifyEntity)
+                    .values(classify)
+                    .output("id")
+                    .execute();
                 const str: string = JSON.stringify(result);
-                const newstr: string = str.replace("{", "").replace("}", "").replace("[", "").replace("]", "");
-                const finalStr: Array<string> = newstr.replace("'", "").replace("'", "").split(":");
+                const newstr: string = str
+                    .replace("{", "")
+                    .replace("}", "")
+                    .replace("[", "")
+                    .replace("]", "");
+                const finalStr: Array<string> = newstr
+                    .replace("'", "")
+                    .replace("'", "")
+                    .split(":");
                 numId = Number(finalStr[ 1 ]);
             } else {
                 numId = defaultPage.id;
@@ -810,18 +1135,21 @@ export class ClassifyService {
     async classifyTopPlace(id: number, display?: Array<number>) {
         const entity: ClassifyEntity = await this.repository.findOneById(id);
         if (entity === null) throw new MessageCodeError("page:classify:classifyIdMissing");
-        const array: Array<number> = await this.getClassifyId(id).then(a => {
-            return a;
-        });
+        const array: Array<number> = await this.getClassifyId(id);
         array.push(id);
         const newArray: Array<number> = Array.from(new Set(array));
         let num = 0;
-        const result: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in ( :id)", { id: newArray }).andWhere("\"topPlace\"<> :topPlace", { topPlace: "global" }).getMany();
+        const result: Array<ArticleEntity> = await this.artRepository
+            .createQueryBuilder()
+            .where(
+                "\"classifyId\" in ( :id)",
+                { id: newArray },
+            )
+            .andWhere("\"topPlace\"<> :topPlace", { topPlace: "global" })
+            .getMany();
         const numArray: Array<number> = [];
         for (const t in display) {
-            const array: Array<number> = await this.getClassifyId(display[ t ]).then(a => {
-                return a;
-            });
+            const array: Array<number> = await this.getClassifyId(display[ t ]);
             const newArray: Array<number> = Array.from(new Set(array));
             numArray.push(...newArray);
         }
@@ -853,14 +1181,27 @@ export class ClassifyService {
             if (entity === null) messageCodeError = "当前分类不存在";
             array.push(id);
             array.push(entity.groupId);
-            result = await this.repository.createQueryBuilder().where("\"id\" in ( :id)", { id: array }).orderBy("id", "ASC").getMany();
+            result = await this.repository
+                .createQueryBuilder()
+                .where("\"id\" in ( :id)", { id: array })
+                .orderBy(
+                    "id",
+                    "ASC",
+                )
+                .getMany();
         }
         if (useFor === "page") {
             const entity: PageClassifyEntity = await this.pageRepository.findOneById(id);
             if (entity === null) messageCodeError = "当前分类不存在";
             array.push(id);
             array.push(entity.groupId);
-            result = await this.pageRepository.createQueryBuilder().where("\"id\" in ( :id)", { id: array }).orderBy("id", "ASC").getMany();
+            result = await this.pageRepository
+                .createQueryBuilder()
+                .where("\"id\" in ( :id)", { id: array })
+                .orderBy(
+                    "id",
+                    "ASC",
+                ).getMany();
         }
         if (result !== null) {
             messageCodeError = "查找成功";
@@ -930,12 +1271,21 @@ export class ClassifyService {
                 if (id) {/*修改文章分类*/
                     const classify: ClassifyEntity = await this.repository.findOneById(id);
                     if (classify.classifyAlias !== alias) {
-                        const newClassify: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getMany();
+                        const newClassify: Array<ClassifyEntity> = await this.repository
+                            .createQueryBuilder()
+                            .where(
+                                "\"classifyAlias\"= :classifyAlias",
+                                { classifyAlias: alias },
+                            )
+                            .getMany();
                         if (newClassify.length > 0) result = "别名不能重复";
                         update = false;
                     }
                 } else {/*增加文章分类*/
-                    const newClassify: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getMany();
+                    const newClassify: Array<ClassifyEntity> = await this.repository.createQueryBuilder().where(
+                        "\"classifyAlias\"= :classifyAlias",
+                        { classifyAlias: alias },
+                    ).getMany();
                     if (newClassify.length > 0) result = "别名不能重复";
                     update = false;
                 }
@@ -944,12 +1294,24 @@ export class ClassifyService {
                 if (id) {/*修改页面分类*/
                     const entity: PageClassifyEntity = await this.pageRepository.findOneById(id);
                     if (entity.classifyAlias !== alias) {
-                        const newClassify: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getMany();
+                        const newClassify: Array<PageClassifyEntity> = await this.pageRepository
+                            .createQueryBuilder()
+                            .where(
+                                "\"classifyAlias\"= :classifyAlias",
+                                { classifyAlias: alias },
+                            )
+                            .getMany();
                         if (newClassify.length > 0) result = "别名不能重复";
                         update = false;
                     }
                 } else {/*添加页面分类*/
-                    const newClassify: Array<PageClassifyEntity> = await this.pageRepository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getMany();
+                    const newClassify: Array<PageClassifyEntity> = await this.pageRepository
+                        .createQueryBuilder()
+                        .where(
+                            "\"classifyAlias\"= :classifyAlias",
+                            { classifyAlias: alias },
+                        )
+                        .getMany();
                     if (newClassify.length > 0) result = "别名不能重复";
                     update = false;
                 }
@@ -963,11 +1325,14 @@ export class ClassifyService {
                     result = "当前分类不存在";
                     update = false;
                 } else {
-                    const array: Array<number> = await this.getClassifyId(deleteNum).then(a => {
-                        return a;
-                    });
+                    const array: Array<number> = await this.getClassifyId(deleteNum);
                     const newArray: Array<number> = Array.from(new Set(array));
-                    const artiicles: Array<ArticleEntity> = await this.artRepository.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).getMany();
+                    const artiicles: Array<ArticleEntity> = await this.artRepository
+                        .createQueryBuilder()
+                        .where(
+                            "\"classifyId\" in (:id)",
+                            { id: newArray },
+                        ).getMany();
                     if (artiicles.length > 0) result = "当前分类下有文章,不能删除";
                     update = false;
                 }
@@ -978,11 +1343,14 @@ export class ClassifyService {
                     result = "当前分类不存在";
                     update = false;
                 } else {
-                    const array: Array<number> = await this.getClassifyIdPage(deleteNum).then(a => {
-                        return a;
-                    });
+                    const array: Array<number> = await this.getClassifyIdPage(deleteNum);
                     const newArray: Array<number> = Array.from(new Set(array));
-                    const artiicles: Array<PageEntity> = await this.repositoryPage.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).getMany();
+                    const artiicles: Array<PageEntity> = await this.repositoryPage
+                        .createQueryBuilder()
+                        .where(
+                            "\"classifyId\" in (:id)",
+                            { id: newArray },
+                        ).getMany();
                     if (artiicles.length > 0) result = "当前分类下有页面,不能删除";
                     update = false;
                 }
@@ -991,6 +1359,7 @@ export class ClassifyService {
         if (!result) {
             update = true;
         }
+
         return { MessageCodeError: result, Continue: update };
     }
 }

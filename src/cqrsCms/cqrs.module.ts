@@ -20,8 +20,29 @@ import { ClassifyService } from "./service/classify.service";
 import { PageService } from "./service/page.service";
 
 @Module({
-    imports: [ CQRSModule, SiteMapModule, TypeOrmModule.forFeature([ ArticleEntity, ClassifyEntity, PageEntity, PageClassifyEntity, PageContentEntity ]) ],
-    components: [ ArticleService, ClassifyService, PageService, CqrsResolver, CqrsService, PageRepository, ...CommandHandlers, ...EventHandlers, PageSagas, PagerService ]
+    imports: [
+        CQRSModule,
+        SiteMapModule,
+        TypeOrmModule.forFeature([
+            ArticleEntity,
+            ClassifyEntity,
+            PageEntity,
+            PageClassifyEntity,
+            PageContentEntity,
+        ]),
+    ],
+    components: [
+        ArticleService,
+        ClassifyService,
+        PageService,
+        CqrsResolver,
+        CqrsService,
+        PageRepository,
+        ...CommandHandlers,
+        ...EventHandlers,
+        PageSagas,
+        PagerService,
+    ],
 })
 export class CqrsModule implements OnModuleInit {
     constructor(

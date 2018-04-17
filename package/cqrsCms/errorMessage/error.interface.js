@@ -23,8 +23,9 @@ class MessageCodeError extends Error {
             }
             return false;
         });
-        if (!errorMessageConfig)
+        if (!errorMessageConfig) {
             throw new Error("Unable to find the given message code error.");
+        }
         return errorMessageConfig;
     }
 }

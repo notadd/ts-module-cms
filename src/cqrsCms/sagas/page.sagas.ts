@@ -7,7 +7,6 @@ import { DeleteParamCommand } from "../commands/impl/delete-param.command";
 import { ArticleCurdEvents } from "../events/impl/article-curd.events";
 import { PageCurdEvent } from "../events/impl/page-curd.event";
 
-
 const itemId = "0";
 
 @Component()

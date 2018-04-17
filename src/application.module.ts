@@ -12,7 +12,6 @@ import { CmsModule } from "./cms.injection";
     ],
 })
 export class ApplicationModule implements NestModule {
-    K;
     constructor(private readonly graphqlFactory: GraphQLFactory) {
     }
 
@@ -28,8 +27,7 @@ export class ApplicationModule implements NestModule {
 
     createSchema() {
         const typeDefs = this.graphqlFactory.mergeTypesByPaths("**/*.types.graphql");
-        const schema = this.graphqlFactory.createSchema({ typeDefs });
 
-        return schema;
+        return this.graphqlFactory.createSchema({ typeDefs });
     }
 }

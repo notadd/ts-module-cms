@@ -13,6 +13,5 @@ export class CreateSitemapHandler implements ICommandHandler<CreateParamCommand>
         sitemap.createxml(command.createXml);
         resolver();
         sitemap.commit();
-
     }
 }

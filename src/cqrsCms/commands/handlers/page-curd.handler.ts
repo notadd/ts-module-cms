@@ -5,9 +5,11 @@ import { PageParamCommand } from "../impl/page-param.command";
 
 @CommandHandler(PageParamCommand)
 export class CreatePageHandler implements ICommandHandler<PageParamCommand> {
-    constructor(private readonly repositoty: PageRepository,
-                private readonly publisher: EventPublisher,
-                private readonly pageService: PageService) {
+    constructor(
+        private readonly repositoty: PageRepository,
+        private readonly publisher: EventPublisher,
+        private readonly pageService: PageService,
+    ) {
     }
 
     async execute(command: PageParamCommand, resolver: (value?) => void): Promise<any> {
@@ -24,6 +26,5 @@ export class CreatePageHandler implements ICommandHandler<PageParamCommand> {
         }
         resolver(result);
         page.commit();
-
     }
 }

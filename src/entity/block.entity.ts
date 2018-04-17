@@ -42,5 +42,4 @@ export class BlockEntity {
     /*无用*/
     @Column({ nullable: true })
     collapse: boolean;
-
 }
