@@ -1101,3 +1101,5 @@ ClassifyService = __decorate([
         typeorm_2.Repository])
 ], ClassifyService);
 exports.ClassifyService = ClassifyService;
+
+//# sourceMappingURL=classify.service.js.map

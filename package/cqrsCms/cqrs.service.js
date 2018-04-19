@@ -78,3 +78,5 @@ CqrsService = __decorate([
     __metadata("design:paramtypes", [cqrs_1.CommandBus])
 ], CqrsService);
 exports.CqrsService = CqrsService;
+
+//# sourceMappingURL=cqrs.service.js.map

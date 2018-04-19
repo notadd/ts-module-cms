@@ -6,3 +6,5 @@ class ArticleCurdEvents {
     }
 }
 exports.ArticleCurdEvents = ArticleCurdEvents;
+
+//# sourceMappingURL=article-curd.events.js.map

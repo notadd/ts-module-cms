@@ -6,3 +6,5 @@ class SitemapUpdateEvent {
     }
 }
 exports.SitemapUpdateEvent = SitemapUpdateEvent;
+
+//# sourceMappingURL=sitemap-update.event.js.map

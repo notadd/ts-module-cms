@@ -69,3 +69,5 @@ PageEntity = __decorate([
     typeorm_1.Entity("page_entity_table")
 ], PageEntity);
 exports.PageEntity = PageEntity;
+
+//# sourceMappingURL=page.entity.js.map

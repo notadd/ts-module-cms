@@ -44,3 +44,5 @@ PageCurdHandle = __decorate([
     __metadata("design:paramtypes", [page_service_1.PageService])
 ], PageCurdHandle);
 exports.PageCurdHandle = PageCurdHandle;
+
+//# sourceMappingURL=page-curd.handler.js.map

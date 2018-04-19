@@ -32,3 +32,5 @@ function bootstrap() {
     });
 }
 bootstrap().then(() => console.log("Application is listening on port 3001"));
+
+//# sourceMappingURL=server.js.map

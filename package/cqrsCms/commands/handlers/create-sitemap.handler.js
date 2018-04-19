@@ -40,3 +40,5 @@ CreateSitemapHandler = __decorate([
         cqrs_1.EventPublisher])
 ], CreateSitemapHandler);
 exports.CreateSitemapHandler = CreateSitemapHandler;
+
+//# sourceMappingURL=create-sitemap.handler.js.map

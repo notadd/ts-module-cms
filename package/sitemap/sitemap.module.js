@@ -22,3 +22,5 @@ SiteMapModule = __decorate([
     })
 ], SiteMapModule);
 exports.SiteMapModule = SiteMapModule;
+
+//# sourceMappingURL=sitemap.module.js.map

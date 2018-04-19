@@ -113,3 +113,5 @@ ClassifyEntity = ClassifyEntity_1 = __decorate([
 ], ClassifyEntity);
 exports.ClassifyEntity = ClassifyEntity;
 var ClassifyEntity_1;
+
+//# sourceMappingURL=classify.entity.js.map

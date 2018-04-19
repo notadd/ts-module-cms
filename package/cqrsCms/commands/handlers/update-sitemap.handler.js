@@ -40,3 +40,5 @@ UpdateSitemapHandler = __decorate([
         cqrs_1.EventPublisher])
 ], UpdateSitemapHandler);
 exports.UpdateSitemapHandler = UpdateSitemapHandler;
+
+//# sourceMappingURL=update-sitemap.handler.js.map

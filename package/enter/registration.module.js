@@ -23,3 +23,5 @@ RegistrationModule = __decorate([
     })
 ], RegistrationModule);
 exports.RegistrationModule = RegistrationModule;
+
+//# sourceMappingURL=registration.module.js.map

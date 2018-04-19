@@ -16,3 +16,5 @@ class Sitemap extends cqrs_1.AggregateRoot {
     }
 }
 exports.Sitemap = Sitemap;
+
+//# sourceMappingURL=sitemap.model.js.map

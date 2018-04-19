@@ -12,3 +12,5 @@ exports.EventHandlers = [
     classify_curd_handler_1.ClassifyCurdEvent,
     article_curd_handler_1.ArticleCurdEvent,
 ];
+
+//# sourceMappingURL=index.js.map

@@ -82,3 +82,5 @@ BlockEntity = __decorate([
     typeorm_1.Entity("block-entry-form")
 ], BlockEntity);
 exports.BlockEntity = BlockEntity;
+
+//# sourceMappingURL=block.entity.js.map

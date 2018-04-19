@@ -114,3 +114,5 @@ SiteEntity = __decorate([
     typeorm_1.Entity("site-rental-table")
 ], SiteEntity);
 exports.SiteEntity = SiteEntity;
+
+//# sourceMappingURL=site.entity.js.map

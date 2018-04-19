@@ -1,0 +1,1 @@
+{"version":3,"sources":["cqrsCms/events/impl/sitemap-update.event.ts"],"names":[],"mappings":";;AAEA;IACI,YAAoB,EAAU;QAAV,OAAE,GAAF,EAAE,CAAQ;IAC9B,CAAC;CACJ;AAHD,gDAGC","file":"sitemap-update.event.js","sourcesContent":["import { IEvent } from \"@nestjs/cqrs\";\n\nexport class SitemapUpdateEvent implements IEvent {\n    constructor(private id: string) {\n    }\n}\n"]}

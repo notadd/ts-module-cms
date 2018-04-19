@@ -169,3 +169,5 @@ SitemapService = __decorate([
         typeorm_2.Repository])
 ], SitemapService);
 exports.SitemapService = SitemapService;
+
+//# sourceMappingURL=sitemap.service.js.map

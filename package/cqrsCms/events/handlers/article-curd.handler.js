@@ -53,3 +53,5 @@ ArticleCurdEvent = __decorate([
     __metadata("design:paramtypes", [article_service_1.ArticleService])
 ], ArticleCurdEvent);
 exports.ArticleCurdEvent = ArticleCurdEvent;
+
+//# sourceMappingURL=article-curd.handler.js.map

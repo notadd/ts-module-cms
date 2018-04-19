@@ -355,3 +355,5 @@ ArticleService = __decorate([
         classify_service_1.ClassifyService, Object])
 ], ArticleService);
 exports.ArticleService = ArticleService;
+
+//# sourceMappingURL=article.service.js.map

@@ -83,3 +83,5 @@ PageClassifyEntity = PageClassifyEntity_1 = __decorate([
 ], PageClassifyEntity);
 exports.PageClassifyEntity = PageClassifyEntity;
 var PageClassifyEntity_1;
+
+//# sourceMappingURL=pageClassify.entity.js.map

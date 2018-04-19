@@ -535,3 +535,5 @@ CqrsResolver = __decorate([
         common_paging_1.PagerService])
 ], CqrsResolver);
 exports.CqrsResolver = CqrsResolver;
+
+//# sourceMappingURL=cqrs.resolver.js.map

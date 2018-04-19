@@ -61,3 +61,5 @@ SitemapEntity = __decorate([
     typeorm_1.Entity("sitemap_entity_table")
 ], SitemapEntity);
 exports.SitemapEntity = SitemapEntity;
+
+//# sourceMappingURL=sitemap.entity.js.map

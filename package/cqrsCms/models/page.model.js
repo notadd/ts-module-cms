@@ -23,3 +23,5 @@ class Page extends cqrs_1.AggregateRoot {
     }
 }
 exports.Page = Page;
+
+//# sourceMappingURL=page.model.js.map

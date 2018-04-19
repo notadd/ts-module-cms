@@ -7,3 +7,5 @@ class PageCreateEvent {
     }
 }
 exports.PageCreateEvent = PageCreateEvent;
+
+//# sourceMappingURL=page-create.event.js.map

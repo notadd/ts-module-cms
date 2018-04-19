@@ -84,3 +84,5 @@ ClassifyCurdHandler = __decorate([
         classify_service_1.ClassifyService])
 ], ClassifyCurdHandler);
 exports.ClassifyCurdHandler = ClassifyCurdHandler;
+
+//# sourceMappingURL=classify-curd.handler.js.map

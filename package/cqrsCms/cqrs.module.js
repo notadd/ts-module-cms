@@ -73,3 +73,5 @@ CqrsModule = __decorate([
         cqrs_1.EventBus])
 ], CqrsModule);
 exports.CqrsModule = CqrsModule;
+
+//# sourceMappingURL=cqrs.module.js.map

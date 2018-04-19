@@ -6,3 +6,5 @@ class GetClassifyParamCommand {
     }
 }
 exports.GetClassifyParamCommand = GetClassifyParamCommand;
+
+//# sourceMappingURL=get-classify-param.command.js.map

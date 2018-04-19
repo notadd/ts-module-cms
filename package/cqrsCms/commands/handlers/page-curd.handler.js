@@ -53,3 +53,5 @@ CreatePageHandler = __decorate([
         page_service_1.PageService])
 ], CreatePageHandler);
 exports.CreatePageHandler = CreatePageHandler;
+
+//# sourceMappingURL=page-curd.handler.js.map

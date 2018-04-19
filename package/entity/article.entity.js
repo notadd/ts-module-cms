@@ -182,3 +182,5 @@ ArticleEntity = __decorate([
     typeorm_1.Entity("article_entity_table")
 ], ArticleEntity);
 exports.ArticleEntity = ArticleEntity;
+
+//# sourceMappingURL=article.entity.js.map

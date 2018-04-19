@@ -44,3 +44,5 @@ SitemapCreateHandler = __decorate([
     __metadata("design:paramtypes", [sitemap_service_1.SitemapService])
 ], SitemapCreateHandler);
 exports.SitemapCreateHandler = SitemapCreateHandler;
+
+//# sourceMappingURL=sitemap-create.handler.js.map

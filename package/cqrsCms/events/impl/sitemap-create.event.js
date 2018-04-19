@@ -6,3 +6,5 @@ class SitemapCreateEvent {
     }
 }
 exports.SitemapCreateEvent = SitemapCreateEvent;
+
+//# sourceMappingURL=sitemap-create.event.js.map

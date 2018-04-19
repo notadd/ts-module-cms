@@ -127,3 +127,5 @@ RegistrationService = __decorate([
         typeorm_2.Repository])
 ], RegistrationService);
 exports.RegistrationService = RegistrationService;
+
+//# sourceMappingURL=registration.service.js.map

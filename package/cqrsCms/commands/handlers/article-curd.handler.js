@@ -104,3 +104,5 @@ ArticleCurdHandler = __decorate([
         classify_service_1.ClassifyService])
 ], ArticleCurdHandler);
 exports.ArticleCurdHandler = ArticleCurdHandler;
+
+//# sourceMappingURL=article-curd.handler.js.map

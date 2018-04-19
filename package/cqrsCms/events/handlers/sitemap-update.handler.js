@@ -36,3 +36,5 @@ SitemapUpdateHandler = __decorate([
     __metadata("design:paramtypes", [sitemap_service_1.SitemapService])
 ], SitemapUpdateHandler);
 exports.SitemapUpdateHandler = SitemapUpdateHandler;
+
+//# sourceMappingURL=sitemap-update.handler.js.map

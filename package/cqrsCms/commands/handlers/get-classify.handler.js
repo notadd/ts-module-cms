@@ -46,3 +46,5 @@ GetClassifyHandler = __decorate([
     __metadata("design:paramtypes", [classify_service_1.ClassifyService])
 ], GetClassifyHandler);
 exports.GetClassifyHandler = GetClassifyHandler;
+
+//# sourceMappingURL=get-classify.handler.js.map

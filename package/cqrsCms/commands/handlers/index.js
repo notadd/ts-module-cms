@@ -16,3 +16,5 @@ exports.CommandHandlers = [
     article_curd_handler_1.ArticleCurdHandler,
     get_classify_handler_1.GetClassifyHandler,
 ];
+
+//# sourceMappingURL=index.js.map

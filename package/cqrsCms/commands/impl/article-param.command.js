@@ -6,3 +6,5 @@ class ArticleParamCommand {
     }
 }
 exports.ArticleParamCommand = ArticleParamCommand;
+
+//# sourceMappingURL=article-param.command.js.map

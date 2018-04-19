@@ -81,3 +81,5 @@ VisitEntity = __decorate([
     typeorm_1.Entity("visit-appointment-table")
 ], VisitEntity);
 exports.VisitEntity = VisitEntity;
+
+//# sourceMappingURL=visit.entity.js.map

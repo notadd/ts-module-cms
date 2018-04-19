@@ -6,3 +6,5 @@ class PageCurdEvent {
     }
 }
 exports.PageCurdEvent = PageCurdEvent;
+
+//# sourceMappingURL=page-curd.event.js.map

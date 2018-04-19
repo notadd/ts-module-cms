@@ -105,3 +105,5 @@ exports.ErrorInterfaceConfig = {
         userMessage: "数据库错误.",
     },
 };
+
+//# sourceMappingURL=error.config.js.map

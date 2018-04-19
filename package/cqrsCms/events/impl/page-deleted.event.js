@@ -6,3 +6,5 @@ class PageDeletedEvent {
     }
 }
 exports.PageDeletedEvent = PageDeletedEvent;
+
+//# sourceMappingURL=page-deleted.event.js.map

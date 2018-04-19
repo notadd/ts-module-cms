@@ -66,3 +66,5 @@ ClassifyCurdEvent = __decorate([
     __metadata("design:paramtypes", [classify_service_1.ClassifyService])
 ], ClassifyCurdEvent);
 exports.ClassifyCurdEvent = ClassifyCurdEvent;
+
+//# sourceMappingURL=classify-curd.handler.js.map

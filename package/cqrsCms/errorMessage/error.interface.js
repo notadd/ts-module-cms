@@ -30,3 +30,5 @@ class MessageCodeError extends Error {
     }
 }
 exports.MessageCodeError = MessageCodeError;
+
+//# sourceMappingURL=error.interface.js.map

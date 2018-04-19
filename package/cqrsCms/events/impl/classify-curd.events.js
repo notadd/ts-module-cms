@@ -6,3 +6,5 @@ class ClassifyCurdEvents {
     }
 }
 exports.ClassifyCurdEvents = ClassifyCurdEvents;
+
+//# sourceMappingURL=classify-curd.events.js.map
