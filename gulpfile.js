@@ -58,7 +58,9 @@ modules.forEach(module => {
                 emitError: false,
                 summarizeFailureOutput: true,
             }))
+            .pipe(sourcemaps.init())
             .pipe(packages[module]())
+            .pipe(sourcemaps.write("."))
             .pipe(gulp.dest(`${dist}`));
     });
 });
