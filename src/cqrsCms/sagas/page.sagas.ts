@@ -18,7 +18,7 @@ export class PageSagas {
             .map(event => {
                 return new DeleteParamCommand(event.heroId, itemId);
             });
-    };
+    }
 
     /*页面增删改合并修改生成xml文件*/
     pageXml = (events$: EventObservable<any>): Observable<ICommand> => {
@@ -27,5 +27,5 @@ export class PageSagas {
             .map(event => {
                 return new DeleteParamCommand(event.heroId, itemId);
             });
-    };
+    }
 }

@@ -67,7 +67,7 @@ export class PageService {
     async deletePages(array: Array<number>, limit?: number, page?: number) {
         for (const t in array) {
             const page: PageEntity = await this.repository.findOneById(array[ t ]);
-            if (page === null) throw new MessageCodeError("delete:page:deleteById");
+            if (page === null) { throw new MessageCodeError("delete:page:deleteById"); }
             await this.contentRepository.createQueryBuilder()
                 .delete().from(PageContentEntity)
                 .where("\"parentId\"= :parentId", { parentId: page.id }).execute();
@@ -81,18 +81,18 @@ export class PageService {
      * @returns {Promise<Array<PageEntity>>}
      */
     async createPages(page: PageEntity, contents: Array<PageContentEntity>, limit?: number, pages?: number) {
-        if (page.title === null) throw new MessageCodeError("create:page:missingTitle");
-        if (page.alias === null) throw new MessageCodeError("create:page:missingAlias");
+        if (page.title === null) { throw new MessageCodeError("create:page:missingTitle"); }
+        if (page.alias === null) { throw new MessageCodeError("create:page:missingAlias"); }
         const entity: PageClassifyEntity = await this.classifyService.findOneByIdPage(page.classifyId);
         if (page.classifyId !== null && page.classifyId !== 0 && entity === null) {
             throw new MessageCodeError("page:classify:classifyIdMissing");
         }
-        if (entity === null) throw new MessageCodeError("update:classify:updateById");
+        if (entity === null) { throw new MessageCodeError("update:classify:updateById"); }
         const aliasEntity: Array<PageEntity> = await this.repository.createQueryBuilder().where(
             "\"alias\"= :alias",
             { alias: page.alias },
         ).getMany();
-        if (aliasEntity.length > 0) throw new MessageCodeError("create:classify:aliasRepeat");
+        if (aliasEntity.length > 0) { throw new MessageCodeError("create:classify:aliasRepeat"); }
         const id: number = await this.repository.save(page).then(a => {
             return a.id;
         });
@@ -116,12 +116,12 @@ export class PageService {
         if (aliasName) {
             const aliasEntity: Array<PageEntity> = await this.repository.createQueryBuilder()
                 .where("\"alias\"= :alias", { alias: aliasName }).getMany();
-            if (aliasEntity.length > 0) result = "别名不能重复";
+            if (aliasEntity.length > 0) { result = "别名不能重复"; }
             update = false;
         }
         if (classifyId) {
             const entity: PageClassifyEntity = await this.classifyService.findOneByIdPage(classifyId);
-            if (entity === null) result = "对应分类不存在";
+            if (entity === null) { result = "对应分类不存在"; }
             update = false;
         }
         if (!result) {
@@ -167,10 +167,10 @@ export class PageService {
                 await this.contentRepository.updateById(newContent.id, newContent);
             }
         }
-        if (page.alias === undefined || page.alias === null) page.alias = entityPage.alias;
-        if (page.title === null || page.title === undefined) page.title = entityPage.title;
-        if (page.classifyId === null || page.classifyId === undefined) page.classifyId = entityPage.classifyId;
-        if (page.classify === null || page.classify === undefined) page.classify = entityPage.classify;
+        if (page.alias === undefined || page.alias === null) { page.alias = entityPage.alias; }
+        if (page.title === null || page.title === undefined) { page.title = entityPage.title; }
+        if (page.classifyId === null || page.classifyId === undefined) { page.classifyId = entityPage.classifyId; }
+        if (page.classify === null || page.classify === undefined) { page.classify = entityPage.classify; }
         try {
             await this.repository.updateById(entityPage.id, page);
         } catch (error) {
@@ -195,7 +195,7 @@ export class PageService {
      */
     async findPageByClassifyId(id: number, limit?: number, page?: number) {
         const entityClassify: PageClassifyEntity = await this.classifyService.findOnePageClassifyById(id);
-        if (entityClassify === null) throw new MessageCodeError("delete:page:deleteById");
+        if (entityClassify === null) { throw new MessageCodeError("delete:page:deleteById"); }
         const array: Array<number> = await this.getClassifyId(id).then(a => {
             return a;
         });

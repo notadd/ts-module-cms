@@ -98,7 +98,7 @@ export class CqrsResolver {
             const pages: number = serachArticle.pages;
             const groupId: number = serachArticle.classifyId;
             const findTop: boolean = serachArticle.topPlace;
-            if (!keyWords) keyWords = "";
+            if (!keyWords) { keyWords = ""; }
             articleVM.getArticles = { getArticleByClassifyId: { classifyId: groupId, top: findTop, name: keyWords } };
             articleVM.limitNum = limitNum;
             articleVM.pages = pages;
@@ -429,7 +429,7 @@ export class CqrsResolver {
             if (id === null && id === 0) {
                 id = 1;
             }
-            if (id === 1) throw new MessageCodeError("drop:table:ById1");
+            if (id === 1) { throw new MessageCodeError("drop:table:ById1"); }
             classifyVM.useFor = useFor;
             classifyVM.deleteClassify = id;
         }

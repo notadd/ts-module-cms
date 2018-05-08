@@ -122,7 +122,7 @@ export class ArticleService {
         let count = 0;
         for (const t in array) {
             const article: ArticleEntity = await this.respository.findOneById(array[ t ]);
-            if (article === null) throw new MessageCodeError("delete:recycling:idMissing");
+            if (article === null) { throw new MessageCodeError("delete:recycling:idMissing"); }
             article.recycling = true;
             article.updateAt = new Date();
             const newArticle: ArticleEntity = article;
@@ -172,7 +172,7 @@ export class ArticleService {
      */
     async updateArticle(article: ArticleEntity) {
         const art: ArticleEntity = await this.respository.findOneById(article.id);
-        if (art === null) throw new MessageCodeError("delete:recycling:idMissing");
+        if (art === null) { throw new MessageCodeError("delete:recycling:idMissing"); }
         const entity: ClassifyEntity = await this.classifyService.findOneByIdArt(article.classifyId);
         if (article.classifyId !== null && article.classifyId !== 0 && entity === null) {
             throw new MessageCodeError("page:classify:classifyIdMissing");
@@ -240,7 +240,7 @@ export class ArticleService {
         let num = 0;
         for (const t in array) {
             const article: ArticleEntity = await this.respository.findOneById(array[ t ]);
-            if (article === null) throw new MessageCodeError("delete:recycling:idMissing");
+            if (article === null) { throw new MessageCodeError("delete:recycling:idMissing"); }
             article.recycling = false;
             article.updateAt = new Date();
             const newArticle: ArticleEntity = article;
@@ -282,7 +282,7 @@ export class ArticleService {
      */
     async reductionClassity(id: number, limit?: number, pages?: number) {
         const entity: ClassifyEntity = await this.classifyService.findOneByIdArt(id);
-        if (entity === null) throw new MessageCodeError("page:classify:classifyIdMissing");
+        if (entity === null) { throw new MessageCodeError("page:classify:classifyIdMissing"); }
         const array: Array<number> = await this.classifyService.getClassifyId(id);
         array.push(id);
         const newArray: Array<number> = Array.from(new Set(array));
@@ -308,7 +308,7 @@ export class ArticleService {
      */
     async getLevelByClassifyId(id: number): Promise<string> {
         const entity: ClassifyEntity = await this.classifyService.findOneByIdArt(id);
-        if (entity === null) throw new MessageCodeError("delete:recycling:idMissing");
+        if (entity === null) { throw new MessageCodeError("delete:recycling:idMissing"); }
         const num: number = await this.classifyService.findLevel(entity.id);
         const level: string = this.classifyService.interfaceChange(num);
         let topPlace = "";
@@ -336,12 +336,12 @@ export class ArticleService {
         let update = true;
         if (id > 0) {
             const aliasEntity: ArticleEntity = await this.respository.findOneById(id);
-            if (aliasEntity === null) result = "当前文章不存在";
+            if (aliasEntity === null) { result = "当前文章不存在"; }
             update = false;
         }
         if (classifyId > 0) {
             const entity: ClassifyEntity = await this.classifyService.findOneByIdArt(classifyId);
-            if (entity === null) result = "对应分类不存在";
+            if (entity === null) { result = "对应分类不存在"; }
             update = false;
         }
         if (!result) {
@@ -417,7 +417,7 @@ export class ArticleService {
     async getArticleById(id: number) {
         const array: Array<ArticleEntity> = [];
         const article: ArticleEntity = await this.respository.findOneById(id);
-        if (article === null) throw new MessageCodeError("delete:recycling:idMissing");
+        if (article === null) { throw new MessageCodeError("delete:recycling:idMissing"); }
         array.push(article);
 
         return { articles: array };

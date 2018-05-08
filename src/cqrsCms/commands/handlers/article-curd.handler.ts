@@ -49,8 +49,8 @@ export class ArticleCurdHandler implements ICommandHandler<ArticleParamCommand> 
                 value = false;
                 resolver(result);
             }
-            if (value === undefined) value = true;
-            if (value) page.createArticle(command.article);
+            if (value === undefined) { value = true; }
+            if (value) { page.createArticle(command.article); }
             resolver({ MessageCodeError: messageCodeError, Continue: value });
         }
         /*分页获取全部文章：可以选择是否隐藏*/

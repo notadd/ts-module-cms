@@ -42,11 +42,11 @@ export class SitemapService {
                 fileName = "sitemap";
             }
             sitemap.xmlFileName = fileName;
-            if (arrayOptions.xmlSiteMap) sitemap.xmlSiteMap = arrayOptions.xmlSiteMap;
-            if (arrayOptions.pageSelect) sitemap.pageSelect = arrayOptions.pageSelect;
-            if (arrayOptions.postSelect) sitemap.postSelect = arrayOptions.postSelect;
-            if (arrayOptions.updateWhenPost) sitemap.updateWhenPost = arrayOptions.updateWhenPost;
-            if (arrayOptions.postLimit1000) sitemap.postLimit1000 = arrayOptions.postLimit1000;
+            if (arrayOptions.xmlSiteMap) { sitemap.xmlSiteMap = arrayOptions.xmlSiteMap; }
+            if (arrayOptions.pageSelect) { sitemap.pageSelect = arrayOptions.pageSelect; }
+            if (arrayOptions.postSelect) { sitemap.postSelect = arrayOptions.postSelect; }
+            if (arrayOptions.updateWhenPost) { sitemap.updateWhenPost = arrayOptions.updateWhenPost; }
+            if (arrayOptions.postLimit1000) { sitemap.postLimit1000 = arrayOptions.postLimit1000; }
             await this.siteRepository.updateById(1, sitemap);
         }
     }

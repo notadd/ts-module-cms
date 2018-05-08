@@ -69,8 +69,8 @@ export class ClassifyCurdHandler implements ICommandHandler<ClassifyParamCommand
                 value = result.Continue;
                 messageCodeError = result.MessageCodeError;
             }
-            if (value === undefined) value = true;
-            if (value) page.createClassify(command.classify);
+            if (value === undefined) { value = true; }
+            if (value) { page.createClassify(command.classify); }
         }
         resolver({ MessageCodeError: messageCodeError, Continue: value });
         page.commit();
