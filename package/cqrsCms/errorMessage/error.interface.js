@@ -5,8 +5,9 @@ class MessageCodeError extends Error {
     constructor(messageCode) {
         super();
         const errorMessageConfig = this.getMessageFromMessageCode(messageCode);
-        if (!errorMessageConfig)
+        if (!errorMessageConfig) {
             throw new Error("Unable to find message code error.");
+        }
         Error.captureStackTrace(this, this.constructor);
         this.name = this.constructor.name;
         this.httpStatus = errorMessageConfig.httpStatus;

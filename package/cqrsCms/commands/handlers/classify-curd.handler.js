@@ -67,10 +67,12 @@ let ClassifyCurdHandler = class ClassifyCurdHandler {
                     value = result.Continue;
                     messageCodeError = result.MessageCodeError;
                 }
-                if (value === undefined)
+                if (value === undefined) {
                     value = true;
-                if (value)
+                }
+                if (value) {
                     page.createClassify(command.classify);
+                }
             }
             resolver({ MessageCodeError: messageCodeError, Continue: value });
             page.commit();

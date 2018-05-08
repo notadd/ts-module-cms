@@ -116,8 +116,9 @@ let ArticleService = class ArticleService {
             let count = 0;
             for (const t in array) {
                 const article = yield this.respository.findOneById(array[t]);
-                if (article === null)
+                if (article === null) {
                     throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+                }
                 article.recycling = true;
                 article.updateAt = new Date();
                 const newArticle = article;
@@ -158,8 +159,9 @@ let ArticleService = class ArticleService {
     updateArticle(article) {
         return __awaiter(this, void 0, void 0, function* () {
             const art = yield this.respository.findOneById(article.id);
-            if (art === null)
+            if (art === null) {
                 throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+            }
             const entity = yield this.classifyService.findOneByIdArt(article.classifyId);
             if (article.classifyId !== null && article.classifyId !== 0 && entity === null) {
                 throw new error_interface_2.MessageCodeError("page:classify:classifyIdMissing");
@@ -212,8 +214,9 @@ let ArticleService = class ArticleService {
             let num = 0;
             for (const t in array) {
                 const article = yield this.respository.findOneById(array[t]);
-                if (article === null)
+                if (article === null) {
                     throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+                }
                 article.recycling = false;
                 article.updateAt = new Date();
                 const newArticle = article;
@@ -238,8 +241,9 @@ let ArticleService = class ArticleService {
     reductionClassity(id, limit, pages) {
         return __awaiter(this, void 0, void 0, function* () {
             const entity = yield this.classifyService.findOneByIdArt(id);
-            if (entity === null)
+            if (entity === null) {
                 throw new error_interface_2.MessageCodeError("page:classify:classifyIdMissing");
+            }
             const array = yield this.classifyService.getClassifyId(id);
             array.push(id);
             const newArray = Array.from(new Set(array));
@@ -256,8 +260,9 @@ let ArticleService = class ArticleService {
     getLevelByClassifyId(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const entity = yield this.classifyService.findOneByIdArt(id);
-            if (entity === null)
+            if (entity === null) {
                 throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+            }
             const num = yield this.classifyService.findLevel(entity.id);
             const level = this.classifyService.interfaceChange(num);
             let topPlace = "";
@@ -282,14 +287,16 @@ let ArticleService = class ArticleService {
             let update = true;
             if (id > 0) {
                 const aliasEntity = yield this.respository.findOneById(id);
-                if (aliasEntity === null)
+                if (aliasEntity === null) {
                     result = "当前文章不存在";
+                }
                 update = false;
             }
             if (classifyId > 0) {
                 const entity = yield this.classifyService.findOneByIdArt(classifyId);
-                if (entity === null)
+                if (entity === null) {
                     result = "对应分类不存在";
+                }
                 update = false;
             }
             if (!result) {
@@ -338,8 +345,9 @@ let ArticleService = class ArticleService {
         return __awaiter(this, void 0, void 0, function* () {
             const array = [];
             const article = yield this.respository.findOneById(id);
-            if (article === null)
+            if (article === null) {
                 throw new error_interface_2.MessageCodeError("delete:recycling:idMissing");
+            }
             array.push(article);
             return { articles: array };
         });

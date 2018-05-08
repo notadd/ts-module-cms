@@ -59,8 +59,9 @@ let ClassifyService = class ClassifyService {
             }
             else {
                 const newClassify = yield this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: -entity.classifyAlias }).getMany();
-                if (newClassify.length > 0)
+                if (newClassify.length > 0) {
                     throw new error_interface_1.MessageCodeError("create:classify:aliasRepeat");
+                }
                 const parentClassify = yield this.repository.findOneById(entity.groupId);
                 if (entity.groupId !== 0 && parentClassify === null) {
                     throw new error_interface_1.MessageCodeError("create:classify:parentIdMissing");
@@ -104,8 +105,9 @@ let ClassifyService = class ClassifyService {
                     .createQueryBuilder()
                     .where("\"classifyAlias\"= :classifyAlias", { classifyAlias: -entity.classifyAlias })
                     .getMany();
-                if (newClassify.length > 0)
+                if (newClassify.length > 0) {
                     throw new error_interface_1.MessageCodeError("create:classify:aliasRepeat");
+                }
                 const parentClassify = yield this.pageRepository.findOneById(entity.groupId);
                 if (entity.groupId !== 0 && entity.groupId !== null && parentClassify === null) {
                     throw new error_interface_1.MessageCodeError("create:classify:parentIdMissing");
@@ -126,20 +128,23 @@ let ClassifyService = class ClassifyService {
     updateClassifyArt(entity, id) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.repository.findOneById(entity.id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
+            }
             if (entity.classifyAlias !== classify.classifyAlias) {
                 const newClassify = yield this.repository
                     .createQueryBuilder()
                     .where("\"classifyAlias\"= :classifyAlias", { classifyAlias: entity.classifyAlias })
                     .getMany();
-                if (newClassify.length > 0)
+                if (newClassify.length > 0) {
                     throw new error_interface_1.MessageCodeError("create:classify:aliasRepeat");
+                }
             }
             if (util_1.isNumber(entity.groupId)) {
                 const parentClassify = yield this.repository.findOneById(entity.groupId);
-                if (parentClassify === null)
+                if (parentClassify === null) {
                     throw new error_interface_1.MessageCodeError("create:classify:parentIdMissing");
+                }
             }
             entity.updateAt = new Date();
             const finalClassify = entity;
@@ -150,20 +155,23 @@ let ClassifyService = class ClassifyService {
     updateClassifyPage(entity, id) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.pageRepository.findOneById(entity.id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
+            }
             if (entity.classifyAlias !== classify.classifyAlias) {
                 const newClassify = yield this.pageRepository
                     .createQueryBuilder()
                     .where("\"classifyAlias\"= :classifyAlias", { classifyAlias: entity.classifyAlias })
                     .getMany();
-                if (newClassify.length > 0)
+                if (newClassify.length > 0) {
                     throw new error_interface_1.MessageCodeError("create:classify:aliasRepeat");
+                }
             }
             if (util_1.isNumber(entity.groupId)) {
                 const parentClassify = yield this.pageRepository.findOneById(entity.groupId);
-                if (parentClassify === null)
+                if (parentClassify === null) {
                     throw new error_interface_1.MessageCodeError("create:classify:parentIdMissing");
+                }
             }
             entity.updateAt = new Date();
             yield this.pageRepository.updateById(entity.id, entity);
@@ -303,8 +311,9 @@ let ClassifyService = class ClassifyService {
     deleteMethodFirst(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.repository.findOneById(id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
+            }
             yield typeorm_2.getManager().query("update public.article_classify_table set \"parentId\" = \"groupId\"");
             const result = yield this.repository
                 .createQueryBuilder("article_classify_table")
@@ -320,8 +329,9 @@ let ClassifyService = class ClassifyService {
                 .createQueryBuilder()
                 .where("\"classifyId\" in (:id)", { id: newArray })
                 .getMany();
-            if (artiicles.length > 0)
+            if (artiicles.length > 0) {
                 throw new error_interface_1.MessageCodeError("delete:art:ClassifyIdIncludeArts");
+            }
             const res = yield this.deleteClassifyArt(id, result);
             return this.findAllClassifyArt(1);
         });
@@ -329,8 +339,9 @@ let ClassifyService = class ClassifyService {
     deleteMethodSecond(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.pageRepository.findOneById(id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
+            }
             yield typeorm_2.getManager().query("update public.page_classify_table set \"parentId\" = \"groupId\"");
             const result = yield this.pageRepository
                 .createQueryBuilder("page_classify_table")
@@ -342,8 +353,9 @@ let ClassifyService = class ClassifyService {
             array.push(id);
             const newArray = Array.from(new Set(array));
             const artiicles = yield this.repositoryPage.createQueryBuilder().where("\"classifyId\" in (:id)", { id: newArray }).getMany();
-            if (artiicles.length > 0)
+            if (artiicles.length > 0) {
                 throw new error_interface_1.MessageCodeError("delete:page:ClassifyIdIncludePages");
+            }
             const res = yield this.deleteClassifyPage(id, result);
             return this.findAllClassifyPage(1);
         });
@@ -451,8 +463,9 @@ let ClassifyService = class ClassifyService {
     showBeforeTitle(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.repository.findOneById(id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("page:classify:classifyIdMissing");
+            }
             const articleArray = [];
             const currentArticle = yield this.artRepository
                 .createQueryBuilder()
@@ -503,8 +516,9 @@ let ClassifyService = class ClassifyService {
     showCurrentArticles(idNum) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.repository.findOneById(idNum);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("page:classify:classifyIdMissing");
+            }
             const articleArray = [];
             const current = yield this.artRepository.createQueryBuilder().where("\"classifyId\"=:id", { id: idNum }).orderBy("ArticleEntity.updateAt", "ASC").getMany();
             articleArray.push(...current);
@@ -516,8 +530,9 @@ let ClassifyService = class ClassifyService {
             const str = `%${name}%`;
             const articles = [];
             const entity = yield this.findOneByIdArt(id);
-            if (entity === null)
+            if (entity === null) {
                 throw new error_interface_1.MessageCodeError("page:classify:classifyIdMissing");
+            }
             let level = yield this.findLevel(entity.id);
             const array = yield this.getClassifyId(id).then(a => {
                 return a;
@@ -747,12 +762,14 @@ let ClassifyService = class ClassifyService {
     mobileClassifyArt(id, groupId) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.repository.findOneById(id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
+            }
             if (groupId !== 0) {
                 const parent = yield this.repository.findOneById(groupId);
-                if (parent === null)
+                if (parent === null) {
                     throw new error_interface_1.MessageCodeError("update:classify:updateById");
+                }
             }
             if (groupId === 0) {
                 groupId = 1;
@@ -788,12 +805,14 @@ let ClassifyService = class ClassifyService {
     mobileClassifyPage(id, groupId) {
         return __awaiter(this, void 0, void 0, function* () {
             const classify = yield this.pageRepository.findOneById(id);
-            if (classify === null)
+            if (classify === null) {
                 throw new error_interface_1.MessageCodeError("update:classify:updateById");
+            }
             if (groupId !== 0) {
                 const parent = yield this.pageRepository.findOneById(groupId);
-                if (parent === null)
+                if (parent === null) {
                     throw new error_interface_1.MessageCodeError("update:classify:updateById");
+                }
             }
             if (groupId === 0) {
                 groupId = 1;
@@ -888,8 +907,9 @@ let ClassifyService = class ClassifyService {
     classifyTopPlace(id, display) {
         return __awaiter(this, void 0, void 0, function* () {
             const entity = yield this.repository.findOneById(id);
-            if (entity === null)
+            if (entity === null) {
                 throw new error_interface_1.MessageCodeError("page:classify:classifyIdMissing");
+            }
             const array = yield this.getClassifyId(id);
             array.push(id);
             const newArray = Array.from(new Set(array));
@@ -925,8 +945,9 @@ let ClassifyService = class ClassifyService {
             const array = [];
             if (useFor === "art") {
                 const entity = yield this.repository.findOneById(id);
-                if (entity === null)
+                if (entity === null) {
                     messageCodeError = "当前分类不存在";
+                }
                 array.push(id);
                 array.push(entity.groupId);
                 result = yield this.repository
@@ -937,8 +958,9 @@ let ClassifyService = class ClassifyService {
             }
             if (useFor === "page") {
                 const entity = yield this.pageRepository.findOneById(id);
-                if (entity === null)
+                if (entity === null) {
                     messageCodeError = "当前分类不存在";
+                }
                 array.push(id);
                 array.push(entity.groupId);
                 result = yield this.pageRepository
@@ -970,14 +992,16 @@ let ClassifyService = class ClassifyService {
             if (id > 0) {
                 if (useFor === "art") {
                     const entity = yield this.repository.findOneById(id);
-                    if (entity === null)
+                    if (entity === null) {
                         result = "当前文章分类不存在";
+                    }
                     update = false;
                 }
                 else {
                     const entity = yield this.pageRepository.findOneById(id);
-                    if (entity === null)
+                    if (entity === null) {
                         result = "当前页面分类不存在";
+                    }
                     update = false;
                 }
             }
@@ -986,8 +1010,9 @@ let ClassifyService = class ClassifyService {
                     const entityAll = yield this.repository.find();
                     if (entityAll.length > 0) {
                         const entity = yield this.repository.findOneById(groupId);
-                        if (entity === null)
+                        if (entity === null) {
                             result = "当前文章分类父级分类不存在";
+                        }
                         update = false;
                     }
                 }
@@ -995,8 +1020,9 @@ let ClassifyService = class ClassifyService {
                     const entityAll = yield this.pageRepository.find();
                     if (entityAll.length > 0) {
                         const entity = yield this.pageRepository.findOneById(groupId);
-                        if (entity === null)
+                        if (entity === null) {
                             result = "当前页面分类父级分类不存在";
+                        }
                         update = false;
                     }
                 }
@@ -1010,15 +1036,17 @@ let ClassifyService = class ClassifyService {
                                 .createQueryBuilder()
                                 .where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias })
                                 .getMany();
-                            if (newClassify.length > 0)
+                            if (newClassify.length > 0) {
                                 result = "别名不能重复";
+                            }
                             update = false;
                         }
                     }
                     else {
                         const newClassify = yield this.repository.createQueryBuilder().where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias }).getMany();
-                        if (newClassify.length > 0)
+                        if (newClassify.length > 0) {
                             result = "别名不能重复";
+                        }
                         update = false;
                     }
                 }
@@ -1030,8 +1058,9 @@ let ClassifyService = class ClassifyService {
                                 .createQueryBuilder()
                                 .where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias })
                                 .getMany();
-                            if (newClassify.length > 0)
+                            if (newClassify.length > 0) {
                                 result = "别名不能重复";
+                            }
                             update = false;
                         }
                     }
@@ -1040,8 +1069,9 @@ let ClassifyService = class ClassifyService {
                             .createQueryBuilder()
                             .where("\"classifyAlias\"= :classifyAlias", { classifyAlias: alias })
                             .getMany();
-                        if (newClassify.length > 0)
+                        if (newClassify.length > 0) {
                             result = "别名不能重复";
+                        }
                         update = false;
                     }
                 }
@@ -1059,8 +1089,9 @@ let ClassifyService = class ClassifyService {
                         const artiicles = yield this.artRepository
                             .createQueryBuilder()
                             .where("\"classifyId\" in (:id)", { id: newArray }).getMany();
-                        if (artiicles.length > 0)
+                        if (artiicles.length > 0) {
                             result = "当前分类下有文章,不能删除";
+                        }
                         update = false;
                     }
                 }
@@ -1076,8 +1107,9 @@ let ClassifyService = class ClassifyService {
                         const artiicles = yield this.repositoryPage
                             .createQueryBuilder()
                             .where("\"classifyId\" in (:id)", { id: newArray }).getMany();
-                        if (artiicles.length > 0)
+                        if (artiicles.length > 0) {
                             result = "当前分类下有页面,不能删除";
+                        }
                         update = false;
                     }
                 }

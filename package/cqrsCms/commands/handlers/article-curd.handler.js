@@ -53,10 +53,12 @@ let ArticleCurdHandler = class ArticleCurdHandler {
                     value = false;
                     resolver(result);
                 }
-                if (value === undefined)
+                if (value === undefined) {
                     value = true;
-                if (value)
+                }
+                if (value) {
                     page.createArticle(command.article);
+                }
                 resolver({ MessageCodeError: messageCodeError, Continue: value });
             }
             if (command.article.getAllArticles && command.article.getArticles.getArticleAll) {

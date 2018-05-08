@@ -87,8 +87,9 @@ let CqrsResolver = class CqrsResolver {
                 const pages = serachArticle.pages;
                 const groupId = serachArticle.classifyId;
                 const findTop = serachArticle.topPlace;
-                if (!keyWords)
+                if (!keyWords) {
                     keyWords = "";
+                }
                 articleVM.getArticles = { getArticleByClassifyId: { classifyId: groupId, top: findTop, name: keyWords } };
                 articleVM.limitNum = limitNum;
                 articleVM.pages = pages;
@@ -364,8 +365,9 @@ let CqrsResolver = class CqrsResolver {
                 if (id === null && id === 0) {
                     id = 1;
                 }
-                if (id === 1)
+                if (id === 1) {
                     throw new error_interface_1.MessageCodeError("drop:table:ById1");
+                }
                 classifyVM.useFor = useFor;
                 classifyVM.deleteClassify = id;
             }
