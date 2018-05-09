@@ -302,7 +302,9 @@ export class CqrsResolver {
                 art.startTime = new Date(Date.parse(startTime.replace(/- /g, "/")));
             }
             const newArticle: ArticleEntity = art;
-            articleVM.createArticle = { article: newArticle };
+            const ws = new Map();
+            ws.set("obj", obj);
+            articleVM.createArticle = { article: newArticle, url: ws };
         }
         const updateArt = map.get("updateArt");
         if (updateArt !== null && updateArt !== undefined) {
@@ -320,7 +322,9 @@ export class CqrsResolver {
                 art.endTime = new Date(Date.parse(endTime.replace(/- /g, "/")));
             }
             const newArticle: ArticleEntity = art;
-            articleVM.updateArticle = { article: newArticle };
+            const ws = new Map();
+            ws.set("obj", obj);
+            articleVM.updateArticle = { article: newArticle, url: ws };
 
         }
         const deleteById = map.get("deleteById");
@@ -353,20 +357,6 @@ export class CqrsResolver {
             const num = await this.classifyService.classifyTopPlace(id, amap.get("display"));
             const result = `成功将${num}条数据置顶`;
             return result;
-        }
-        const pictureUpload = map.get("pictureUpload");
-        if (pictureUpload !== null && pictureUpload !== undefined) {
-            let amap = new Map();
-            amap = this.objToStrMap(pictureUpload);
-            const ws = new Map();
-            ws.set("obj", obj);
-            articleVM.pictureUpload = {
-                bucketName: amap.get("bucketName"),
-                rawName: amap.get("rawName"),
-                base64: amap.get("base64"),
-                url: ws,
-                id: amap.get("id"),
-            };
         }
         const result = await this.sitemapService.articleCurd(articleVM);
         return JSON.stringify(result);
