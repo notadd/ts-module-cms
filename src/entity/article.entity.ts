@@ -170,4 +170,14 @@ export class ArticleEntity {
         { cascadeUpdate: true },
     )
     classifications: ClassifyEntity;
+    // 上传图片
+    pictureUpload: PictureFace;
+}
+export class PictureFace {
+    /*空间名*/
+    bucketName: string;
+    /*图片名*/
+    rawName: string;
+    /*图片base64编码*/
+    base64: string;
 }
