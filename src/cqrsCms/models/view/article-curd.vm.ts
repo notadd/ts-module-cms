@@ -2,10 +2,10 @@ import { ArticleEntity } from "../../../entity/article.entity";
 
 export class ArticleCurdVm {
     /*新增文章*/
-    public createArticle?: { article: ArticleEntity };
+    public createArticle?: { article: ArticleEntity, url: any };
 
     /*修改文章*/
-    public updateArticle?: { article: ArticleEntity };
+    public updateArticle?: { article: ArticleEntity, url: any };
 
     /*放入回收站*/
     public deleteById?: Array<number>;

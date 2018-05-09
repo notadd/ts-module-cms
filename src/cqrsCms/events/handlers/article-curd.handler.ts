@@ -11,12 +11,16 @@ export class ArticleCurdEvent implements IEventHandler<ArticleCurdEvents> {
         if (event.article.createArticle) {
             /*新增文章*/
             await this.articleService.createArticle(
-                event.article.createArticle.article);
+                event.article.createArticle.url,
+                event.article.createArticle.article,
+                event.article.createArticle.article.pictureUpload);
         }
         if (event.article.updateArticle) {
             /*修改文章*/
             await this.articleService.updateArticle(
-                event.article.updateArticle.article);
+                event.article.updateArticle.url,
+                event.article.updateArticle.article,
+                event.article.updateArticle.article.pictureUpload);
         }
         if (event.article.deleteById) {
             /*放入回收站*/
