@@ -27,4 +27,10 @@ export declare class ArticleEntity {
     pictureUrl: string;
     check: boolean;
     classifications: ClassifyEntity;
+    pictureUpload: PictureFace;
+}
+export declare class PictureFace {
+    bucketName: string;
+    rawName: string;
+    base64: string;
 }
