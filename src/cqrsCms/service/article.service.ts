@@ -1,7 +1,7 @@
 import { Component, HttpException, Inject } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import {ArticleEntity, PictureFace} from "../../entity/article.entity";
+import { ArticleEntity, PictureFace } from "../../entity/article.entity";
 import { ClassifyEntity } from "../../entity/classify.entity";
 import { ImagePreProcessInfo } from "../common/error.interface";
 import { MessageCodeError } from "../errorMessage/error.interface";
@@ -137,7 +137,7 @@ export class ArticleService {
      * @param {ArticleEntity} article
      * @returns {Promise<void>}
      */
-    async createArticle(req:any,article: ArticleEntity,picture?: PictureFace) {
+    async createArticle(req: any, article: ArticleEntity, picture?: PictureFace) {
         const entity: ClassifyEntity = await this.classifyService.findOneByIdArt(article.classifyId);
         if (article.classifyId !== null && article.classifyId !== 0 && entity === null) {
             throw new MessageCodeError("page:classify:classifyIdMissing");
@@ -156,10 +156,10 @@ export class ArticleService {
         }
         article.recycling = false;
         if (picture) {
-            const result = await this.upLoadPicture(req, picture.bucketName, picture.rawName, picture.base64,0);
+            const result = await this.upLoadPicture(req, picture.bucketName, picture.rawName, picture.base64, 0);
             article.pictureUrl = result.pictureUrl;
-            article.bucketName = picture.bucketName;
-            article.pictureName = picture .rawName;
+            article.bucketName = result.bucketName;
+            article.pictureName = result.pictureName;
             article.type = result.type;
         }
         await this.respository
@@ -177,7 +177,7 @@ export class ArticleService {
      *
      * @returns {Promise<void>}
      */
-    async updateArticle(req:any, article: ArticleEntity, picture?: PictureFace) {
+    async updateArticle(req: any, article: ArticleEntity, picture?: PictureFace) {
         const art: ArticleEntity = await this.respository.findOneById(article.id);
         if (art === null) { throw new MessageCodeError("delete:recycling:idMissing"); }
         const entity: ClassifyEntity = await this.classifyService.findOneByIdArt(article.classifyId);
@@ -194,13 +194,13 @@ export class ArticleService {
             throw new MessageCodeError("create:level:lessThanLevel");
         }
         article.updateAt = new Date();
-        if (picture.rawName.length>0 && picture.base64.length>0) {
+        if (picture.rawName.length > 0 && picture.base64.length > 0) {
             const result = await this.upLoadPicture(req, picture.bucketName, picture.rawName, picture.base64, article.id);
             article.pictureUrl = result.pictureUrl;
-            article.bucketName = picture.bucketName;
-            article.pictureName = picture.rawName;
+            article.bucketName = result.bucketName;
+            article.pictureName = result.pictureName;
             article.type = result.type;
-        }else{
+        } else {
             article.type = art.type;
             article.pictureName = art.pictureName;
             article.bucketName = art.bucketName;
@@ -379,21 +379,36 @@ export class ArticleService {
      */
     async upLoadPicture(req: any, bucketName: string, rawName: string, base64: string, id?: number) {
         try {
-                if (id > 0) {
-                    const entity: ArticleEntity = await this.respository.findOneById(id);
-                    /*删除图片*/
-                    if (entity.bucketName !== null && entity.pictureName !== null && entity.type !== null) {
-                        const entitys: Array<ArticleEntity> = await this.respository.find({ pictureUrl: entity.pictureUrl });
-                        if (entitys.length === 1 && entity.pictureUrl !== undefined) {
-                            let result = await this.uploadPicture(req, bucketName, rawName, base64);
-                            //this.storeService.delete(entity.bucketName, entity.pictureName, entity.type);
-                            return { pictureUrl: result.pictureUrl, bucketName: result.bucketName, pictureName: result.bucketName, type: result.type, MessageCodeError: "上传成功" };
-                        }
-                    }else{
-                        let result = await this.uploadPicture(req, bucketName, rawName, base64);
-                        return { pictureUrl: result.pictureUrl, bucketName: result.bucketName, pictureName: result.bucketName, type: result.type, MessageCodeError: "上传成功" };
+            if (id > 0) {
+                const entity: ArticleEntity = await this.respository.findOneById(id);
+                /*删除图片*/
+                if (entity && entity.bucketName !== null && entity.pictureName !== null) {
+                    const entitys: Array<ArticleEntity> = await this.respository.find({ pictureUrl: entity.pictureUrl });
+                    if (entitys.length === 1) {
+                        await this.storeService.delete(entity.bucketName, entity.pictureName, entity.type);
                     }
                 }
+            }
+            const imagePreProcessInfo = new ImagePreProcessInfo();
+            imagePreProcessInfo.watermark = false;
+            /*上传图片*/
+            const result = await this.storeService.upload(bucketName, rawName, base64, imagePreProcessInfo).then(a => {
+                return a;
+            });
+            const map = this.objToStrMap(result);
+            const bucket = map.get("bucketName");
+            const name = map.get("name");
+            const types = map.get("type");
+            /*获取图片地址*/
+            const url = await this.storeService.getUrl(
+                req.get("obj"),
+                bucket,
+                name,
+                types,
+                imagePreProcessInfo,
+            );
+
+            return { pictureUrl: `https://${url}`, bucketName: bucket, pictureName: name, type: types, MessageCodeError: "上传成功" };
         } catch (err) {
             if (err instanceof  HttpException) {
                 return { MessageCodeError: err.getStatus() + ":" + err.getResponse() };
@@ -404,30 +419,6 @@ export class ArticleService {
             }
 
         }
-
-    }
-    async uploadPicture(req: any, bucketName: string, rawName: string, base64: string){
-        const imagePreProcessInfo = new ImagePreProcessInfo();
-        imagePreProcessInfo.watermark = false;
-        /*上传图片*/
-        const result = await this.storeService.upload(bucketName, rawName, base64, imagePreProcessInfo).then(a => {
-            return a;
-        });
-        console.log('result',result);
-        const map = this.objToStrMap(result);
-        const bucket = map.get("bucketName");
-        const name = map.get("name");
-        const types = map.get("type");
-        /*获取图片地址*/
-        const url = await this.storeService.getUrl(
-            req.get("obj"),
-            bucket,
-            name,
-            types,
-            imagePreProcessInfo,
-        );
-        return { pictureUrl: `https://${url}`, bucketName: bucket, pictureName: name, type: types, MessageCodeError: "上传成功" };
-
     }
 
     /**
